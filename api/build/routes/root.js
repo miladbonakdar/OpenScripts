@@ -41,10 +41,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var router = express_1.default.Router();
-exports.root = router;
 router.route('/').get(function (_req, res) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         res.send('dashboard');
         return [2 /*return*/];
     });
 }); });
+exports.default = { router: router, routePrefix: '/' };
+//# sourceMappingURL=root.js.map

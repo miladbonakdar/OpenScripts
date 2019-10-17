@@ -7,10 +7,12 @@ import router from './routes/index'
 import customResponse from './middlewares/response'
 import defaultRoute from './middlewares/defaultRoute'
 import errorHandler from './middlewares/expressErrorHandler'
+import cors from './middlewares/cors'
 
 export default async (app: Express) => {
-  app.use(logger('common'))
+  app.use(cors)
   app.use(customResponse)
+  app.use(logger('common'))
   app.use(bodyParser.urlencoded({ extended: true }))
   app.use(cookieParser())
   app.use(bodyParser.json())

@@ -45,7 +45,7 @@ export default () => {
 
   const JWTStrategyMiddleware = async function(jwtPayload: any, done: any) {
     try {
-      const user = await User.findById(jwtPayload.id).select('-password')
+      const user = await User.findById(jwtPayload._id).select('-password')
       if (!user) {
         return done(null, false, { message: 'cannot fine the user' })
       }

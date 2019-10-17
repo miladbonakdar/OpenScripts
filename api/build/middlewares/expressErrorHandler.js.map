@@ -1,0 +1,1 @@
+{"version":3,"file":"expressErrorHandler.js","sourceRoot":"","sources":["../../middlewares/expressErrorHandler.ts"],"names":[],"mappings":";;AAEA,mBAAe,UAAC,GAAQ,EAAE,IAAa,EAAE,GAAa,EAAE,IAAkB;IACxE,IAAI,GAAG,CAAC,WAAW,EAAE;QACnB,OAAO,IAAI,CAAC,GAAG,CAAC,CAAA;KACjB;IACD,GAAG,CAAC,KAAK,CAAC,GAAG,CAAC,OAAO,IAAI,GAAG,IAAI,sBAAsB,EAAE,GAAG,CAAC,CAAA;AAC9D,CAAC,EAAA"}

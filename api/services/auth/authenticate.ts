@@ -16,6 +16,7 @@ export default (req: any, res: any) => {
         if (err) res.internalServerError(err)
 
         const token = jwt.sign(user.toJSON(), API_SECRET, { expiresIn: '2d' })
+        delete user.password
         res.success({ user, token }, 'user loged in successfuly')
       })
     }

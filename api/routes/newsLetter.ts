@@ -1,10 +1,12 @@
 import express from 'express'
 import { NewsLetter } from '../models/newsLetter'
 import Pagination from '../utils/Pagination'
+import authonticator from '../middlewares/passportAuthonticator'
 
 export const name = 'NewsLetter'
 const router = express.Router()
 
+//TODO: for users set recaptcha
 router.route('/').post(async (req, res) => {
   const client = new NewsLetter(req.body)
   client.createdAt = new Date()
@@ -12,26 +14,28 @@ router.route('/').post(async (req, res) => {
   res.success(client, name + ' created successfuly')
 })
 
-router.route('/delete-by-email/:email').delete(async (req, res) => {
-  if (!req.params.email) return res.badRequest('email')
-  let client = await NewsLetter.deleteOne({ email: req.params.email })
-  if (!client.deletedCount) return res.notFound()
-  res.success(client)
-})
+router
+  .route('/delete-by-email/:email')
+  .delete(authonticator, async (req, res) => {
+    if (!req.params.email) return res.badRequest('email')
+    let client = await NewsLetter.deleteOne({ email: req.params.email })
+    if (!client.deletedCount) return res.notFound()
+    res.success(client)
+  })
 
-router.route('/:id').delete(async (req, res) => {
+router.route('/:id').delete(authonticator, async (req, res) => {
   if (!req.params.id) return res.badRequest('id')
   let client = await NewsLetter.findByIdAndDelete(req.params.id)
   if (!client) return res.notFound()
   res.success(client)
 })
 
-router.route('/').get(async (_req, res) => {
+router.route('/').get(authonticator, async (_req, res) => {
   const courses = await NewsLetter.find({})
   res.success(courses)
 })
 
-router.route('/:pageSize/:pageNumber').get(async (req, res) => {
+router.route('/:pageSize/:pageNumber').get(authonticator, async (req, res) => {
   const page = new Pagination(
     NewsLetter,
     req.params.pageNumber,

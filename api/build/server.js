@@ -43,7 +43,8 @@ var express_1 = __importDefault(require("express"));
 require("express-async-errors");
 var api_1 = __importDefault(require("./api"));
 var index_1 = __importDefault(require("./models/index"));
-var setting_1 = require("./setting");
+var init_1 = __importDefault(require("./services/auth/init"));
+var index_2 = __importDefault(require("./services/auth/index"));
 (function () { return __awaiter(void 0, void 0, void 0, function () {
     var app;
     return __generator(this, function (_a) {
@@ -53,13 +54,15 @@ var setting_1 = require("./setting");
                 return [4 /*yield*/, index_1.default()];
             case 1:
                 _a.sent();
-                return [4 /*yield*/, api_1.default(app)];
+                return [4 /*yield*/, init_1.default()];
             case 2:
                 _a.sent();
-                app.listen(setting_1.API_PORT, function () {
-                    console.log('server is up and running');
-                });
+                return [4 /*yield*/, api_1.default(app)];
+            case 3:
+                _a.sent();
+                index_2.default();
                 return [2 /*return*/];
         }
     });
 }); })();
+//# sourceMappingURL=server.js.map

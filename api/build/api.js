@@ -39,13 +39,30 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var body_parser_1 = __importDefault(require("body-parser"));
+var morgan_1 = __importDefault(require("morgan"));
+var config_1 = require("./config");
+var cookie_parser_1 = __importDefault(require("cookie-parser"));
 var index_1 = __importDefault(require("./routes/index"));
-function default_1(app) {
-    return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            app.use('/', index_1.default);
-            return [2 /*return*/];
+var response_1 = __importDefault(require("./middlewares/response"));
+var defaultRoute_1 = __importDefault(require("./middlewares/defaultRoute"));
+var expressErrorHandler_1 = __importDefault(require("./middlewares/expressErrorHandler"));
+var cors_1 = __importDefault(require("./middlewares/cors"));
+exports.default = (function (app) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        app.use(cors_1.default);
+        app.use(response_1.default);
+        app.use(morgan_1.default('common'));
+        app.use(body_parser_1.default.urlencoded({ extended: true }));
+        app.use(cookie_parser_1.default());
+        app.use(body_parser_1.default.json());
+        app.use('/', index_1.default); //* api here
+        app.use(defaultRoute_1.default);
+        app.use(expressErrorHandler_1.default);
+        app.listen(config_1.API_PORT, function () {
+            return console.log("Server is up and running on port " + config_1.API_PORT);
         });
+        return [2 /*return*/];
     });
-}
-exports.default = default_1;
+}); });
+//# sourceMappingURL=api.js.map

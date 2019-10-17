@@ -40,16 +40,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var mongoose_1 = __importDefault(require("mongoose"));
-var setting_1 = require("../setting");
-console.log(setting_1.DB_HOST, setting_1.DB_PASSWORD, setting_1.DB_USERNAME);
+var config_1 = require("../config");
 exports.default = (function () { return __awaiter(void 0, void 0, void 0, function () {
     var error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, mongoose_1.default.connect("mongodb://" + setting_1.DB_USERNAME + ":" + setting_1.DB_PASSWORD + "@" + setting_1.DB_HOST + ":" + setting_1.DB_PORT + "/" + setting_1.DB_NAME + "?authSource=admin", {
-                        useNewUrlParser: true
+                return [4 /*yield*/, mongoose_1.default.connect("mongodb://" + config_1.DB_USERNAME + ":" + config_1.DB_PASSWORD + "@" + config_1.DB_HOST + ":" + config_1.DB_PORT + "/" + config_1.DB_NAME + "?authSource=admin", {
+                        useNewUrlParser: true,
+                        useFindAndModify: false,
+                        useCreateIndex: true,
+                        useUnifiedTopology: true
                     })];
             case 1:
                 _a.sent();
@@ -62,3 +64,4 @@ exports.default = (function () { return __awaiter(void 0, void 0, void 0, functi
         }
     });
 }); });
+//# sourceMappingURL=index.js.map

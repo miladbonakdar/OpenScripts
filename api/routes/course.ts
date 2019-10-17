@@ -3,11 +3,12 @@ import { Course } from '../models/course'
 import { ICourse } from '../models/interfaces/course.interface'
 import { randomColor } from '../utils/colorGenerator'
 import Pagination from '../utils/Pagination'
+import authonticator from '../middlewares/passportAuthonticator'
 
 export const name = 'Course'
 const router = express.Router()
 
-router.route('/').post(async (req, res) => {
+router.route('/').post(authonticator, async (req, res) => {
   const course = new Course(req.body)
   course.color = randomColor()
   course.createdAt = new Date()
@@ -15,7 +16,7 @@ router.route('/').post(async (req, res) => {
   res.success(course, name + ' created successfuly')
 })
 
-router.route('/').put(async (req, res) => {
+router.route('/').put(authonticator, async (req, res) => {
   const c = req.body as ICourse
   if (!c) return res.badRequest('body')
   const course = await Course.findById(c._id)
@@ -28,25 +29,25 @@ router.route('/').put(async (req, res) => {
   res.success(course, name + ' updated successfuly')
 })
 
-router.route('/:id').delete(async (req, res) => {
+router.route('/:id').delete(authonticator, async (req, res) => {
   let course = await Course.findByIdAndDelete(req.params.id)
   if (!course) return res.notFound()
   res.success(course)
 })
 
-router.route('/').get(async (_req, res) => {
+router.route('/').get(authonticator, async (_req, res) => {
   const courses = await Course.find({})
   res.success(courses)
 })
 
-router.route('/:id').get(async (req, res) => {
+router.route('/:id').get(authonticator, async (req, res) => {
   if (!req.params.id) return res.badRequest('id')
   const course = await Course.findById(req.params.id)
   if (!course) return res.notFound()
   res.success(course)
 })
 
-router.route('/:pageSize/:pageNumber').get(async (req, res) => {
+router.route('/:pageSize/:pageNumber').get(authonticator, async (req, res) => {
   const page = new Pagination(
     Course,
     req.params.pageNumber,
