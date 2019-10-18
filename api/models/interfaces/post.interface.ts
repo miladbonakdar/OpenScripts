@@ -5,7 +5,8 @@ export interface IPost {
   createdAt: Date
   tags: []
   content: string
-  imageUrl: string
+  contentMarkdown: string
+  imageUrl?: string
   color: string
   readTime: number
   posts: []
@@ -19,4 +20,6 @@ export interface IPost {
   published: boolean
   archived: boolean
   difficulty: number
+  youTubeVideoUrl: string
+  aparatVideoUrl: string
 }

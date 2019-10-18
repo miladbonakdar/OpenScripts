@@ -33,7 +33,10 @@ export default {
     {
       name: 'auth',
       loadDefaults: false,
-      actions: [{ type: 'post', name: 'login' }]
+      actions: [
+        { type: 'post', name: 'login' },
+        { type: 'get', name: 'getUser' }
+      ]
     }
   ]
 }

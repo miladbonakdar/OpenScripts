@@ -5,7 +5,7 @@
         <img
           class="navbar-brand-full"
           src="/img/logo.png"
-          width="120"
+          width="35"
           height="35"
           alt="Home&Share Logo"
         />

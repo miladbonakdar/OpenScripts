@@ -1,7 +1,7 @@
 <template>
   <AppHeaderDropdown right no-caret>
     <template slot="header">
-      <img src="/img/avatars/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com" />
+      <img v-if="user" :src="user.photoUrl" class="img-avatar" alt="admin@bootstrapmaster.com" />
     </template>
     <template slot="dropdown">
       <b-dropdown-item v-on:click="gotoPosts">
@@ -17,11 +17,18 @@
 
 <script>
 import { HeaderDropdown as AppHeaderDropdown } from "@coreui/vue";
+import { mapGetters } from "vuex";
+import { statics } from "../store/types";
 
 export default {
   name: "DefaultHeaderDropdownAccnt",
   components: {
     AppHeaderDropdown
+  },
+  computed: {
+    ...mapGetters({
+      user: statics.getters.user
+    })
   },
   methods: {
     gotoPosts() {

@@ -79,7 +79,7 @@
 </template>
 
 <script>
-  import {mapMutations} from 'vuex';
+  import {mapMutations,mapActions} from 'vuex';
   import {statics} from '../../store/types';
 
   export default {

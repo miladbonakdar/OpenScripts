@@ -14,13 +14,10 @@ const Login = () => import('@/views/Login')
 const Post = () => import('@/views/post/Post')
 const PostList = () => import('@/views/post/PostList')
 
-const Category = () => import('@/views/category/Category')
 const CategoryList = () => import('@/views/category/CategoryList')
 
-const Tag = () => import('@/views/tag/Tag')
 const TagList = () => import('@/views/tag/TagList')
 
-const Course = () => import('@/views/course/Course')
 const CourseList = () => import('@/views/course/CourseList')
 
 const NewsLetterList = () => import('@/views/newsLetter/NewsLetterList')
@@ -54,29 +51,14 @@ const router = new Router({
           component: PostList
         },
         {
-          path: 'category/item/:id',
-          name: 'Category',
-          component: Category
-        },
-        {
           path: 'category/list',
           name: 'Categories list',
           component: CategoryList
         },
         {
-          path: 'course/item/:id',
-          name: 'Course',
-          component: Course
-        },
-        {
           path: 'course/list',
           name: 'Courses list',
           component: CourseList
-        },
-        {
-          path: 'tag/item/:id',
-          name: 'Tag',
-          component: Tag
         },
         {
           path: 'tag/list',

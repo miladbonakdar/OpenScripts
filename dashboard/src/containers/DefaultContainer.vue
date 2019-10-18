@@ -6,14 +6,14 @@
         <img
           class="navbar-brand-full"
           src="/img/logo.png"
-          width="120"
+          width="35"
           height="35"
           alt="HomeShare Logo"
         />
         <img
           class="navbar-brand-minimized"
           src="/img/logo.png"
-          width="120"
+          width="35"
           height="35"
           alt="HomeShare Logo"
         />
@@ -88,7 +88,7 @@ import {
 import DefaultAside from "./DefaultAside";
 import DefaultHeaderDropdownAccnt from "./DefaultHeaderDropdownAccnt";
 import { mapActions, mapMutations, mapGetters } from "vuex";
-import { statics, userEvents } from "../store/types";
+import { statics } from "../store/types";
 
 export default {
   name: "DefaultContainer",

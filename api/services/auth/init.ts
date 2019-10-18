@@ -17,7 +17,7 @@ export default async () => {
     password: await hashPassword(ADMIN_PASS),
     info: '',
     photoUrl:
-      'https://lh3.googleusercontent.com/dWMiD3pEsGPbN3teWSQinzLHhDK4iNh1_HbUtURN7ovb9fvnBvvY7098S160Vam1MthGTK0YQ-4Ytf1bRkUHo2hT3FZRq_aGIH-eNWoPigDMAvOEQ3KZdiSyDIQ7Gn2SxNGCbCGjjA=w2400',
+      'https://lh3.googleusercontent.com/Bm7HycKvgiH8Pw8-DqCR8Z9LkdbvDgydVPVuGctC82ar-fI_as3NfHOvkhC9qdKIXiH4MZ9S4XNh1-hwgsAVim__wS4qKl1tMYVwCxFxTUBgePD6YQ5muHNeQQWYrv_I_eXcwX7xAw=w2400',
     youtubeLink: '',
     instagramLink: '',
     telegramLink: '',

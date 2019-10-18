@@ -122,8 +122,6 @@ export default {
         this.$gate.auth
           .login(this.form)
           .then(res => {
-            debugger
-            console.log(res);
             localStorage.setItem("token", res.token);
             delete res.token;
             localStorage.setItem("user", JSON.stringify(res));

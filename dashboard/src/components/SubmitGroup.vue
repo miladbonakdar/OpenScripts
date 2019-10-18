@@ -15,7 +15,7 @@
           </b-button>
 
           <b-button @click="onSubmit" type="submit" variant="primary" class="mx-2">
-            <i class="fa fa-dot-circle-o"></i>save
+            <i class="fa fa-dot-circle-o"></i> save
           </b-button>
         </div>
       </div>
