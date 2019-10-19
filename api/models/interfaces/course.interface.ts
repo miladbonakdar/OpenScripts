@@ -5,4 +5,5 @@ export interface ICourse {
   imageUrl?: string
   difficulty: number
   createdAt: Date
+  createdById: any
 }

@@ -3,4 +3,6 @@ export interface ICategory {
   name: string
   color: string
   imageUrl?: string
+  createdAt: Date
+  createdById: any
 }

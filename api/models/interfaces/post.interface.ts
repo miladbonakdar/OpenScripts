@@ -1,25 +1,27 @@
 import { IComment } from './comment.interface'
-import { Schema } from 'mongoose'
 export interface IPost {
   _id: any
   createdAt: Date
+  createdBy: any
   tags: []
   content: string
   contentMarkdown: string
   imageUrl?: string
   color: string
   readTime: number
-  posts: []
   name: string
-  info: string
+  summary: string
   claps: number
   comments: IComment[]
   postNumber: number
-  category: Schema.Types.ObjectId
-  course?: Schema.Types.ObjectId
+  categoryId: any
+  courseId: any
   published: boolean
+  publishedAt: Date
   archived: boolean
+  archivedAt: Date
+  archivedBy: any
   difficulty: number
-  youTubeVideoUrl: string
-  aparatVideoUrl: string
+  youTubeVideoUrl?: string
+  aparatVideoUrl?: string
 }

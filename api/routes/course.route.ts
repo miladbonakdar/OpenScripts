@@ -2,16 +2,24 @@ import express from 'express'
 import { Course } from '../models/course'
 import { ICourse } from '../models/interfaces/course.interface'
 import { randomColor } from '../utils/colorGenerator'
-import Pagination from '../utils/Pagination'
 import authonticator from '../middlewares/passportAuthonticator'
+import {
+  deleteAction,
+  get,
+  getAll,
+  getPage,
+  changeColor
+} from './contracts/index'
 
 export const name = 'Course'
 const router = express.Router()
 
 router.route('/').post(authonticator, async (req, res) => {
+  if (!req.user) return res.accessDenied()
   const course = new Course(req.body)
   course.color = randomColor()
   course.createdAt = new Date()
+  course.createdById = req.user._id
   await course.save()
   res.success(course, name + ' created successfuly')
 })
@@ -29,32 +37,14 @@ router.route('/').put(authonticator, async (req, res) => {
   res.success(course, name + ' updated successfuly')
 })
 
-router.route('/:id').delete(authonticator, async (req, res) => {
-  let course = await Course.findByIdAndDelete(req.params.id)
-  if (!course) return res.notFound()
-  res.success(course)
-})
+router.route('/:id').delete(...deleteAction(Course))
 
-router.route('/').get(authonticator, async (_req, res) => {
-  const courses = await Course.find({})
-  res.success(courses)
-})
+router.route('/').get(...getAll(Course, false))
 
-router.route('/:id').get(authonticator, async (req, res) => {
-  if (!req.params.id) return res.badRequest('id')
-  const course = await Course.findById(req.params.id)
-  if (!course) return res.notFound()
-  res.success(course)
-})
+router.route('/:id').get(...get(Course))
 
-router.route('/:pageSize/:pageNumber').get(authonticator, async (req, res) => {
-  const page = new Pagination(
-    Course,
-    req.params.pageNumber,
-    req.params.pageSize
-  )
-  const pageResult = await page.get()
-  res.success(pageResult)
-})
+router.route('/randomColor').patch(...changeColor(Course))
+
+router.route('/:pageSize/:pageNumber').get(...getPage(Course))
 
 export default { router, routePrefix: '/course' }

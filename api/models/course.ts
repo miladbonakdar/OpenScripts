@@ -1,33 +1,16 @@
 import { Document, Schema, Model, model } from 'mongoose'
 import { ICourse } from './interfaces/course.interface'
+import { color, name, createdAt, createdById, difficulty } from './contracts'
 
 export interface ICourseModel extends ICourse, Document {}
 
 export const CourseSchema: Schema = new Schema({
-  name: {
-    type: String,
-    required: true,
-    maxlength: 50,
-    unique: true,
-    lowercase: true
-  },
-  color: {
-    type: String,
-    required: true,
-    maxlength: 10,
-    lowercase: true
-  },
+  name,
+  color,
   imageUrl: String,
-  difficulty: {
-    type: Number,
-    min: 0,
-    required: true
-  },
-  createdAt: {
-    type: Date,
-    default: new Date(),
-    required: true
-  }
+  difficulty,
+  createdAt,
+  createdById
 })
 
 export const Course: Model<ICourseModel> = model<ICourseModel>(

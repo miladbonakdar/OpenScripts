@@ -1,5 +1,6 @@
 import { Document, Schema, Model, model } from 'mongoose'
 import { IUser } from './interfaces/user.interface'
+import { email } from './contracts'
 
 export interface IUserModel extends IUser, Document {}
 
@@ -18,15 +19,12 @@ export const UserSchema: Schema = new Schema({
   },
   telegramId: Number,
   email: {
-    type: String,
-    required: true,
-    maxlength: 40,
-    unique:true,
-    lowercase: true
+    ...email,
+    unique: true
   },
   password: {
     type: String,
-    required: true,
+    required: true
   },
   info: String,
   photoUrl: String,

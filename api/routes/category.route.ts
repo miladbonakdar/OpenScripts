@@ -3,13 +3,17 @@ import { Category } from '../models/category'
 import { ICategory } from '../models/interfaces/category.interface'
 import { randomColor } from '../utils/colorGenerator'
 import authonticator from '../middlewares/passportAuthonticator'
+import { deleteAction, get, getAll, changeColor } from './contracts/index'
 
 export const name = 'Category'
 const router = express.Router()
 
 router.route('/').post(authonticator, async (req, res) => {
+  if (!req.user) return res.accessDenied()
   const category = new Category(req.body)
   category.color = randomColor()
+  category.createdAt = new Date()
+  category.createdById = req.user._id
   await category.save()
   res.success(category, name + ' created successfuly')
 })
@@ -26,22 +30,12 @@ router.route('/').put(authonticator, async (req, res) => {
   res.success(cat, name + ' updated successfuly')
 })
 
-router.route('/:id').delete(authonticator, async (req, res) => {
-  let cat = await Category.findByIdAndDelete(req.params.id)
-  if (!cat) return res.notFound()
-  res.success(cat)
-})
+router.route('/:id').delete(...deleteAction(Category))
 
-router.route('/').get(async (_req, res) => {
-  const categories = await Category.find({})
-  res.success(categories)
-})
+router.route('/').get(...getAll(Category, false))
 
-router.route('/:id').get(authonticator, async (req, res) => {
-  if (!req.params.id) return res.badRequest('id')
-  const category = await Category.findById(req.params.id)
-  if (!category) return res.notFound()
-  res.success(category)
-})
+router.route('/randomColor').patch(...changeColor(Category))
+
+router.route('/:id').get(...get(Category))
 
 export default { router, routePrefix: '/category' }

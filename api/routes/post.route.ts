@@ -2,8 +2,8 @@ import express from 'express'
 import { Post } from '../models/post'
 import { IPost } from '../models/interfaces/post.interface'
 import { randomColor } from '../utils/colorGenerator'
-import Pagination from '../utils/Pagination'
 import authonticator from '../middlewares/passportAuthonticator'
+import { deleteAction, get, getPage, changeColor } from './contracts/index'
 
 export const name = 'Post'
 const router = express.Router()
@@ -27,28 +27,12 @@ router.route('/').put(authonticator, async (req, res) => {
   res.success(post, name + ' updated successfuly')
 })
 
-router.route('/:id').delete(authonticator, async (req, res) => {
-  let post = await Post.findByIdAndDelete(req.params.id)
-  if (!post) return res.notFound()
-  res.success(post)
-})
+router.route('/:id').delete(...deleteAction(Post))
 
-router.route('/').get(authonticator, async (_req, res) => {
-  const post = await Post.find({})
-  res.success(post)
-})
+router.route('/:id').get(...get(Post))
 
-router.route('/:id').get(authonticator, async (req, res) => {
-  if (!req.params.id) return res.badRequest('id')
-  const post = await Post.findById(req.params.id)
-  if (!post) return res.notFound()
-  res.success(post)
-})
+router.route('/randomColor').patch(...changeColor(Post))
 
-router.route('/:pageSize/:pageNumber').get(authonticator, async (req, res) => {
-  const page = new Pagination(Post, req.params.pageNumber, req.params.pageSize)
-  const pageResult = await page.get()
-  res.success(pageResult)
-})
+router.route('/:pageSize/:pageNumber').get(...getPage(Post))
 
 export default { router, routePrefix: '/post' }

@@ -1,11 +1,11 @@
 import express from 'express'
-import root from './root'
-import auth from './auth'
-import category from './category'
-import course from './course'
-import tag from './tag'
-import newsLetter from './newsLetter'
-import post from './post'
+import root from './root.route'
+import auth from './auth.route'
+import category from './category.route'
+import course from './course.route'
+import tag from './tag.route'
+import newsLetter from './newsLetter.route'
+import post from './post.route'
 
 const router = express.Router()
 

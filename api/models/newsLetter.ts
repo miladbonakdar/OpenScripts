@@ -1,21 +1,18 @@
 import { Document, Schema, Model, model } from 'mongoose'
 import { INewsLetter } from './interfaces/newsLetter.interface'
+import { createdAt, email } from './contracts'
 
 export interface INewsLetterModel extends INewsLetter, Document {}
 
 export const NewsLetterSchema: Schema = new Schema({
   email: {
-    type: String,
-    required: true,
-    maxlength: 40,
-    unique: true,
-    lowercase: true
+    ...email,
+    unique: true
   },
-  createdAt: {
-    type: Date,
-    default: new Date(),
-    required: true
-  }
+  createdAt
 })
 
-export const NewsLetter: Model<INewsLetterModel> = model<INewsLetterModel>('NewsLetter', NewsLetterSchema)
+export const NewsLetter: Model<INewsLetterModel> = model<INewsLetterModel>(
+  'NewsLetter',
+  NewsLetterSchema
+)
