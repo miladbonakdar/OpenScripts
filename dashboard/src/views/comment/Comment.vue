@@ -93,6 +93,9 @@ export default {
     ...mapMutations({
       showLoading: statics.mutations.loading
     }),
+    ...mapActions({
+      notAcceptedComments: statics.actions.notAcceptedComments
+    }),
     getList() {
       this.showLoading(true);
       this.$gate.comment
@@ -131,6 +134,7 @@ export default {
         .then(res => {
           this.$toasted.global.deleted();
           this.getList();
+          this.notAcceptedComments();
         })
         .catch(err => this.$handleError(err));
     },
@@ -142,6 +146,7 @@ export default {
         .randomizeColor({ id })
         .then(res => {
           this.getList();
+          this.notAcceptedComments();
           this.$toasted.success("random color generated");
         })
         .catch(err => this.$handleError(err));

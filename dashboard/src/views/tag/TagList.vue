@@ -116,6 +116,9 @@ export default {
     ...mapMutations({
       showLoading: statics.mutations.loading
     }),
+    ...mapActions({
+      allTags: statics.actions.allTags
+    }),
     getList() {
       this.showLoading(true);
       this.$gate.tag
@@ -155,6 +158,7 @@ export default {
         .then(res => {
           this.$toasted.global.deleted();
           this.getList();
+          this.allTags();
         })
         .catch(err => this.$handleError(err));
     },
@@ -176,6 +180,7 @@ export default {
           .update(this.item)
           .then(res => {
             this.getList();
+            this.allTags();
             this.$toasted.success("item updated");
           })
           .catch(err => this.$handleError(err));
@@ -184,6 +189,7 @@ export default {
           .create(this.item)
           .then(res => {
             this.getList();
+            this.allTags();
             this.$toasted.success("item created");
           })
           .catch(err => this.$handleError(err));

@@ -18,6 +18,11 @@ router.route('/').post(async (req, res) => {
   res.success(comment, name + ' created successfuly')
 })
 
+router.route('/not-accepted').get(authonticator, async (_req, res) => {
+  const items = await Comment.find({ accepted: false })
+  res.success(items)
+})
+
 router.route('/:id').delete(...deleteAction(Comment))
 router.route('/:pageSize/:pageNumber').get(...getPage(Comment))
 router.route('/randomizeColor').patch(...changeColor(Comment))

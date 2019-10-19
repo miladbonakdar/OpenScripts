@@ -1,9 +1,10 @@
-export default (dataPromise,done) => {
-  dataPromise.then(res => {
-    if (!res.ok) throw new Error(res);
-    done(res.data);
-  }).catch(err => {
-    console.log(err);
-    throw err;
-  })
+export default (dataPromise, done) => {
+  dataPromise
+    .then(res => {
+      done(res)
+    })
+    .catch(err => {
+      console.log(err)
+      throw err
+    })
 }

@@ -41,7 +41,17 @@
 
       <template slot-scope="row" slot="readed">
         <b-badge v-if="row.item.readed" variant="success">Readed</b-badge>
-        <b-badge v-else variant="warning">Not yet</b-badge>
+        <template v-else>
+          <b-badge variant="warning">Not yet</b-badge>
+          <span
+            @click="readMessage(row.item._id)"
+            class="text-info mx-1 action-item"
+            v-b-tooltip.hover
+            title="Readed ?"
+          >
+            <i class="fa fa-eye pointer"></i>
+          </span>
+        </template>
       </template>
 
       <template slot="actions" slot-scope="row">
@@ -102,6 +112,9 @@ export default {
     ...mapMutations({
       showLoading: statics.mutations.loading
     }),
+    ...mapActions({
+      notReadedMessages: statics.actions.notReadedMessages
+    }),
     getList() {
       this.showLoading(true);
       this.$gate.message
@@ -140,6 +153,7 @@ export default {
         .then(res => {
           this.$toasted.global.deleted();
           this.getList();
+          this.notReadedMessages();
         })
         .catch(err => this.$handleError(err));
     },
@@ -147,11 +161,22 @@ export default {
       this.getList();
     },
     randomizeColor(id) {
-      this.$gate.tag
+      this.$gate.message
         .randomizeColor({ id })
         .then(res => {
           this.getList();
+          this.notReadedMessages();
           this.$toasted.success("random color generated");
+        })
+        .catch(err => this.$handleError(err));
+    },
+    readMessage(id) {
+      this.$gate.message
+        .read({ id })
+        .then(res => {
+          this.getList();
+          this.notReadedMessages();
+          this.$toasted.success("updated");
         })
         .catch(err => this.$handleError(err));
     }

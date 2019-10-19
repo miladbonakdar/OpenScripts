@@ -52,6 +52,7 @@ export default {
       actions: [
         { type: 'get', url: '/:pageSize/:pageNumber', name: 'page' },
         { type: 'patch', url: '/randomizeColor', name: 'randomizeColor' },
+        { type: 'get', url: '/not-accepted', name: 'notAccepted' },
         { type: 'patch', url: '/accept', name: 'accept' }
       ]
     },

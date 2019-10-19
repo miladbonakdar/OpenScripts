@@ -105,6 +105,9 @@ export default {
     ...mapMutations({
       showLoading: statics.mutations.loading
     }),
+    ...mapActions({
+      allCategories: statics.actions.allCategories
+    }),
     getList() {
       this.showLoading(true);
       this.$gate.category
@@ -143,6 +146,7 @@ export default {
         .then(res => {
           this.$toasted.global.deleted();
           this.getList();
+          this.allCategories();
         })
         .catch(err => this.$handleError(err));
     },
@@ -161,6 +165,7 @@ export default {
           .update(this.item)
           .then(res => {
             this.getList();
+            this.allCategories();
             this.$toasted.success("item updated");
           })
           .catch(err => this.$handleError(err));
@@ -169,6 +174,7 @@ export default {
           .create(this.item)
           .then(res => {
             this.getList();
+            this.allCategories();
             this.$toasted.success("item created");
           })
           .catch(err => this.$handleError(err));

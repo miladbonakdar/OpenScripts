@@ -10,7 +10,9 @@ const state = {
   allTags: [],
   user: {},
   notReadedMessages: [],
-  notReadedCount: 0
+  notReadedCount: 0,
+  notAcceptedComments: [],
+  notAcceptedCount: 0
 }
 
 const getters = {
@@ -18,7 +20,11 @@ const getters = {
   [statics.getters.allCategories]: state => state.allCategories,
   [statics.getters.allCourses]: state => state.allCourses,
   [statics.getters.allTags]: state => state.allTags,
-  [statics.getters.user]: state => state.user
+  [statics.getters.user]: state => state.user,
+  [statics.getters.notReadedMessages]: state => state.notReadedMessages,
+  [statics.getters.notReadedCount]: state => state.notReadedCount,
+  [statics.getters.notAcceptedComments]: state => state.notAcceptedComments,
+  [statics.getters.notAcceptedCount]: state => state.notAcceptedCount
 }
 
 const mutations = {
@@ -38,7 +44,13 @@ const mutations = {
     (state.notReadedMessages = payload),
 
   [statics.mutations.notReadedCount]: (state, payload) =>
-    (state.notReadedCount = payload)
+    (state.notReadedCount = payload),
+
+  [statics.mutations.notAcceptedComments]: (state, payload) =>
+    (state.notAcceptedComments = payload),
+
+  [statics.mutations.notAcceptedCount]: (state, payload) =>
+    (state.notAcceptedCount = payload)
 }
 
 let actions = {
@@ -59,7 +71,7 @@ let actions = {
   },
 
   [statics.actions.allTags]: ({ commit }, done = console.log) => {
-    loadPromise($gate.category.getAll(), items => {
+    loadPromise($gate.tag.getAll(), items => {
       commit(statics.mutations.allTags, items)
       done()
     })
@@ -76,6 +88,14 @@ let actions = {
     loadPromise($gate.message.notRead(), messages => {
       commit(statics.mutations.notReadedMessages, messages)
       commit(statics.mutations.notReadedCount, (messages || []).length)
+      done()
+    })
+  },
+
+  [statics.actions.notAcceptedComments]: ({ commit }, done = console.log) => {
+    loadPromise($gate.comment.notAccepted(), comments => {
+      commit(statics.mutations.notAcceptedComments, comments)
+      commit(statics.mutations.notAcceptedCount, (comments || []).length)
       done()
     })
   }
