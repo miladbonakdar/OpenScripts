@@ -8,7 +8,9 @@ const state = {
   allCategories: [],
   allCourses: [],
   allTags: [],
-  user: {}
+  user: {},
+  notReadedMessages: [],
+  notReadedCount: 0
 }
 
 const getters = {
@@ -30,7 +32,13 @@ const mutations = {
 
   [statics.mutations.allTags]: (state, payload) => (state.allTags = payload),
 
-  [statics.mutations.user]: (state, payload) => (state.user = payload)
+  [statics.mutations.user]: (state, payload) => (state.user = payload),
+
+  [statics.mutations.notReadedMessages]: (state, payload) =>
+    (state.notReadedMessages = payload),
+
+  [statics.mutations.notReadedCount]: (state, payload) =>
+    (state.notReadedCount = payload)
 }
 
 let actions = {
@@ -60,6 +68,14 @@ let actions = {
   [statics.actions.loadUser]: ({ commit }, done = console.log) => {
     loadPromise($gate.auth.getUser(), user => {
       commit(statics.mutations.user, user)
+      done()
+    })
+  },
+
+  [statics.actions.notReadedMessages]: ({ commit }, done = console.log) => {
+    loadPromise($gate.message.notRead(), messages => {
+      commit(statics.mutations.notReadedMessages, messages)
+      commit(statics.mutations.notReadedCount, (messages || []).length)
       done()
     })
   }

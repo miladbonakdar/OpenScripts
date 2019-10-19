@@ -12,19 +12,48 @@ export default {
   controllers: [
     {
       name: 'post',
-      actions: [{ type: 'get', url: '/:pageSize/:pageNumber', name: 'page' }]
+      actions: [
+        { type: 'get', url: '/:pageSize/:pageNumber', name: 'page' },
+        { type: 'patch', url: '/randomizeColor', name: 'randomizeColor' }
+      ]
     },
     {
       name: 'category',
-      actions: []
+      actions: [
+        { type: 'patch', url: '/randomizeColor', name: 'randomizeColor' }
+      ]
     },
     {
       name: 'course',
-      actions: [{ type: 'get', url: '/:pageSize/:pageNumber', name: 'page' }]
+      actions: [
+        { type: 'get', url: '/:pageSize/:pageNumber', name: 'page' },
+        { type: 'patch', url: '/randomizeColor', name: 'randomizeColor' }
+      ]
     },
     {
       name: 'tag',
-      actions: [{ type: 'get', url: '/:pageSize/:pageNumber', name: 'page' }]
+      actions: [
+        { type: 'get', url: '/:pageSize/:pageNumber', name: 'page' },
+        { type: 'patch', url: '/randomizeColor', name: 'randomizeColor' }
+      ]
+    },
+    {
+      name: 'message',
+      actions: [
+        { type: 'get', url: '/:pageSize/:pageNumber', name: 'page' },
+        { type: 'patch', url: '/randomizeColor', name: 'randomizeColor' },
+        { type: 'get', url: '/not-read', name: 'notRead' },
+        { type: 'patch', url: '/read', name: 'read' },
+        { type: 'patch', url: '/read-all', name: 'readAll' }
+      ]
+    },
+    {
+      name: 'comment',
+      actions: [
+        { type: 'get', url: '/:pageSize/:pageNumber', name: 'page' },
+        { type: 'patch', url: '/randomizeColor', name: 'randomizeColor' },
+        { type: 'patch', url: '/accept', name: 'accept' }
+      ]
     },
     {
       name: 'news-letter',

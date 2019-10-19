@@ -12,13 +12,16 @@ export const statics = {
     allCategories: `${staticsPrefix}mut-allCategories`,
     allCourses: `${staticsPrefix}mut-allCourses`,
     allTags: `${staticsPrefix}mut-allTags`,
-    user: `${staticsPrefix}mut-user`
+    user: `${staticsPrefix}mut-user`,
+    notReadedMessages: `${staticsPrefix}mut-notReadedMessages`,
+    notReadedCount: `${staticsPrefix}mut-notReadedCount`
   },
   actions: {
     init: `${staticsPrefix}action-init`,
     allCategories: `${staticsPrefix}action-allCategories`,
     allCourses: `${staticsPrefix}action-allCourses`,
     allTags: `${staticsPrefix}action-allTags`,
-    user: `${staticsPrefix}action-user`
+    user: `${staticsPrefix}action-user`,
+    notReadedMessages: `${staticsPrefix}action-notReadedMessages`
   }
 }

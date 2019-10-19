@@ -11,6 +11,16 @@ export default {
       url: '/post/list',
     },
     {
+      name: 'Comments',
+      icon: 'fa fa-comments-o',
+      url: '/comment/list',
+    },
+    {
+      name: 'Messages',
+      icon: 'fa fa-bell-o',
+      url: '/message/list',
+    },
+    {
       name: 'Basic Data',
       icon: 'fa fa-info',
       children: [

@@ -15,7 +15,12 @@ export const MessageSchema: Schema = new Schema({
   createdAt,
   color,
   text,
-  telegramUsername: String
+  telegramUsername: String,
+  readed: {
+    required: true,
+    type: Boolean,
+    default: false
+  }
 })
 
 export const Message: Model<IMessageModel> = model<IMessageModel>(

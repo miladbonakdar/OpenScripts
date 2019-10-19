@@ -6,4 +6,5 @@ export interface IMessage {
   createdAt: Date
   text: string
   telegramUsername?: string
+  readed: boolean
 }

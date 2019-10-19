@@ -1,11 +1,12 @@
 import express from 'express'
 import { Comment } from '../models/comment'
+import { Post, IPostModel } from '../models/post'
 import { IChangeCommentStatus } from '../models/other/ChangeCommentStatus'
 import { randomColor } from '../utils/colorGenerator'
 import authonticator from '../middlewares/passportAuthonticator'
 import { deleteAction, getPage, changeColor } from './contracts/index'
 
-export const name = 'Category'
+export const name = 'Comment'
 const router = express.Router()
 
 //TODO: for users set recaptcha
@@ -17,7 +18,11 @@ router.route('/').post(async (req, res) => {
   res.success(comment, name + ' created successfuly')
 })
 
-router.route('/changeStatus').patch(authonticator, async (req, res) => {
+router.route('/:id').delete(...deleteAction(Comment))
+router.route('/:pageSize/:pageNumber').get(...getPage(Comment))
+router.route('/randomizeColor').patch(...changeColor(Comment))
+
+router.route('/accept').patch(authonticator, async (req, res) => {
   if (!req.user) return res.accessDenied()
   const command = req.body as IChangeCommentStatus
   const comment = await Comment.findById(command._id)
@@ -26,13 +31,16 @@ router.route('/changeStatus').patch(authonticator, async (req, res) => {
   comment.acceptedAt = new Date()
   comment.acceptedById = req.user._id
   await comment.save()
-  res.success(comment, name + ' created successfuly')
+
+  const post = (await Post.findById(comment.postId)) as IPostModel
+  let comments = post.comments
+  comment.path.forEach((v: number) => {
+    comments = comments[v].replys
+  })
+  comments.push(comment)
+  comments.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime())
+  await post.save()
+  res.success(comment, 'comment accepted')
 })
 
-router.route('/:id').delete(...deleteAction(Comment))
-
-router.route('/:pageSize/:pageNumber').get(...getPage(Comment))
-
-router.route('/randomColor').patch(...changeColor(Comment))
-
-export default { router, routePrefix: '/category' }
+export default { router, routePrefix: '/comment' }

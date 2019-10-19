@@ -1,6 +1,5 @@
 import express from 'express'
-import { Course } from '../models/course'
-import { ICourse } from '../models/interfaces/course.interface'
+import { Course, ICourseModel } from '../models/course'
 import { randomColor } from '../utils/colorGenerator'
 import authonticator from '../middlewares/passportAuthonticator'
 import {
@@ -25,7 +24,7 @@ router.route('/').post(authonticator, async (req, res) => {
 })
 
 router.route('/').put(authonticator, async (req, res) => {
-  const c = req.body as ICourse
+  const c = req.body as ICourseModel
   if (!c) return res.badRequest('body')
   const course = await Course.findById(c._id)
   if (!course) return res.notFound()
@@ -38,13 +37,9 @@ router.route('/').put(authonticator, async (req, res) => {
 })
 
 router.route('/:id').delete(...deleteAction(Course))
-
 router.route('/').get(...getAll(Course, false))
-
 router.route('/:id').get(...get(Course))
-
-router.route('/randomColor').patch(...changeColor(Course))
-
+router.route('/randomizeColor').patch(...changeColor(Course))
 router.route('/:pageSize/:pageNumber').get(...getPage(Course))
 
 export default { router, routePrefix: '/course' }

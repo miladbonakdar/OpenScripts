@@ -1,6 +1,5 @@
 import express from 'express'
-import { Tag } from '../models/tag'
-import { ITag } from '../models/interfaces/tag.interface'
+import { Tag, ITagModel } from '../models/tag'
 import { randomColor } from '../utils/colorGenerator'
 import authonticator from '../middlewares/passportAuthonticator'
 import {
@@ -25,7 +24,7 @@ router.route('/').post(authonticator, async (req, res) => {
 })
 
 router.route('/').put(authonticator, async (req, res) => {
-  const c = req.body as ITag
+  const c = req.body as ITagModel
   if (!c) return res.badRequest('body')
   const tag = await Tag.findById(c._id)
   if (!tag) return res.notFound()
@@ -36,13 +35,9 @@ router.route('/').put(authonticator, async (req, res) => {
 })
 
 router.route('/:id').delete(...deleteAction(Tag))
-
 router.route('/').get(...getAll(Tag))
-
 router.route('/:id').get(...get(Tag))
-
-router.route('/randomColor').patch(...changeColor(Tag))
-
+router.route('/randomizeColor').patch(...changeColor(Tag))
 router.route('/:pageSize/:pageNumber').get(...getPage(Tag))
 
 export default { router, routePrefix: '/tag' }

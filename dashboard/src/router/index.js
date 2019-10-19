@@ -15,12 +15,11 @@ const Post = () => import('@/views/post/Post')
 const PostList = () => import('@/views/post/PostList')
 
 const CategoryList = () => import('@/views/category/CategoryList')
-
 const TagList = () => import('@/views/tag/TagList')
-
 const CourseList = () => import('@/views/course/CourseList')
-
 const NewsLetterList = () => import('@/views/newsLetter/NewsLetterList')
+const Message = () => import('@/views/message/Message')
+const Comment = () => import('@/views/comment/Comment')
 
 Vue.use(Router)
 
@@ -69,6 +68,16 @@ const router = new Router({
           path: 'news-letter/list',
           name: 'News letters list',
           component: NewsLetterList
+        },
+        {
+          path: 'message/list',
+          name: 'Messages',
+          component: Message
+        },
+        {
+          path: 'comment/list',
+          name: 'Comments',
+          component: Comment
         },
         {
           path: '404',

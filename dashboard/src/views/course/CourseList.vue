@@ -71,7 +71,7 @@
         empty-html="<h6>There are no item to show!</h6>"
       >
         <template slot-scope="row" slot="color">
-          <color-badge :color="row.item.color"></color-badge>
+          <color-badge :color="row.item.color" v-on:randomize="randomizeColor(row.item._id)"></color-badge>
         </template>
 
         <template slot-scope="row" slot="createdAt">
@@ -211,6 +211,7 @@ export default {
     onCancel() {
       this.item = {};
       this.isEditeMode = false;
+      this.selectedDifficulty = this.difficulties[0];
     },
     onSubmit() {
       if (!this.validate()) return;
@@ -241,6 +242,15 @@ export default {
     error(message) {
       this.$toasted.global.warn(message);
       return false;
+    },
+    randomizeColor(id) {
+      this.$gate.course
+        .randomizeColor({ id })
+        .then(res => {
+          this.getList();
+          this.$toasted.success("random color generated");
+        })
+        .catch(err => this.$handleError(err));
     }
   }
 };

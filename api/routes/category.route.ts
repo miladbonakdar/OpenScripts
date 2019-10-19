@@ -1,6 +1,5 @@
 import express from 'express'
-import { Category } from '../models/category'
-import { ICategory } from '../models/interfaces/category.interface'
+import { Category, ICategoryModel } from '../models/category'
 import { randomColor } from '../utils/colorGenerator'
 import authonticator from '../middlewares/passportAuthonticator'
 import { deleteAction, get, getAll, changeColor } from './contracts/index'
@@ -19,7 +18,7 @@ router.route('/').post(authonticator, async (req, res) => {
 })
 
 router.route('/').put(authonticator, async (req, res) => {
-  const c = req.body as ICategory
+  const c = req.body as ICategoryModel
   if (!c) return res.badRequest('body')
   const cat = await Category.findById(c._id)
   if (!cat) return res.notFound()
@@ -31,11 +30,8 @@ router.route('/').put(authonticator, async (req, res) => {
 })
 
 router.route('/:id').delete(...deleteAction(Category))
-
 router.route('/').get(...getAll(Category, false))
-
-router.route('/randomColor').patch(...changeColor(Category))
-
+router.route('/randomizeColor').patch(...changeColor(Category))
 router.route('/:id').get(...get(Category))
 
 export default { router, routePrefix: '/category' }

@@ -1,6 +1,5 @@
 import express from 'express'
-import { Post } from '../models/post'
-import { IPost } from '../models/interfaces/post.interface'
+import { Post, IPostModel } from '../models/post'
 import { randomColor } from '../utils/colorGenerator'
 import authonticator from '../middlewares/passportAuthonticator'
 import { deleteAction, get, getPage, changeColor } from './contracts/index'
@@ -17,7 +16,7 @@ router.route('/').post(authonticator, async (req, res) => {
 })
 
 router.route('/').put(authonticator, async (req, res) => {
-  const c = req.body as IPost
+  const c = req.body as IPostModel
   if (!c) return res.badRequest('body')
   const post = await Post.findById(c._id)
   if (!post) return res.notFound()
@@ -28,11 +27,8 @@ router.route('/').put(authonticator, async (req, res) => {
 })
 
 router.route('/:id').delete(...deleteAction(Post))
-
 router.route('/:id').get(...get(Post))
-
-router.route('/randomColor').patch(...changeColor(Post))
-
+router.route('/randomizeColor').patch(...changeColor(Post))
 router.route('/:pageSize/:pageNumber').get(...getPage(Post))
 
 export default { router, routePrefix: '/post' }
