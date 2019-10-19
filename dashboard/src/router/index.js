@@ -20,6 +20,7 @@ const CourseList = () => import('@/views/course/CourseList')
 const NewsLetterList = () => import('@/views/newsLetter/NewsLetterList')
 const Message = () => import('@/views/message/Message')
 const Comment = () => import('@/views/comment/Comment')
+const Archive = () => import('@/views/archive/Archive')
 
 Vue.use(Router)
 
@@ -68,6 +69,11 @@ const router = new Router({
           path: 'news-letter/list',
           name: 'News letters list',
           component: NewsLetterList
+        },
+        {
+          path: 'archive/list',
+          name: 'Archived',
+          component: Archive
         },
         {
           path: 'message/list',

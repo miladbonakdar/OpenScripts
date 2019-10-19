@@ -60,6 +60,14 @@ export default {
       actions: [{ type: 'get', url: '/:pageSize/:pageNumber', name: 'page' }]
     },
     {
+      name: 'archive',
+      loadDefaults: false,
+      actions: [
+        { type: 'get', url: '/:pageSize/:pageNumber', name: 'page' },
+        { type: 'delete', url: '/:id' }
+      ]
+    },
+    {
       name: 'auth',
       loadDefaults: false,
       actions: [

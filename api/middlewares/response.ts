@@ -26,16 +26,12 @@ function success(
   this.echo(message, data, true, 200)
 }
 
-function error(
-  this: Response,
-  message = 'somthing bad happend',
-  status = 500
-) {
+function error(this: Response, message = 'somthing bad happend', status = 500) {
   this.echo(message, {}, false, status)
 }
 
-function notFound(this: Response) {
-  this.echo('not found', {}, false, 404)
+function notFound(this: Response, model: string = 'some') {
+  this.echo( `${model} Model was not found`, {}, false, 404)
 }
 
 function accessDenied(this: Response) {

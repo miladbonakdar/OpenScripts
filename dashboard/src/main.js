@@ -20,6 +20,7 @@ import vueFilterPrettyBytes from 'vue-filter-pretty-bytes'
 import globalExceptionHandling from './implementation/globalExceptionHandling'
 import configureToastedTemplates from './implementation/configureToastedTemplates'
 import Datetime from 'vue-datetime'
+import JsonViewer from 'vue-json-viewer'
 
 quillConfig()
 
@@ -38,6 +39,7 @@ Vue.use(vueFilterPrettyBytes)
 Vue.use(VueMoment)
 Vue.use(filters)
 Vue.use(Datetime)
+Vue.use(JsonViewer)
 
 new Vue({
   el: '#app',

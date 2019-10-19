@@ -10,7 +10,11 @@ export const CourseSchema: Schema = new Schema({
   imageUrl: String,
   difficulty,
   createdAt,
-  createdById
+  createdById,
+  categoryId: {
+    type: Schema.Types.ObjectId,
+    required: true
+  }
 })
 
 export const Course: Model<ICourseModel> = model<ICourseModel>(

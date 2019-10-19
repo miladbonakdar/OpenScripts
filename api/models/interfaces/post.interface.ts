@@ -18,9 +18,6 @@ export interface IPost {
   courseId: any
   published: boolean
   publishedAt: Date
-  archived: boolean
-  archivedAt: Date
-  archivedBy: any
   difficulty: number
   youTubeVideoUrl?: string
   aparatVideoUrl?: string

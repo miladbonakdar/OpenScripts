@@ -28,10 +28,7 @@
             </b-form-group>
           </div>
           <div class="col-12">
-            <b-badge variant="warning" class="mb-2" style="font-size: 12px">
-              <span class="fa fa-meh-o"></span> Object
-            </b-badge>
-            <b-alert show variant="info">{{item}}</b-alert>
+            <json-viewer :value="item" :expand-depth="5" copyable boxed sort></json-viewer>
           </div>
         </b-row>
         <submit-group v-on:onCancel="onCancel" v-on:onSubmit="onSubmit" />

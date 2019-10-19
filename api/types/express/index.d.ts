@@ -27,7 +27,7 @@ declare namespace Express {
     success(data?: any, message?: string): void
     noContent(): void
     error(message: string, status: number): void
-    notFound(): void
+    notFound(model?: string): void
     accessDenied(): void
     badRequest(invalidParam: string): void
     unauthorized(): void

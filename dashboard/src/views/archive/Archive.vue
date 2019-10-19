@@ -5,8 +5,7 @@
         <b-row>
           <div class="col-md-4">
             <span class="align-middle">
-              <i class="fa fa-tag"></i>
-              {{isEditeMode ? 'Edite' : 'Create'}} Tag
+              <i class="fa fa-trash-o"></i> Archive Item
             </span>
           </div>
         </b-row>
@@ -15,26 +14,18 @@
       <div class="animated fadeIn">
         <!-- <b-form validated> -->
         <b-row>
-          <div class="col-md-6 col-sm-12 col-lg-4">
-            <b-form-group>
-              <label for="name">Tag Name</label>
-              <b-form-input type="text" placeholder="Name" v-model="item.name"></b-form-input>
-            </b-form-group>
-          </div>
           <div class="col-12">
             <json-viewer :value="item" :expand-depth="5" copyable boxed sort></json-viewer>
           </div>
         </b-row>
-        <submit-group v-on:onCancel="onCancel" v-on:onSubmit="onSubmit" />
       </div>
     </b-card>
-
     <b-card>
       <div slot="header" class="clearfix">
         <b-row>
           <div class="col-md-4">
             <span class="align-middle">
-              <i class="fa fa-tag"></i> Tags
+              <i class="fa fa-trash-o"></i> Archived
             </span>
           </div>
         </b-row>
@@ -47,13 +38,17 @@
         show-empty
         empty-html="<h6>There are no item to show!</h6>"
       >
-        <template slot-scope="row" slot="createdAt">
-          {{row.item.createdAt | moment("from")}}
-          <b-badge>{{row.item.createdAt | moment("YYYY-MM-DD") }}</b-badge>
+        <template slot-scope="row" slot="archivedAt">
+          {{row.item.archivedAt | moment("from")}}
+          <b-badge>{{row.item.archivedAt | moment("YYYY-MM-DD") }}</b-badge>
         </template>
+        <template
+          slot-scope="row"
+          slot="archivedBy"
+        >{{row.item.archivedBy.firstName +' '+row.item.archivedBy.lastName}}</template>
 
-        <template slot-scope="row" slot="color">
-          <color-badge :color="row.item.color" v-on:randomize="randomizeColor(row.item._id)"></color-badge>
+        <template slot="collectionName" slot-scope="row">
+          <b-badge variant="warning">{{row.item.collectionName }}</b-badge>
         </template>
 
         <template slot="actions" slot-scope="row">
@@ -86,19 +81,18 @@ export default {
   components: {},
   data() {
     return {
+      item: {},
       pageNumber: 1,
       pageSize: 5,
       total: 10,
       items: [],
       fields: [
-        { key: "name", label: "Name" },
-        { key: "color", label: "Color" },
-        { key: "createdAt", label: "Created At" },
+        { key: "collectionName", label: "Collection Name" },
+        { key: "archivedBy", label: "Archived By" },
+        { key: "archivedAt", label: "Archived At" },
         { key: "actions", label: "Actions" }
       ],
-      pageOptions: [5, 10, 15],
-      item: {},
-      isEditeMode: false
+      pageOptions: [5, 10, 15]
     };
   },
   created() {
@@ -118,16 +112,16 @@ export default {
     }),
     getList() {
       this.showLoading(true);
-      this.$gate.tag
+      this.$gate.archive
         .page(this.pageSize, this.pageNumber - 1)
         .then(res => {
           this.items = res.items;
           this.total = res.total;
+          this.item = {};
         })
         .catch(err => this.$handleError(err))
         .finally(() => {
           this.showLoading(false);
-          this.onCancel();
         });
     },
     deleteItem(id) {
@@ -150,7 +144,7 @@ export default {
       });
     },
     deleteItemFromDb(id) {
-      this.$gate.tag
+      this.$gate.archive
         .delete(id)
         .then(res => {
           this.$toasted.global.deleted();
@@ -163,49 +157,6 @@ export default {
     },
     showDetails(item) {
       this.item = item;
-      this.isEditeMode = true;
-    },
-    onCancel() {
-      this.item = {};
-      this.isEditeMode = false;
-    },
-    onSubmit() {
-      if (!this.validate()) return;
-      if (this.isEditeMode) {
-        this.$gate.tag
-          .update(this.item)
-          .then(res => {
-            this.getList();
-            this.$toasted.success("item updated");
-          })
-          .catch(err => this.$handleError(err));
-      } else {
-        this.$gate.tag
-          .create(this.item)
-          .then(res => {
-            this.getList();
-            this.$toasted.success("item created");
-          })
-          .catch(err => this.$handleError(err));
-      }
-    },
-    validate() {
-      if (!this.item.name || this.item.name.length < 2)
-        return this.error("name is not valid");
-      return true;
-    },
-    error(message) {
-      this.$toasted.global.warn(message);
-      return false;
-    },
-    randomizeColor(id) {
-      this.$gate.tag
-        .randomizeColor({ id })
-        .then(res => {
-          this.getList();
-          this.$toasted.success("random color generated");
-        })
-        .catch(err => this.$handleError(err));
     }
   }
 };

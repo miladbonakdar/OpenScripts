@@ -32,6 +32,7 @@ router.route('/').put(authonticator, async (req, res) => {
   course.color = c.color
   course.imageUrl = c.imageUrl
   course.difficulty = c.difficulty
+  course.categoryId = c.categoryId
   await course.save()
   res.success(course, name + ' updated successfuly')
 })

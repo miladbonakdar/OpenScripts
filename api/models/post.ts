@@ -60,13 +60,6 @@ export const PostSchema: Schema = new Schema({
     required: true
   },
   publishedAt: Date,
-  archived: {
-    type: Boolean,
-    default: false,
-    required: true
-  },
-  archivedAt: Date,
-  archivedBy: Object,
   difficulty,
   youTubeVideoUrl: String,
   aparatVideoUrl: String

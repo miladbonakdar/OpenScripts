@@ -37,15 +37,26 @@
           </div>
           <div class="col-md-6 col-sm-12 col-lg-4">
             <b-form-group>
+              <label for="name">Category</label>
+              <multi-select
+                class="pointer"
+                :internal-search="true"
+                :allow-empty="false"
+                v-model="selectedCategory"
+                track-by="_id"
+                label="name"
+                :options="allCategories"
+              ></multi-select>
+            </b-form-group>
+          </div>
+          <div class="col-md-6 col-sm-12 col-lg-4">
+            <b-form-group>
               <label>Course Image Url</label>
               <b-form-input type="text" placeholder="Image Url" v-model="item.imageUrl"></b-form-input>
             </b-form-group>
           </div>
           <div class="col-12">
-            <b-badge variant="warning" class="mb-2" style="font-size: 12px">
-              <span class="fa fa-meh-o"></span> Object
-            </b-badge>
-            <b-alert show variant="info">{{item}}</b-alert>
+            <json-viewer :value="item" :expand-depth="5" copyable boxed sort></json-viewer>
           </div>
         </b-row>
         <submit-group v-on:onCancel="onCancel" v-on:onSubmit="onSubmit" />
@@ -113,7 +124,7 @@
 </template>
 
 <script>
-import { mapMutations, mapActions } from "vuex";
+import { mapMutations, mapActions, mapGetters } from "vuex";
 import { statics } from "../../store/types";
 
 export default {
@@ -140,7 +151,8 @@ export default {
       ],
       selectedDifficulty: null,
       item: {},
-      isEditeMode: false
+      isEditeMode: false,
+      selectedCategory: null
     };
   },
   created() {
@@ -154,6 +166,11 @@ export default {
     items() {
       this.$forceUpdate();
     }
+  },
+  computed: {
+    ...mapGetters({
+      allCategories: statics.getters.allCategories
+    })
   },
   methods: {
     ...mapMutations({
@@ -206,12 +223,19 @@ export default {
     },
     showDetails(item) {
       this.item = item;
+      this.selectedDifficulty = this.difficulties.filter(
+        i => i.value == item.difficulty
+      )[0];
+      this.selectedCategory = this.allCategories.filter(
+        i => i._id == item.categoryId
+      )[0];
       this.isEditeMode = true;
     },
     onCancel() {
       this.item = {};
       this.isEditeMode = false;
       this.selectedDifficulty = this.difficulties[0];
+      this.selectedCategory = this.allCategories[0];
     },
     onSubmit() {
       if (!this.validate()) return;
@@ -236,7 +260,10 @@ export default {
     validate() {
       if (!this.item.name || this.item.name.length < 2)
         return this.error("name is not valid");
+      if (!this.selectedCategory || !this.selectedCategory._id)
+        return this.error("category is not valid");
       this.item.difficulty = this.selectedDifficulty.value;
+      this.item.categoryId = this.selectedCategory._id;
       return true;
     },
     error(message) {

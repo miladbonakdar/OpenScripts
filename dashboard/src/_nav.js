@@ -8,17 +8,17 @@ export default {
     {
       name: 'Posts',
       icon: 'fa fa-paw',
-      url: '/post/list',
+      url: '/post/list'
     },
     {
       name: 'Comments',
       icon: 'fa fa-comments-o',
-      url: '/comment/list',
+      url: '/comment/list'
     },
     {
       name: 'Messages',
       icon: 'fa fa-bell-o',
-      url: '/message/list',
+      url: '/message/list'
     },
     {
       name: 'Basic Data',
@@ -38,12 +38,18 @@ export default {
           name: 'Tags',
           url: '/tag/list',
           icon: 'fa fa-tag'
-        }, {
+        },
+        {
           name: 'News letters',
           url: '/news-letter/list',
           icon: 'fa fa-envelope-o'
         }
       ]
+    },
+    {
+      name: 'Archived',
+      icon: 'fa fa-trash-o',
+      url: '/archive/list'
     }
   ]
 }
