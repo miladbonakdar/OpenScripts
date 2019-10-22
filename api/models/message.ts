@@ -10,7 +10,8 @@ export const MessageSchema: Schema = new Schema({
     type: String,
     required: true,
     maxlength: 50,
-    lowercase: true
+    lowercase: true,
+    trim: true
   },
   createdAt,
   color,

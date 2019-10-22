@@ -1,7 +1,9 @@
 import { Document, Schema, Model, model } from 'mongoose'
 import { IPost } from './interfaces/post.interface'
-import { createdAt, color, name, difficulty } from './contracts'
+import { createdAt, color, name, difficulty, title } from './contracts'
 import { TagSchema } from './tag'
+import { CourseSchema } from './course'
+import { CategorySchema } from './category'
 import { CommentSchema } from './comment'
 
 export interface IPostModel extends IPost, Document {}
@@ -29,6 +31,7 @@ export const PostSchema: Schema = new Schema({
     required: true
   },
   name,
+  title,
   summary: {
     type: String,
     required: true
@@ -46,12 +49,12 @@ export const PostSchema: Schema = new Schema({
     default: 1,
     min: 1
   },
-  categoryId: {
-    type: Schema.Types.ObjectId,
+  category: {
+    type: CategorySchema,
     required: true
   },
-  courseId: {
-    type: Schema.Types.ObjectId,
+  course: {
+    type: CourseSchema,
     required: true
   },
   published: {

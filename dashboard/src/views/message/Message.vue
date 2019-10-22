@@ -40,7 +40,7 @@
       </template>
 
       <template slot-scope="row" slot="readed">
-        <b-badge v-if="row.item.readed" variant="success">Readed</b-badge>
+        <b-badge v-if="row.item.readed" variant="success">Yes</b-badge>
         <template v-else>
           <b-badge variant="warning">Not yet</b-badge>
           <span

@@ -1,7 +1,7 @@
 import { statics } from '../../types'
 import $gate from '../../../implementation/crudly/CRUDlyInstance'
 
-export default ({ commit }, { done }) => {
+export default ({ commit }, done) => {
   $gate
     .all([
       $gate.course.getAll(),

@@ -51,8 +51,12 @@ $simple-line-font-path: "~simple-line-icons/fonts/";
 @import "~flag-icon-css/css/flag-icon.min.css";
 /* Import Bootstrap Vue Styles */
 @import "~bootstrap-vue/dist/bootstrap-vue.css";
+
+@import "~quill/dist/quill.core.css";
+@import "~quill/dist/quill.snow.css";
 // Import Main styles for this application
 @import "assets/scss/style";
+@import "assets/quill-extention.css";
 
 .loading {
   position: absolute;
@@ -105,5 +109,8 @@ span.multiselect__placeholder {
 }
 .highlighted {
   background-color: yellow;
+}
+.rtl {
+  direction: rtl;
 }
 </style>

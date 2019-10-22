@@ -29,6 +29,7 @@ router.route('/').put(authonticator, async (req, res) => {
   const tag = await Tag.findById(c._id)
   if (!tag) return res.notFound()
   tag.name = c.name
+  tag.title = c.title
   tag.color = c.color
   await tag.save()
   res.success(tag, name + ' updated successfuly')

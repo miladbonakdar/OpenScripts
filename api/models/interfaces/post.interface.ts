@@ -10,12 +10,13 @@ export interface IPost {
   color: string
   readTime: number
   name: string
+  title: string
   summary: string
   claps: number
   comments: IComment[]
   postNumber: number
-  categoryId: any
-  courseId: any
+  category: any
+  course: any
   published: boolean
   publishedAt: Date
   difficulty: number

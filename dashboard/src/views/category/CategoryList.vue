@@ -23,6 +23,12 @@
           </div>
           <div class="col-md-6 col-sm-12 col-lg-4">
             <b-form-group>
+              <label for="name">Category Title</label>
+              <b-form-input class="rtl" type="text" placeholder="Title" v-model="item.title"></b-form-input>
+            </b-form-group>
+          </div>
+          <div class="col-md-6 col-sm-12 col-lg-4">
+            <b-form-group>
               <label>Category Image Url</label>
               <b-form-input type="text" placeholder="Image Url" v-model="item.imageUrl"></b-form-input>
             </b-form-group>
@@ -89,6 +95,7 @@ export default {
       items: [],
       fields: [
         { key: "name", label: "Name" },
+        { key: "title", label: "Title" },
         { key: "color", label: "Color" },
         { key: "imageUrl", label: "Has Image" },
         { key: "createdAt", label: "Created At" },
@@ -183,6 +190,8 @@ export default {
     validate() {
       if (!this.item.name || this.item.name.length < 2)
         return this.error("name is not valid");
+      if (!this.item.title || this.item.title.length < 2)
+        return this.error("title is not valid");
       return true;
     },
     error(message) {

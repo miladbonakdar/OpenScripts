@@ -1,7 +1,7 @@
-export const email = {
+export const title = {
   type: String,
   required: true,
-  maxlength: 40,
+  maxlength: 150,
   lowercase: true,
   trim: true
 }

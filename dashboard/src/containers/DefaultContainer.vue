@@ -21,6 +21,17 @@
       <SidebarToggler class="d-md-down-none" display="lg" :defaultOpen="true" />
       <b-navbar-nav class="d-md-down">
         <b-nav-item class="px-3 d-md-down-none" to="'/dashboard'">Dashboard</b-nav-item>
+
+        <div v-if="notAcceptedCount" class="px-1 d-md-down-none">
+          <b-link to="/comment/list">
+            <span class="badge badge-info font-xs p-2">{{ notAcceptedCount }} New Comments</span>
+          </b-link>
+        </div>
+        <div v-if="notReadedCount" class="px-1 d-md-down-none">
+          <b-link to="/message/list">
+            <span class="badge badge-success font-xs p-2">{{ notReadedCount }} New Messages</span>
+          </b-link>
+        </div>
       </b-navbar-nav>
       <b-navbar-nav class="ml-auto">
         <b-nav-item class="font-lg" v-if="staticsLoaded && user">
@@ -122,18 +133,16 @@ export default {
     this.$errorBus.$on("internal-server", this.handleInternalServerError);
     this.$errorBus.$on("bad-request", this.handleBadRequestError);
     this.$errorBus.$on("access-denied", this.handleAccessDeniedError);
-    this.init({
-      done: err => {
-        if (err) {
-          console.error(err);
-          this.$toasted.info("please refresh the page to sync again");
-          this.$toasted.global.error("problem in syncing statics data.");
-        } else {
-          this.staticsLoaded = true;
-          this.nav = nav.items;
-        }
-        this.showLoading(false);
+    this.init(err => {
+      if (err) {
+        console.error(err);
+        this.$toasted.info("please refresh the page to sync again");
+        this.$toasted.global.error("problem in syncing statics data.");
+      } else {
+        this.staticsLoaded = true;
+        this.nav = nav.items;
       }
+      this.showLoading(false);
     });
   },
   beforeDestroy() {
@@ -143,7 +152,9 @@ export default {
   },
   computed: {
     ...mapGetters({
-      user: statics.getters.user
+      user: statics.getters.user,
+      notReadedCount: statics.getters.notReadedCount,
+      notAcceptedCount: statics.getters.notAcceptedCount
     }),
     name() {
       return this.$route.name;

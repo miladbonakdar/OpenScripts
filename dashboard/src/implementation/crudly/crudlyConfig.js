@@ -14,7 +14,8 @@ export default {
       name: 'post',
       actions: [
         { type: 'get', url: '/:pageSize/:pageNumber', name: 'page' },
-        { type: 'patch', url: '/randomizeColor', name: 'randomizeColor' }
+        { type: 'patch', url: '/randomizeColor', name: 'randomizeColor' },
+        { type: 'get', url: '/course-details/:courseId', name: 'courseDetails' }
       ]
     },
     {

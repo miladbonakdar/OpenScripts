@@ -12,7 +12,12 @@ const state = {
   notReadedMessages: [],
   notReadedCount: 0,
   notAcceptedComments: [],
-  notAcceptedCount: 0
+  notAcceptedCount: 0,
+  difficulties: [
+    { name: 'Easy', value: 0 },
+    { name: 'Medium', value: 1 },
+    { name: 'Advanced', value: 2 }
+  ]
 }
 
 const getters = {
@@ -20,6 +25,7 @@ const getters = {
   [statics.getters.allCategories]: state => state.allCategories,
   [statics.getters.allCourses]: state => state.allCourses,
   [statics.getters.allTags]: state => state.allTags,
+  [statics.getters.difficulties]: state => state.difficulties,
   [statics.getters.user]: state => state.user,
   [statics.getters.notReadedMessages]: state => state.notReadedMessages,
   [statics.getters.notReadedCount]: state => state.notReadedCount,

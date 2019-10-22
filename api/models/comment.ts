@@ -9,7 +9,7 @@ export const CommentSchema: Schema = new Schema({
     type: String,
     required: true,
     maxlength: 50,
-    lowercase: true
+    set: (n: string) => n.trim().toLowerCase()
   },
   text,
   color,

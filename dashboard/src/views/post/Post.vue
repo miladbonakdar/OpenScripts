@@ -1,290 +1,313 @@
 <template>
-  <b-card header="New agent">
-    <b-row>
-      <div class="col-md-4">
-        <b-form-group label="First name">
-          <b-form-input
-            @focus="clear('firstName')"
-            type="text"
-            v-model="agentForm.firstName"
-            placeholder="Enter first name"
-          ></b-form-input>
-          <div
-            v-if="errmsg.firstName && hasError"
-            class="error vuelidate-invalid-feedback"
-          >First name is required.
-          </div>
-        </b-form-group>
-      </div>
-      <div class="col-md-4">
-        <b-form-group label="Last name">
-          <b-form-input
-            @focus="clear('lastName')"
-            type="text"
-            v-model="agentForm.lastName"
-            placeholder="Enter last name"
-          ></b-form-input>
-          <div
-            v-if="errmsg.lastName && hasError"
-            class="error vuelidate-invalid-feedback"
-          >Last name is required.
-          </div>
-        </b-form-group>
-      </div>
-      <div class="col-md-4">
-        <b-form-group label="Middle name">
-          <b-form-input type="text" v-model="agentForm.middleName" placeholder="Enter middle name"></b-form-input>
-        </b-form-group>
-      </div>
-      <div class="col-md-4">
-        <b-form-group label="Username">
-          <b-form-input
-            :disabled="isEditMode"
-            type="text"
-            @focus="clear('userName')"
-            v-model="agentForm.userName"
-            placeholder="Enter username"
-          ></b-form-input>
-          <div
-            v-if="errmsg.userName && hasError"
-            class="error vuelidate-invalid-feedback"
-          >Username is required.
-          </div>
-        </b-form-group>
+  <div>
+    <b-card :header="isEditMode ? 'Edite Post':'Create Post'">
+      <b-row>
+        <div class="col-md-6 col-sm-12 col-lg-4">
+          <b-form-group label="name">
+            <b-form-input type="text" v-model="post.name" placeholder="Enter the name"></b-form-input>
+          </b-form-group>
+        </div>
+
+        <div class="col-md-6 col-sm-12 col-lg-4">
+          <b-form-group>
+            <label for="name">Title</label>
+            <b-form-input class="rtl" type="text" placeholder="Title" v-model="post.title"></b-form-input>
+          </b-form-group>
+        </div>
+
+        <div class="col-md-6 col-sm-12 col-lg-4">
+          <b-form-group label="Tags">
+            <multiSelect
+              v-model="post.tags"
+              :options="allTags"
+              :multiple="true"
+              :close-on-select="false"
+              :clear-on-select="false"
+              :preserve-search="true"
+              placeholder="Pick some"
+              label="name"
+              track-by="_id"
+            ></multiSelect>
+          </b-form-group>
+        </div>
+
+        <div class="col-md-6 col-sm-12 col-lg-4">
+          <b-form-group label="Course">
+            <multi-select
+              class="pointer"
+              v-model="post.course"
+              track-by="_id"
+              label="name"
+              @select="getCourseDetails"
+              :options="allCourses"
+            ></multi-select>
+          </b-form-group>
+        </div>
+
+        <div class="col-md-6 col-sm-12 col-lg-4">
+          <b-form-group label="Category">
+            <multi-select
+              class="pointer"
+              v-model="selectedCategory"
+              track-by="_id"
+              label="name"
+              disabled
+              :options="allCategories"
+            ></multi-select>
+          </b-form-group>
+        </div>
+        <div class="col-md-6 col-sm-12 col-lg-4">
+          <b-form-group label="Post Number">
+            <b-form-input type="number" v-model="post.postNumber" placeholder="Post Number"></b-form-input>
+          </b-form-group>
+        </div>
+        <div class="col-md-6 col-sm-12 col-lg-4">
+          <b-form-group>
+            <label>Difficulty</label>
+            <multi-select
+              class="pointer"
+              :internal-search="true"
+              :allow-empty="false"
+              track-by="value"
+              label="name"
+              :options="difficulties"
+              v-model="selectedDifficulty"
+            ></multi-select>
+          </b-form-group>
+        </div>
+        <div class="col-md-6 col-sm-12 col-lg-4">
+          <b-form-group label="Read Time">
+            <b-form-input type="number" v-model="post.readTime" placeholder="Read Time"></b-form-input>
+          </b-form-group>
+        </div>
+        <div class="col-md-6 col-sm-12 col-lg-4">
+          <b-form-group label="Image Url">
+            <b-form-input type="text" v-model="post.imageUrl" placeholder="Image url"></b-form-input>
+          </b-form-group>
+        </div>
+        <div class="col-md-6 col-sm-12 col-lg-4">
+          <b-form-group label="Youtube Url">
+            <b-form-input type="text" v-model="post.youTubeVideoUrl" placeholder="Youtube Url"></b-form-input>
+          </b-form-group>
+        </div>
+        <div class="col-md-6 col-sm-12 col-lg-4">
+          <b-form-group label="Aparat Url">
+            <b-form-input type="text" v-model="post.aparatVideoUrl" placeholder="Aparat Url"></b-form-input>
+          </b-form-group>
+        </div>
+        <div class="col-12">
+          <b-form-group label="summary">
+            <b-form-textarea
+              class="rtl"
+              style="overflow-y: hidden !important"
+              v-model="post.summary"
+              placeholder="summary"
+              rows="3"
+            ></b-form-textarea>
+          </b-form-group>
+        </div>
+      </b-row>
+      <submit-group v-on:onCancel="onCancel" v-on:onSubmit="checkUpdate" />
+    </b-card>
+
+    <b-card>
+      <div slot="header">
+        <b-row>
+          <span class="align-middle col-12">
+            <i class="fa fa-pencil"></i>
+            Post Content
+          </span>
+        </b-row>
       </div>
 
-      <div class="col-md-4">
-        <b-form-group label="Passwrod">
-          <b-form-input
-            :disabled="isEditMode"
-            type="password"
-            v-model="agentForm.password"
-            @focus="clear('password')"
-            placeholder="Enter password"
-          ></b-form-input>
-          <div
-            v-if="errmsg.password && hasError"
-            class="error vuelidate-invalid-feedback"
-          >Password is required.
+      <div class="animated fadeIn">
+        <!-- <b-form validated> -->
+        <b-row>
+          <div class="col-12">
+            <b-button-group>
+              <b-button
+                size="sm"
+                @click="selectedPanel = 'md'"
+                :variant="selectedPanel == 'md' ? 'primary':''"
+              >
+                <i class="fa fa-pencil"></i> Markdown
+              </b-button>
+              <b-button
+                size="sm"
+                @click="selectedPanel = 'demo';generateHtml()"
+                :variant="selectedPanel == 'demo' ? 'primary':''"
+              >
+                <i class="fa fa-code"></i> Demo
+              </b-button>
+            </b-button-group>
           </div>
-        </b-form-group>
-      </div>
-      <div class="col-md-4">
-        <b-form-group label="Email">
-          <b-form-input
-            :disabled="isEditMode"
-            type="email"
-            v-model="agentForm.email"
-            @focus="clear('email')"
-            placeholder="Enter email"
-          ></b-form-input>
-          <div
-            v-if="errmsg.email && hasError"
-            class="error vuelidate-invalid-feedback"
-          >Email is not valid!
+          <div class="col-12 mt-2">
+            <quill-editor
+              class="editor-example bubble"
+              v-show="selectedPanel == 'md'"
+              v-model="post.contentMarkdown"
+              placeholder="متن"
+            ></quill-editor>
+            <div
+              class="card card-body bg-light"
+              v-html="post.content"
+              v-show="selectedPanel == 'demo'"
+            ></div>
           </div>
-        </b-form-group>
+        </b-row>
+
+        <submit-group v-on:onCancel="onCancel" v-on:onSubmit="checkUpdate" />
       </div>
-      <div class="col-md-4">
-        <b-form-group label="Phone1">
-          <b-form-input type="text" v-model="agentForm.phone01" placeholder="Enter phone1"></b-form-input>
-        </b-form-group>
+    </b-card>
+
+    <b-card>
+      <div slot="header" class="clearfix">
+        <b-row>
+          <span class="align-middle col-12">
+            <i class="fa fa-paw"></i>
+            Post Item
+          </span>
+        </b-row>
       </div>
-      <div class="col-md-4">
-        <b-form-group label="Phone2">
-          <b-form-input type="text" v-model="agentForm.phone02" placeholder="Enter phone2"></b-form-input>
-        </b-form-group>
+
+      <div class="animated fadeIn">
+        <!-- <b-form validated> -->
+        <b-row>
+          <div class="col-12">
+            <json-viewer :value="post" :expand-depth="5" copyable boxed sort></json-viewer>
+          </div>
+        </b-row>
       </div>
-      <div class="col-md-4">
-        <b-form-group label="Address01">
-          <b-form-input type="text" v-model="agentForm.address01" placeholder="Enter address01"></b-form-input>
-        </b-form-group>
-      </div>
-      <div class="col-md-4">
-        <b-form-group label="Address02">
-          <b-form-input type="text" v-model="agentForm.address02" placeholder="Enter address02"></b-form-input>
-        </b-form-group>
-      </div>
-      <div class="col-md-4">
-        <b-form-group label="Zip code">
-          <b-form-input type="text" v-model="agentForm.zipCode" placeholder="Enter zip code"></b-form-input>
-        </b-form-group>
-      </div>
-      <div class="col-md-4 py-4">
-        <b-form-group>
-          <b-form-checkbox v-model="agentForm.isResponsible">Is responsible?</b-form-checkbox>
-        </b-form-group>
-        <b-form-group>
-          <b-form-checkbox
-            v-model="agentForm.hasPublishingAuthorization"
-          >Has publishing authorization?
-          </b-form-checkbox>
-        </b-form-group>
-      </div>
-      <div class="col-md-12">
-        <b-form-textarea
-          id="textarea"
-          v-model="agentForm.description"
-          placeholder="Enter something..."
-          rows="3"
-          max-rows="6"
-        ></b-form-textarea>
-      </div>
-    </b-row>
-    <submit-group v-on:onCancel="onCancel" v-on:onSubmit="checkUpdate"/>
-  </b-card>
+    </b-card>
+  </div>
 </template>
 <script>
-    import {mapMutations, mapActions} from "vuex";
-    import {statics} from "../../store/types";
+import { mapMutations, mapActions, mapGetters } from "vuex";
+import { statics } from "../../store/types";
 
-    export default {
-        data() {
-            return {
-                agentForm: {
-                    firstName: "",
-                    lastName: "",
-                    middleName: "",
-                    userName: "",
-                    password: "",
-                    email: "",
-                    phone01: "",
-                    phone02: "",
-                    address01: "",
-                    address02: "",
-                    zipCode: "",
-                    description: "",
-                    isResponsible: false,
-                    hasPublishingAuthorization: false
-                },
-                errmsg: {
-                    userName: false,
-                    firstName: false,
-                    lastName: false,
-                    password: false,
-                    email: false
-                },
-                hasError: false
-            };
-        },
-        created() {
-            if (this.isEditMode) this.setProperty();
-        },
-        methods: {
-            ...mapMutations({
-                showLoading: statics.mutations.loading
-            }),
-            ...mapActions({
-                loadAgents: statics.actions.loadAgents
-            }),
-            checkValidations() {
-                if (this.agentForm.firstName == "") {
-                    this.errmsg.firstName = true;
-                    this.hasError = true;
-                }
-                if (this.agentForm.lastName == "") {
-                    this.errmsg.lastName = true;
-                    this.hasError = true;
-                }
-                if (this.agentForm.userName == "") {
-                    this.errmsg.userName = true;
-                    this.hasError = true;
-                }
-                if (this.agentForm.password == "") {
-                    this.errmsg.password = true;
-                    this.hasError = true;
-                }
-                if (!(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.agentForm.email))) {
-                    this.errmsg.email = true;
-                    this.hasError = true;
-                }
-            },
-            clear(item) {
-                switch (item) {
-                    case "firstName":
-                        this.hasError = false;
-                        this.errmsg.firstName = false;
-                        break;
-                    case "lastName":
-                        this.hasError = false;
-                        this.errmsg.lastName = false;
-                        break;
-                    case "userName":
-                        this.hasError = false;
-                        this.errmsg.userName = false;
-                        break;
-                    case "password":
-                        this.hasError = false;
-                        this.errmsg.password = false;
-                        break;
-                    case "email":
-                        this.hasError = false;
-                        this.errmsg.email = false;
-                        break;
-                }
-            },
-            setProperty() {
-                this.showLoading(true);
-                this.$gate.agent
-                    .getAgentForUpdate(this.$route.params.id)
-                    .then(res => {
-                        this.agentForm = res.body;
-                    debugger;
-                    })
-                    .catch(err => this.$handleError(err))
-                    .finally(() => this.showLoading(false));
-            },
-
-            createAgent() {
-                this.checkValidations();
-                if (!this.hasError) {
-                    this.showLoading(true);
-                    this.$gate.agent
-                        .createAgent(this.agentForm)
-                        .then(res => {
-                            this.loadAgents(this.$gate);
-                            this.$toasted.success("Agent created successfully.");
-                            this.$router.push(`agents/list`);
-                        })
-                        .catch(err => this.$handleError(err))
-                        .finally(() => {
-                            this.showLoading(false);
-                        });
-                }
-            },
-            updateAgent() {
-                this.checkValidations();
-                if (!this.hasError) {
-                    this.showLoading(true);
-                    this.agentForm["updatePassword"] = false;
-                    this.$gate.agent
-                        .updateAgent(this.agentForm)
-                        .then(res => {
-                            this.$toasted.success("Agent details updated.");
-                        })
-                        .catch(err => this.$handleError(err))
-                        .finally(() => this.showLoading(false));
-                }
-            },
-            onCancel() {
-                this.$router.push("/agents/list");
-            },
-            checkUpdate() {
-                this.isEditMode ? this.updateAgent() : this.createAgent();
-            }
-        },
-        computed: {
-            isEditMode() {
-                return this.$route.params.id !== "new";
-            }
-        }
+export default {
+  data() {
+    return {
+      post: {},
+      selectedDifficulty: null,
+      selectedPanel: "md",
+      selectedCategory: null
     };
+  },
+  created() {
+    if (this.isEditMode) this.setPost();
+  },
+  methods: {
+    ...mapMutations({
+      showLoading: statics.mutations.loading
+    }),
+    validate() {
+      if (!this.post.name || this.post.name.length < 2)
+        return this.error("name is not valid");
+      if (!this.post.title || this.post.title.length < 2)
+        return this.error("title is not valid");
+      if (!this.post.readTime) return this.error("readTime is not valid");
+      if (!this.post.summary || this.post.summary.length < 10)
+        return this.error("summary is not valid");
+      if (!this.post.postNumber) return this.error("postNumber is not valid");
+      if (!this.selectedCategory) return this.error("category is not valid");
+      if (!this.post.course) return this.error("course is not valid");
+
+      this.post.category = this.selectedCategory;
+      this.post.difficulty = this.selectedDifficulty.value;
+      this.generateHtml();
+      return true;
+    },
+    error(message) {
+      this.$toasted.global.warn(message);
+      return false;
+    },
+    setPost() {
+      this.showLoading(true);
+      this.$gate.post
+        .get(this.$route.params.id)
+        .then(res => {
+          this.post = res;
+          this.selectedDifficulty = this.difficulties.filter(
+            d => d.value == res.difficulty
+          )[0];
+          this.selectedCategory = this.allCategories.filter(
+            c => c._id == res.category._id
+          )[0];
+          this.generateHtml();
+        })
+        .catch(err => this.$handleError(err))
+        .finally(() => this.showLoading(false));
+    },
+    createPost() {
+      this.showLoading(true);
+      this.$gate.post
+        .create(this.post)
+        .then(res => {
+          this.$toasted.success("post created successfully.");
+          this.$router.push(`/post/list`);
+        })
+        .catch(err => this.$handleError(err))
+        .finally(() => {
+          this.showLoading(false);
+        });
+    },
+    updatePost() {
+      this.showLoading(true);
+      this.$gate.post
+        .update(this.post)
+        .then(res => {
+          this.$toasted.success("post updated.");
+        })
+        .catch(err => this.$handleError(err))
+        .finally(() => this.showLoading(false));
+    },
+    onCancel() {
+      this.$router.push("/post/list");
+    },
+    checkUpdate() {
+      if (!this.validate()) return;
+      this.isEditMode ? this.updatePost() : this.createPost();
+    },
+    getCourseDetails(item) {
+      this.$gate.post
+        .courseDetails(item._id)
+        .then(res => {
+          this.post.postNumber = res.postNumber;
+          this.selectedDifficulty = this.difficulties.filter(
+            i => i.value == res.difficulty
+          )[0];
+          this.post.category = this.allCategories.filter(
+            i => i._id == res.categoryId
+          )[0];
+          this.selectedCategory = this.post.category;
+          this.$forceUpdate();
+        })
+        .catch(err => this.$handleError(err))
+        .finally(() => this.showLoading(false));
+    },
+    generateHtml() {
+      this.post.content = this.post.contentMarkdown;
+      setTimeout(() => {
+        hljs.configure({ useBR: false });
+        document.querySelectorAll("pre.ql-syntax").forEach(block => {
+          hljs.highlightBlock(block);
+        });
+      });
+    }
+  },
+  computed: {
+    isEditMode() {
+      return this.$route.params.id !== "new";
+    },
+    ...mapGetters({
+      allTags: statics.getters.allTags,
+      allCategories: statics.getters.allCategories,
+      difficulties: statics.getters.difficulties,
+      allCourses: statics.getters.allCourses
+    })
+  }
+};
 </script>
 <style scoped>
-  .vuelidate-invalid-feedback {
-    width: 100%;
-    margin-top: 0.25rem;
-    font-size: 80%;
-    color: #f86c6b;
-  }
 </style>

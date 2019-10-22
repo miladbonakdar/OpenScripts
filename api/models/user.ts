@@ -9,13 +9,15 @@ export const UserSchema: Schema = new Schema({
     type: String,
     required: true,
     maxlength: 20,
-    lowercase: true
+    lowercase: true,
+    trim: true
   },
   lastName: {
     type: String,
     required: true,
     maxlength: 20,
-    lowercase: true
+    lowercase: true,
+    trim: true
   },
   telegramId: Number,
   email: {

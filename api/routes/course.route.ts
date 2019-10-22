@@ -29,6 +29,7 @@ router.route('/').put(authonticator, async (req, res) => {
   const course = await Course.findById(c._id)
   if (!course) return res.notFound()
   course.name = c.name
+  course.title = c.title
   course.color = c.color
   course.imageUrl = c.imageUrl
   course.difficulty = c.difficulty

@@ -5,5 +5,6 @@ import { email } from './email.contract'
 import { name } from './name.contract'
 import { text } from './text.contract'
 import { difficulty } from './difficulty.contract'
+import { title } from './title.contract'
 
-export { color, createdAt, createdById, email, name, text, difficulty }
+export { color, createdAt, createdById, email, name, text, difficulty, title }

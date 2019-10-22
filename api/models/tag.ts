@@ -1,11 +1,12 @@
 import { Document, Schema, Model, model } from 'mongoose'
 import { ITag } from './interfaces/tag.interface'
-import { createdAt, name, color, createdById } from './contracts'
+import { createdAt, name, color, createdById, title } from './contracts'
 
 export interface ITagModel extends ITag, Document {}
 
 export const TagSchema: Schema = new Schema({
   name,
+  title,
   color,
   createdAt,
   createdById

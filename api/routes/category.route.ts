@@ -23,6 +23,7 @@ router.route('/').put(authonticator, async (req, res) => {
   const cat = await Category.findById(c._id)
   if (!cat) return res.notFound()
   cat.name = c.name
+  cat.title = c.title
   cat.color = c.color
   cat.imageUrl = c.imageUrl
   await cat.save()

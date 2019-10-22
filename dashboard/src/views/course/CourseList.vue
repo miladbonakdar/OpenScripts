@@ -23,6 +23,12 @@
           </div>
           <div class="col-md-6 col-sm-12 col-lg-4">
             <b-form-group>
+              <label for="name">Course Title</label>
+              <b-form-input class="rtl" type="text" placeholder="Title" v-model="item.title"></b-form-input>
+            </b-form-group>
+          </div>
+          <div class="col-md-6 col-sm-12 col-lg-4">
+            <b-form-group>
               <label>Difficulty</label>
               <multi-select
                 class="pointer"
@@ -137,6 +143,7 @@ export default {
       items: [],
       fields: [
         { key: "name", label: "Name" },
+        { key: "title", label: "Title" },
         { key: "color", label: "Color" },
         { key: "difficulty", label: "Difficulty" },
         { key: "imageUrl", label: "Has Image" },
@@ -144,11 +151,6 @@ export default {
         { key: "actions", label: "Actions" }
       ],
       pageOptions: [5, 10, 15],
-      difficulties: [
-        { name: "Easy", value: 0 },
-        { name: "Medium", value: 1 },
-        { name: "Advanced", value: 2 }
-      ],
       selectedDifficulty: null,
       item: {},
       isEditeMode: false,
@@ -169,7 +171,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      allCategories: statics.getters.allCategories
+      allCategories: statics.getters.allCategories,
+      difficulties: statics.getters.difficulties
     })
   },
   methods: {
@@ -268,6 +271,8 @@ export default {
         return this.error("name is not valid");
       if (!this.selectedCategory || !this.selectedCategory._id)
         return this.error("category is not valid");
+      if (!this.item.title || this.item.title.length < 2)
+        return this.error("title is not valid");
       this.item.difficulty = this.selectedDifficulty.value;
       this.item.categoryId = this.selectedCategory._id;
       return true;

@@ -1,6 +1,7 @@
 export interface ICourse {
   _id: any
   name: string
+  title: string
   color: string
   imageUrl?: string
   difficulty: number

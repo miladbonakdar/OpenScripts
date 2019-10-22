@@ -23,13 +23,14 @@ router.route('/').put(authonticator, async (req, res) => {
   const post = await Post.findById(c._id)
   if (!post) return res.notFound()
   post.name = c.name
+  post.title = c.title
   post.tags = c.tags
   post.content = c.content
   post.contentMarkdown = c.contentMarkdown
   post.aparatVideoUrl = c.aparatVideoUrl
   post.youTubeVideoUrl = c.youTubeVideoUrl
-  post.categoryId = c.categoryId
-  post.courseId = c.courseId
+  post.category = c.category
+  post.course = c.course
   post.imageUrl = c.imageUrl
   post.readTime = c.readTime
   post.summary = c.summary
@@ -42,7 +43,6 @@ router.route('/').put(authonticator, async (req, res) => {
 router.route('/:id').delete(...deleteAction(Post))
 router.route('/:id').get(...get(Post))
 router.route('/randomizeColor').patch(...changeColor(Post))
-router.route('/:pageSize/:pageNumber').get(...getPage(Post))
 
 router
   .route('/course-details/:courseId')
@@ -50,19 +50,22 @@ router
     if (!req.params.courseId) return res.badRequest('courseId')
     const course = await Course.findById(req.params.courseId)
     if (!course) return res.notFound('course')
-    const lastpPost = (await Post.find({ courseId: req.params.courseId })
+    const lastpPost = (await Post.find({ course: { _id: req.params.courseId } })
       .sort({ postNumber: -1 })
       .limit(1))[0]
 
     const details = {
       postNumber: 1,
-      categoryId: course.categoryId
+      categoryId: course.categoryId,
+      difficulty: course.difficulty
     }
 
     if (lastpPost) details.postNumber = lastpPost.postNumber + 1
 
     res.success(details, name + ' created successfuly')
   })
+
+router.route('/:pageSize/:pageNumber').get(...getPage(Post))
 
 router.route('/clap').patch(async (req, res) => {
   if (!req.body.claps) return res.badRequest('claps')

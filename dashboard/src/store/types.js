@@ -5,6 +5,7 @@ export const statics = {
     allCategories: `${staticsPrefix}get-allCategories`,
     allCourses: `${staticsPrefix}get-allCourses`,
     allTags: `${staticsPrefix}get-allTags`,
+    difficulties: `${staticsPrefix}get-difficulties`,
     user: `${staticsPrefix}get-user`,
     notReadedMessages: `${staticsPrefix}get-notReadedMessages`,
     notReadedCount: `${staticsPrefix}get-notReadedCount`,
@@ -29,6 +30,6 @@ export const statics = {
     allTags: `${staticsPrefix}action-allTags`,
     user: `${staticsPrefix}action-user`,
     notReadedMessages: `${staticsPrefix}action-notReadedMessages`,
-    notAcceptedComments: `${staticsPrefix}action-notReadedMessages`
+    notAcceptedComments: `${staticsPrefix}action-notAcceptedComments`
   }
 }

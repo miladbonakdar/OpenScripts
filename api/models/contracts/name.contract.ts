@@ -1,7 +1,12 @@
 export const name = {
   type: String,
   required: true,
-  maxlength: 50,
+  maxlength: 100,
   unique: true,
-  lowercase: true
+  set: (n: string) =>
+    n
+      .trim()
+      .split(' ')
+      .join('-')
+      .toLowerCase()
 }

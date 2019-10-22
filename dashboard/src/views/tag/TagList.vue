@@ -21,6 +21,12 @@
               <b-form-input type="text" placeholder="Name" v-model="item.name"></b-form-input>
             </b-form-group>
           </div>
+          <div class="col-md-6 col-sm-12 col-lg-4">
+            <b-form-group>
+              <label for="name">Tag Title</label>
+              <b-form-input class="rtl" type="text" placeholder="Title" v-model="item.title"></b-form-input>
+            </b-form-group>
+          </div>
           <div class="col-12">
             <json-viewer :value="item" :expand-depth="5" copyable boxed sort></json-viewer>
           </div>
@@ -92,6 +98,7 @@ export default {
       items: [],
       fields: [
         { key: "name", label: "Name" },
+        { key: "title", label: "Title" },
         { key: "color", label: "Color" },
         { key: "createdAt", label: "Created At" },
         { key: "actions", label: "Actions" }
@@ -198,6 +205,8 @@ export default {
     validate() {
       if (!this.item.name || this.item.name.length < 2)
         return this.error("name is not valid");
+      if (!this.item.title || this.item.title.length < 2)
+        return this.error("title is not valid");
       return true;
     },
     error(message) {
