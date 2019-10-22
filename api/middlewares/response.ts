@@ -31,7 +31,7 @@ function error(this: Response, message = 'somthing bad happend', status = 500) {
 }
 
 function notFound(this: Response, model: string = 'some') {
-  this.echo( `${model} Model was not found`, {}, false, 404)
+  this.echo(`${model.toUpperCase()} model was not found`, {}, false, 404)
 }
 
 function accessDenied(this: Response) {

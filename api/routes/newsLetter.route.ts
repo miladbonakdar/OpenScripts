@@ -16,7 +16,7 @@ router.route('/').post(async (req, res) => {
 router.route('/delete-by-email/:email').delete(async (req, res) => {
   if (!req.params.email) return res.badRequest('email')
   let client = await NewsLetter.deleteOne({ email: req.params.email })
-  if (!client.deletedCount) return res.notFound()
+  if (!client.deletedCount) return res.notFound(name)
   res.success(client)
 })
 

@@ -1,6 +1,6 @@
 import { Document, Schema, Model, model } from 'mongoose'
 import { IComment } from './interfaces/comment.interface'
-import { color, createdAt, text } from './contracts'
+import { color, createdAt, text, email } from './contracts'
 
 export interface ICommentModel extends IComment, Document {}
 
@@ -11,6 +11,7 @@ export const CommentSchema: Schema = new Schema({
     maxlength: 50,
     set: (n: string) => n.trim().toLowerCase()
   },
+  email,
   text,
   color,
   createdAt,

@@ -22,7 +22,7 @@ export const deleteAction = (collection: any) => {
     authonticator,
     async (req: Request, res: Response) => {
       let item = await collection.findByIdAndDelete(req.params.id)
-      if (!item) return res.notFound()
+      if (!item) return res.notFound(collection.modelName)
       if (collection.modelName !== 'Archive')
         await archiveDocument(
           item,

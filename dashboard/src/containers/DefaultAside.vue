@@ -18,6 +18,10 @@
             <span class="fa fa-user-o"></span> User:
             <strong>{{comment.name}}</strong>
           </div>
+          <div>
+            <span class="fa fa-envelope-open-o"></span> email:
+            <strong>{{comment.email}}</strong>
+          </div>
           <div class="mt-1">
             <i class="icon-calendar"></i>&nbsp;&nbsp;
             <b-badge>{{comment.createdAt | moment("from") }}</b-badge>
@@ -55,7 +59,7 @@
             <strong>{{message.name}}</strong>
           </div>
           <div>
-            <span class="fa fa-mail"></span> email:
+            <span class="fa fa-envelope-open-o"></span> email:
             <strong>{{message.email}}</strong>
           </div>
           <div class="mt-1">

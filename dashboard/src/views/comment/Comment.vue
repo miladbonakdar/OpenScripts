@@ -33,8 +33,16 @@
       </template>
 
       <template slot-scope="row" slot="accepted">
-        <b-badge variant="success" v-if="row.item.accepted">True</b-badge>
-        <b-badge variant="warning" v-else>False</b-badge>
+        <template v-if="row.item.accepted">
+          <b-badge variant="success">True</b-badge>
+        </template>
+        <template v-else>
+          <b-badge variant="warning">False</b-badge>
+          <span
+            class="ml-1 fa fa-check text-success pointer"
+            @click="acceptComment(row.item._id)"
+          >accept</span>
+        </template>
       </template>
 
       <template slot="actions" slot-scope="row">
@@ -69,6 +77,7 @@ export default {
       items: [],
       fields: [
         { key: "name", label: "Name" },
+        { key: "email", label: "Email" },
         { key: "color", label: "Color" },
         { key: "text", label: "Text" },
         { key: "accepted", label: "Accepted" },
@@ -148,6 +157,15 @@ export default {
           this.getList();
           this.notAcceptedComments();
           this.$toasted.success("random color generated");
+        })
+        .catch(err => this.$handleError(err));
+    },
+    acceptComment(id) {
+      this.$gate.comment
+        .accept({ id })
+        .then(res => {
+          this.$toasted.success("accepted");
+          this.getComments();
         })
         .catch(err => this.$handleError(err));
     }

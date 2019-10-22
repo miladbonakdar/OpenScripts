@@ -21,7 +21,7 @@ router.route('/').put(authonticator, async (req, res) => {
   const c = req.body as IPostModel
   if (!c) return res.badRequest('body')
   const post = await Post.findById(c._id)
-  if (!post) return res.notFound()
+  if (!post) return res.notFound(name)
   post.name = c.name
   post.title = c.title
   post.tags = c.tags
@@ -98,7 +98,7 @@ const changePublishStatus = async (
   if (!req.body.postId) return res.badRequest('postId')
   if (!req.user) return res.unauthorized()
   const post = await await Post.findById(req.body.postId)
-  if (!post) return res.notFound('post')
+  if (!post) return res.notFound(name)
   if (post.createdBy._id != req.user._id)
     res.error('you cannot change others post publish status', 401)
   strategy(post)

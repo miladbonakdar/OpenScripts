@@ -21,7 +21,7 @@ router.route('/').put(authonticator, async (req, res) => {
   const c = req.body as ICategoryModel
   if (!c) return res.badRequest('body')
   const cat = await Category.findById(c._id)
-  if (!cat) return res.notFound()
+  if (!cat) return res.notFound(name)
   cat.name = c.name
   cat.title = c.title
   cat.color = c.color

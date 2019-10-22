@@ -28,7 +28,7 @@ router.route('/not-read').get(authonticator, async (_req, res) => {
 
 router.route('/read').patch(authonticator, async (req, res) => {
   const item = await Message.findById(req.body.id)
-  if (!item) return res.notFound()
+  if (!item) return res.notFound(name)
   item.readed = true
   await item.save()
   res.success(item)

@@ -5,7 +5,7 @@
       @click="randomColor"
       class="text-warning mx-1 action-item"
       v-b-tooltip.hover
-      title="Delete this item?"
+      title="Random color"
     >
       <i class="fa fa-refresh pointer"></i>
     </span>

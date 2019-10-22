@@ -6,7 +6,7 @@ export const get = (collection: any) => {
     authonticator,
     async (req: Request, res: Response) => {
       const item = await collection.findById(req.params.id)
-      if (!item) return res.notFound()
+      if (!item) return res.notFound(collection.modelName)
       res.success(item)
     }
   ]

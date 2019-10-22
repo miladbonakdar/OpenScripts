@@ -33,23 +33,24 @@
       <template slot-scope="row" slot="telegramUsername">
         <b-badge v-if="!row.item.telegramUsername">Empty</b-badge>
         <b-badge
+          variant="info"
           v-else
           v-b-tooltip.hover
           :title="row.item.telegramUsername"
         >{{row.item.telegramUsername | sub(10) }}</b-badge>
       </template>
 
+      <template slot-scope="row" slot="phone">
+        <b-badge v-if="!row.item.phone">Empty</b-badge>
+        <b-badge variant="info" v-else>{{row.item.phone }}</b-badge>
+      </template>
+
       <template slot-scope="row" slot="readed">
         <b-badge v-if="row.item.readed" variant="success">Yes</b-badge>
         <template v-else>
           <b-badge variant="warning">Not yet</b-badge>
-          <span
-            @click="readMessage(row.item._id)"
-            class="text-info mx-1 action-item"
-            v-b-tooltip.hover
-            title="Readed ?"
-          >
-            <i class="fa fa-eye pointer"></i>
+          <span @click="readMessage(row.item._id)" class="text-info mx-1 action-item">
+            <i class="ml-1 fa fa-eye pointer">Read</i>
           </span>
         </template>
       </template>
@@ -87,6 +88,7 @@ export default {
       fields: [
         { key: "name", label: "Name" },
         { key: "email", label: "Email" },
+        { key: "phone", label: "Phone" },
         { key: "color", label: "Color" },
         { key: "text", label: "Text" },
         { key: "readed", label: "Readed" },

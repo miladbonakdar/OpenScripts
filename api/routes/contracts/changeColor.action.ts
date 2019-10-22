@@ -7,7 +7,7 @@ export const changeColor = (collection: any) => {
     authonticator,
     async (req: Request, res: Response) => {
       const item = await collection.findById(req.body.id)
-      if (!item) return res.notFound()
+      if (!item) return res.notFound(collection.modelName)
       item.color = randomColor()
       await item.save()
       res.success(item)

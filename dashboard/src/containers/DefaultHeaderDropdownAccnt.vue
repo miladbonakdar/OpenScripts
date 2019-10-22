@@ -1,7 +1,13 @@
 <template>
   <AppHeaderDropdown right no-caret>
     <template slot="header">
-      <img v-if="user" :src="user.photoUrl" class="img-avatar" alt="admin@bootstrapmaster.com" />
+      <img
+        v-if="user"
+        style="border-radius : none"
+        :src="user.photoUrl"
+        class="img-avatar"
+        :alt="user.email"
+      />
     </template>
     <template slot="dropdown">
       <b-dropdown-item v-on:click="gotoPosts">

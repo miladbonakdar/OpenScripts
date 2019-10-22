@@ -27,7 +27,7 @@ router.route('/').put(authonticator, async (req, res) => {
   const c = req.body as ITagModel
   if (!c) return res.badRequest('body')
   const tag = await Tag.findById(c._id)
-  if (!tag) return res.notFound()
+  if (!tag) return res.notFound(name)
   tag.name = c.name
   tag.title = c.title
   tag.color = c.color
