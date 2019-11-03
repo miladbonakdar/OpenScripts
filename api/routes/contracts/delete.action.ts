@@ -28,7 +28,7 @@ export const deleteAction = (collection: any) => {
           item,
           req.params.id,
           req.user,
-          collection.modelName
+          collection.collection.collectionName
         )
       res.success(item)
     }

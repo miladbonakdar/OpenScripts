@@ -14,8 +14,19 @@
       <div class="animated fadeIn">
         <!-- <b-form validated> -->
         <b-row>
+          <div class="col-8 my-1" v-if="item && item._id">
+            <b-button size="sm" variant="warning" @click="recycle(item._id)">
+              <span class="fa fa-refresh"></span> Recycle
+            </b-button>
+          </div>
           <div class="col-12">
-            <json-viewer :value="item" :expand-depth="5" copyable boxed sort></json-viewer>
+            <json-viewer
+              :value="item"
+              :expand-depth="5"
+              copyable
+              boxed
+              sort
+            ></json-viewer>
           </div>
         </b-row>
       </div>
@@ -39,16 +50,15 @@
         empty-html="<h6>There are no item to show!</h6>"
       >
         <template slot-scope="row" slot="archivedAt">
-          {{row.item.archivedAt | moment("from")}}
-          <b-badge>{{row.item.archivedAt | moment("YYYY-MM-DD") }}</b-badge>
+          {{ row.item.archivedAt | moment('from') }}
+          <b-badge>{{ row.item.archivedAt | moment('YYYY-MM-DD') }}</b-badge>
         </template>
-        <template
-          slot-scope="row"
-          slot="archivedBy"
-        >{{row.item.archivedBy.firstName +' '+row.item.archivedBy.lastName}}</template>
+        <template slot-scope="row" slot="archivedBy">{{
+          row.item.archivedBy.firstName + ' ' + row.item.archivedBy.lastName
+        }}</template>
 
         <template slot="collectionName" slot-scope="row">
-          <b-badge variant="warning">{{row.item.collectionName }}</b-badge>
+          <b-badge variant="warning">{{ row.item.collectionName }}</b-badge>
         </template>
 
         <template slot="actions" slot-scope="row">
@@ -66,7 +76,11 @@
           class="my-1 float-left"
         ></b-pagination>
         <b-form-group class="sortComp">
-          <b-form-select v-model="pageSize" :options="pageOptions" @change="changePage"></b-form-select>
+          <b-form-select
+            v-model="pageSize"
+            :options="pageOptions"
+            @change="changePage"
+          ></b-form-select>
         </b-form-group>
       </b-row>
     </b-card>
@@ -74,8 +88,8 @@
 </template>
 
 <script>
-import { mapMutations, mapActions } from "vuex";
-import { statics } from "../../store/types";
+import { mapMutations, mapActions } from 'vuex'
+import { statics } from '../../store/types'
 
 export default {
   components: {},
@@ -87,23 +101,23 @@ export default {
       total: 10,
       items: [],
       fields: [
-        { key: "collectionName", label: "Collection Name" },
-        { key: "archivedBy", label: "Archived By" },
-        { key: "archivedAt", label: "Archived At" },
-        { key: "actions", label: "Actions" }
+        { key: 'collectionName', label: 'Collection Name' },
+        { key: 'archivedBy', label: 'Archived By' },
+        { key: 'archivedAt', label: 'Archived At' },
+        { key: 'actions', label: 'Actions' }
       ],
       pageOptions: [5, 10, 15]
-    };
+    }
   },
   created() {
-    this.getList();
+    this.getList()
   },
   watch: {
     pageNumber() {
-      this.changePage();
+      this.changePage()
     },
     items() {
-      this.$forceUpdate();
+      this.$forceUpdate()
     }
   },
   methods: {
@@ -111,55 +125,64 @@ export default {
       showLoading: statics.mutations.loading
     }),
     getList() {
-      this.showLoading(true);
+      this.showLoading(true)
       this.$gate.archive
         .page(this.pageSize, this.pageNumber - 1)
         .then(res => {
-          this.items = res.items;
-          this.total = res.total;
-          this.item = {};
+          this.items = res.items
+          this.total = res.total
+          this.item = {}
         })
         .catch(err => this.$handleError(err))
         .finally(() => {
-          this.showLoading(false);
-        });
+          this.showLoading(false)
+        })
     },
     deleteItem(id) {
-      this.$toasted.show("Are you sure you want to delete this item?", {
+      this.$toasted.show('Are you sure you want to delete this item?', {
         action: [
           {
-            text: "Yes",
+            text: 'Yes',
             onClick: (e, toastObject) => {
-              this.deleteItemFromDb(id);
-              toastObject.goAway(0);
+              this.deleteItemFromDb(id)
+              toastObject.goAway(0)
             }
           },
           {
-            text: "No",
+            text: 'No',
             onClick: (e, toastObject) => {
-              toastObject.goAway(0);
+              toastObject.goAway(0)
             }
           }
         ]
-      });
+      })
     },
     deleteItemFromDb(id) {
       this.$gate.archive
         .delete(id)
         .then(res => {
-          this.$toasted.global.deleted();
-          this.getList();
+          this.$toasted.global.deleted()
+          this.getList()
         })
-        .catch(err => this.$handleError(err));
+        .catch(err => this.$handleError(err))
+    },
+    recycle(id) {
+      this.$gate.archive
+        .recycle({ id: id })
+        .then(res => {
+          this.$toasted.success('The item has been recycled')
+          this.getList()
+        })
+        .catch(err => this.$handleError(err))
     },
     changePage(page) {
-      this.getList();
+      this.getList()
     },
     showDetails(item) {
-      this.item = item;
+      this.item = item
     }
   }
-};
+}
 </script>
 
 <style>

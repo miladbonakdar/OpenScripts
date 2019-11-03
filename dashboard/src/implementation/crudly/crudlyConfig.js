@@ -66,7 +66,8 @@ export default {
       loadDefaults: false,
       actions: [
         { type: 'get', url: '/:pageSize/:pageNumber', name: 'page' },
-        { type: 'delete', url: '/:id' }
+        { type: 'delete', url: '/:id' },
+        { type: 'patch', url: '/recycle', name: 'recycle' }
       ]
     },
     {

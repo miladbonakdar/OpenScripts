@@ -9,30 +9,43 @@ import { IUser } from '../../models/interfaces/user.interface'
 const ExtractJWT = passportJWT.ExtractJwt
 const JWTStrategy = passportJWT.Strategy
 
-export default () => {
-  const localStrategyMiddleware = async function(
-    username: string,
-    password: string,
-    done: any
-  ) {
-    let user: IUser | null
-    try {
-      user = await User.findOne({ email: username })
-      if (!user) {
-        return done(null, false, { message: 'No user by that username' })
-      }
-    } catch (e) {
-      return done(e)
+const localStrategyMiddleware = async function(
+  username: string,
+  password: string,
+  done: any
+) {
+  let user: IUser | null
+  try {
+    user = await User.findOne({ email: username })
+    if (!user) {
+      return done(null, false, { message: 'No user by that username' })
     }
+  } catch (e) {
+    return done(e)
+  }
 
-    let match = await comparePassword(password, user.password)
-    if (!match) {
-      return done(null, false, { message: 'Not a matching password' })
+  let match = await comparePassword(password, user.password)
+  if (!match) {
+    return done(null, false, { message: 'Not a matching password' })
+  }
+  delete user.password
+  return done(null, user)
+}
+
+const JWTStrategyMiddleware = async function(jwtPayload: any, done: any) {
+  try {
+    const user = await User.findById(jwtPayload._id).select('-password')
+    if (!user) {
+      return done(null, false, { message: 'cannot fine the user' })
     }
     delete user.password
     return done(null, user)
+  } catch (error) {
+    return done(error)
   }
+}
 
+export default () => {
   passport.use(
     new LocalStrategy(
       {
@@ -43,19 +56,6 @@ export default () => {
     )
   )
 
-  const JWTStrategyMiddleware = async function(jwtPayload: any, done: any) {
-    try {
-      const user = await User.findById(jwtPayload._id).select('-password')
-      if (!user) {
-        return done(null, false, { message: 'cannot fine the user' })
-      }
-      delete user.password
-      return done(null, user)
-    } catch (error) {
-      return done(error)
-    }
-  }
-
   passport.use(
     new JWTStrategy(
       {
@@ -65,4 +65,8 @@ export default () => {
       JWTStrategyMiddleware
     )
   )
+
+  passport.serializeUser((user, done) => done(null, user))
+
+  passport.deserializeUser((user, done) => done(null, user))
 }

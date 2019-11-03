@@ -24,12 +24,12 @@
 
         <div v-if="notAcceptedCount" class="px-1 d-md-down-none">
           <b-link to="/comment/list">
-            <span class="badge badge-info font-xs p-2">{{ notAcceptedCount }} New Comments</span>
+            <span class="badge badge-primary font-xs p-2 fa fa-comments-o"> {{ notAcceptedCount }} New Comments</span>
           </b-link>
         </div>
         <div v-if="notReadedCount" class="px-1 d-md-down-none">
           <b-link to="/message/list">
-            <span class="badge badge-success font-xs p-2">{{ notReadedCount }} New Messages</span>
+            <span class="badge badge-success font-xs p-2 fa fa-bell-o"> {{ notReadedCount }} New Messages</span>
           </b-link>
         </div>
       </b-navbar-nav>

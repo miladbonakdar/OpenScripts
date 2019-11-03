@@ -23,17 +23,27 @@
         <!-- <b-form validated> -->
         <b-row>
           <div class="col-8 my-1" v-if="item && item._id">
-            <b-link :to="'/post/item/' +item._id">
+            <b-link :to="'/post/item/' + item._id">
               <b-button size="sm" variant="warning">
                 <span class="fa fa-pencil"></span> Edit post
               </b-button>
             </b-link>
           </div>
           <div class="col-12 my-1">
-            <json-viewer :value="itemSummary" :expand-depth="5" copyable></json-viewer>
+            <json-viewer
+              :value="itemSummary"
+              :expand-depth="5"
+              copyable
+            ></json-viewer>
           </div>
           <div class="col-12 my-1">
-            <json-viewer :value="item" :expand-depth="5" copyable boxed sort></json-viewer>
+            <json-viewer
+              :value="item"
+              :expand-depth="5"
+              copyable
+              boxed
+              sort
+            ></json-viewer>
           </div>
         </b-row>
       </div>
@@ -43,9 +53,7 @@
       <div slot="header" class="clearfix">
         <b-row>
           <div class="col-md-4">
-            <span class="align-middle">
-              <i class="fa fa-paw"></i> Posts
-            </span>
+            <span class="align-middle"> <i class="fa fa-paw"></i> Posts </span>
           </div>
         </b-row>
       </div>
@@ -58,31 +66,40 @@
         empty-html="<h6>There are no item to show!</h6>"
       >
         <template slot-scope="row" slot="createdAt">
-          {{row.item.createdAt | moment("from")}}
-          <b-badge>{{row.item.createdAt | moment("YYYY-MM-DD") }}</b-badge>
+          {{ row.item.createdAt | moment('from') }}
+          <b-badge>{{ row.item.createdAt | moment('YYYY-MM-DD') }}</b-badge>
         </template>
 
         <template slot-scope="row" slot="title">
-          {{row.item.title}}
-          <b-badge variant="info">{{row.item.readTime }} min</b-badge>
+          {{ row.item.title }}
+          <b-badge variant="info">{{ row.item.readTime }} min</b-badge>
         </template>
 
         <template slot-scope="row" slot="createdBy">
-          <b-badge
-            variant="info"
-          >{{row.item.createdBy.firstName + ' ' +row.item.createdBy.lastName }}</b-badge>
+          <b-badge variant="info">{{
+            row.item.createdBy.firstName + ' ' + row.item.createdBy.lastName
+          }}</b-badge>
         </template>
 
         <template slot-scope="row" slot="published">
-          <b-badge v-if="!row.item.published" variant="warning">Not Yet</b-badge>
-          <b-badge
-            v-else
-            variant="success"
-          >{{row.item.publishedAt | moment("from")}} by {{row.item.publishedBy.firstName +' '+ row.item.publishedBy.lastName}}</b-badge>
+          <b-badge v-if="!row.item.published" variant="warning"
+            >Not Yet</b-badge
+          >
+          <b-badge v-else variant="success"
+            >{{ row.item.publishedAt | moment('from') }} by
+            {{
+              row.item.publishedBy.firstName +
+                ' ' +
+                row.item.publishedBy.lastName
+            }}</b-badge
+          >
         </template>
 
         <template slot-scope="row" slot="color">
-          <color-badge :color="row.item.color" v-on:randomize="randomizeColor(row.item._id)"></color-badge>
+          <color-badge
+            :color="row.item.color"
+            v-on:randomize="randomizeColor(row.item._id)"
+          ></color-badge>
         </template>
 
         <template slot="actions" slot-scope="row">
@@ -100,7 +117,11 @@
           class="my-1 float-left"
         ></b-pagination>
         <b-form-group class="sortComp">
-          <b-form-select v-model="pageSize" :options="pageOptions" @change="changePage"></b-form-select>
+          <b-form-select
+            v-model="pageSize"
+            :options="pageOptions"
+            @change="changePage"
+          ></b-form-select>
         </b-form-group>
       </b-row>
     </b-card>
@@ -108,8 +129,8 @@
 </template>
 
 <script>
-import { mapMutations, mapActions } from "vuex";
-import { statics } from "../../store/types";
+import { mapMutations, mapActions } from 'vuex'
+import { statics } from '../../store/types'
 
 export default {
   components: {},
@@ -120,29 +141,29 @@ export default {
       total: 10,
       items: [],
       fields: [
-        { key: "name", label: "Name" },
-        { key: "title", label: "Title" },
-        { key: "color", label: "Color" },
-        { key: "createdAt", label: "Created At" },
-        { key: "createdBy", label: "Created By" },
-        { key: "published", label: "Published" },
-        { key: "actions", label: "Actions" }
+        { key: 'name', label: 'Name' },
+        { key: 'title', label: 'Title' },
+        { key: 'color', label: 'Color' },
+        { key: 'createdAt', label: 'Created At' },
+        { key: 'createdBy', label: 'Created By' },
+        { key: 'published', label: 'Published' },
+        { key: 'actions', label: 'Actions' }
       ],
       pageOptions: [5, 10, 15],
       item: {},
       isEditeMode: false,
       itemSummary: {}
-    };
+    }
   },
   created() {
-    this.getList();
+    this.getList()
   },
   watch: {
     pageNumber() {
-      this.changePage();
+      this.changePage()
     },
     items() {
-      this.$forceUpdate();
+      this.$forceUpdate()
     }
   },
   methods: {
@@ -150,52 +171,53 @@ export default {
       showLoading: statics.mutations.loading
     }),
     getList() {
-      this.showLoading(true);
+      this.showLoading(true)
       this.$gate.post
         .page(this.pageSize, this.pageNumber - 1)
         .then(res => {
-          this.items = res.items;
-          this.total = res.total;
+          this.items = res.items
+          this.total = res.total
+          this.item = {}
         })
         .catch(err => this.$handleError(err))
         .finally(() => {
-          this.showLoading(false);
-        });
+          this.showLoading(false)
+        })
     },
     deleteItem(id) {
-      this.$toasted.show("Are you sure you want to delete this item?", {
+      this.$toasted.show('Are you sure you want to delete this item?', {
         action: [
           {
-            text: "Yes",
+            text: 'Yes',
             onClick: (e, toastObject) => {
-              this.deleteItemFromDb(id);
-              toastObject.goAway(0);
+              this.deleteItemFromDb(id)
+              toastObject.goAway(0)
             }
           },
           {
-            text: "No",
+            text: 'No',
             onClick: (e, toastObject) => {
-              toastObject.goAway(0);
+              toastObject.goAway(0)
             }
           }
         ]
-      });
+      })
     },
     deleteItemFromDb(id) {
       this.$gate.post
         .delete(id)
         .then(res => {
-          this.$toasted.global.deleted();
-          this.getList();
-          this.allTags();
+          this.$toasted.global.deleted()
+          this.getList()
+          this.allTags()
         })
-        .catch(err => this.$handleError(err));
+        .catch(err => this.$handleError(err))
     },
     changePage(page) {
-      this.getList();
+      this.getList()
     },
     showDetails(item) {
-      this.item = item;
+      this.item = item
       this.itemSummary = {
         name: item.name,
         title: item.title,
@@ -208,20 +230,20 @@ export default {
         category: item.category.name,
         course: item.course.name,
         difficulty: item.difficulty
-      };
-      this.isEditeMode = true;
+      }
+      this.isEditeMode = true
     },
     randomizeColor(id) {
       this.$gate.post
         .randomizeColor({ id })
         .then(res => {
-          this.getList();
-          this.$toasted.success("random color generated");
+          this.getList()
+          this.$toasted.success('random color generated')
         })
-        .catch(err => this.$handleError(err));
+        .catch(err => this.$handleError(err))
     }
   }
-};
+}
 </script>
 
 <style>

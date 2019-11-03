@@ -21,7 +21,6 @@ import globalExceptionHandling from './implementation/globalExceptionHandling'
 import configureToastedTemplates from './implementation/configureToastedTemplates'
 import Datetime from 'vue-datetime'
 import JsonViewer from 'vue-json-viewer'
-import VueHighlightJS from 'vue-highlightjs'
 
 quillConfig()
 
@@ -41,7 +40,6 @@ Vue.use(VueMoment)
 Vue.use(filters)
 Vue.use(Datetime)
 Vue.use(JsonViewer)
-Vue.use(VueHighlightJS)
 
 new Vue({
   el: '#app',
