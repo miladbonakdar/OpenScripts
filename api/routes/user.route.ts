@@ -1,17 +1,18 @@
 import express from 'express'
 import { User } from '../models/user'
+import { cacheRepository } from '../services/cache/cacheRepository'
 
 export const name = 'User'
 const router = express.Router()
 
 router.route('/random').get(async (_req, res) => {
   const items = await User.aggregate([{ $sample: { size: 1 } }])
-  if (!items[0]) return res.notFound("User")
+  if (!items[0]) return res.notFound('User')
   res.success(items[0])
 })
 
-router.route('/').get(async (_req, res) => {
-  const items = await User.find({}).select('-password')
+router.route('/').get((_req, res) => {
+  const items = cacheRepository.getUsers()
   res.success(items)
 })
 

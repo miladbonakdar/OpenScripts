@@ -19,9 +19,10 @@ export const CourseSchema: Schema = new Schema({
   difficulty,
   createdAt,
   createdById,
-  categoryId: {
+  category: {
     type: Schema.Types.ObjectId,
-    required: true
+    required: true,
+    ref: 'Category'
   },
   postViews: {
     type: Number,

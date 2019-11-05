@@ -17,6 +17,7 @@ module.exports = {
   plugins: ['prettier'],
   // add your custom rules here
   rules: {
-    'linebreak-style': 0
+    'linebreak-style': 0,
+    'no-console': 0
   }
 }

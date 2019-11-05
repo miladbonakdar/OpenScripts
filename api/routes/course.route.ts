@@ -2,15 +2,11 @@ import express from 'express'
 import { Course, ICourseModel } from '../models/course'
 import { randomColor } from '../utils/colorGenerator'
 import authonticator from '../middlewares/passportAuthonticator'
-import {
-  deleteAction,
-  get,
-  getAll,
-  getPage,
-  changeColor
-} from './contracts/index'
+import { deleteAction, get, getPage, changeColor } from './contracts/index'
+import { cacheRepository } from '../services/cache/cacheRepository'
 
 export const name = 'Course'
+
 const router = express.Router()
 
 router.route('/').post(authonticator, async (req, res) => {
@@ -20,6 +16,7 @@ router.route('/').post(authonticator, async (req, res) => {
   course.createdAt = new Date()
   course.createdById = req.user._id
   await course.save()
+  await cacheRepository.updateCourses()
   res.success(course, name + ' created successfuly')
 })
 
@@ -35,13 +32,23 @@ router.route('/').put(authonticator, async (req, res) => {
   course.difficulty = c.difficulty
   course.categoryId = c.categoryId
   await course.save()
+  await cacheRepository.updateCourses()
   res.success(course, name + ' updated successfuly')
 })
 
-router.route('/:id').delete(...deleteAction(Course))
-router.route('/').get(...getAll(Course, false))
+router
+  .route('/:id')
+  .delete(...deleteAction(Course, async () => await cacheRepository.updateCourses()))
+router.route('/').get((_req, res) => {
+  const items = cacheRepository.getCourses()
+  res.success(items)
+})
 router.route('/:id').get(...get(Course))
-router.route('/randomizeColor').patch(...changeColor(Course))
+router
+  .route('/randomizeColor')
+  .patch(
+    ...changeColor(Course, async () => await cacheRepository.updateCourses())
+  )
 router.route('/:pageSize/:pageNumber').get(...getPage(Course))
 
 export default { router, routePrefix: '/course' }

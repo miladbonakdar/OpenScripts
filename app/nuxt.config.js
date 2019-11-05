@@ -86,8 +86,8 @@ export default {
   axios: {
     baseURL:
       process.env.NODE_ENV === 'production'
-        ? 'http://localhost:5001/api/'
-        : 'http://localhost:5000/api/'
+        ? 'http://localhost:5001/'
+        : 'http://localhost:8000/'
   },
   recaptcha: {
     hideBadge: true, // Hide badge element (v3)

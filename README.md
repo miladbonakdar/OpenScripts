@@ -1,2 +1,2 @@
-# milawd
+# Open scripts
 My blog website

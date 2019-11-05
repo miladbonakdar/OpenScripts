@@ -17,7 +17,7 @@ const archiveDocument = async (
   await archive.save()
 }
 
-export const deleteAction = (collection: any) => {
+export const deleteAction = (collection: any, beforeResponse: any = null) => {
   return [
     authonticator,
     async (req: Request, res: Response) => {
@@ -30,6 +30,7 @@ export const deleteAction = (collection: any) => {
           req.user,
           collection.collection.collectionName
         )
+      if (beforeResponse) await beforeResponse()
       res.success(item)
     }
   ]

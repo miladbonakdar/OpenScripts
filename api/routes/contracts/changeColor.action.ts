@@ -2,7 +2,7 @@ import authonticator from '../../middlewares/passportAuthonticator'
 import { Request, Response } from 'express'
 import { randomColor } from '../../utils/colorGenerator'
 
-export const changeColor = (collection: any) => {
+export const changeColor = (collection: any, beforeResponse: any = null) => {
   return [
     authonticator,
     async (req: Request, res: Response) => {
@@ -10,6 +10,7 @@ export const changeColor = (collection: any) => {
       if (!item) return res.notFound(collection.modelName)
       item.color = randomColor()
       await item.save()
+      if (beforeResponse) await beforeResponse()
       res.success(item)
     }
   ]

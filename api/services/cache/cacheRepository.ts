@@ -58,7 +58,10 @@ export const cacheRepository = {
     return this.update(types.tags, async () => await Tag.find({}))
   },
   async updateCourses() {
-    return this.update(types.courses, async () => await Course.find({}))
+    return this.update(
+      types.courses,
+      async () => await Course.find({}).populate('category')
+    )
   },
   async updateCategories() {
     return this.update(types.categories, async () => await Category.find({}))

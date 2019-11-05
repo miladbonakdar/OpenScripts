@@ -2,13 +2,9 @@ import express from 'express'
 import { Tag, ITagModel } from '../models/tag'
 import { randomColor } from '../utils/colorGenerator'
 import authonticator from '../middlewares/passportAuthonticator'
-import {
-  deleteAction,
-  getAll,
-  get,
-  getPage,
-  changeColor
-} from './contracts/index'
+import { cacheRepository } from '../services/cache/cacheRepository'
+
+import { deleteAction, get, getPage, changeColor } from './contracts/index'
 
 export const name = 'Tag'
 const router = express.Router()
@@ -20,6 +16,7 @@ router.route('/').post(authonticator, async (req, res) => {
   tag.createdAt = new Date()
   tag.createdById = req.user._id
   await tag.save()
+  await cacheRepository.updateTags()
   res.success(tag, name + ' created successfuly')
 })
 
@@ -32,13 +29,23 @@ router.route('/').put(authonticator, async (req, res) => {
   tag.title = c.title
   tag.color = c.color
   await tag.save()
+  await cacheRepository.updateTags()
   res.success(tag, name + ' updated successfuly')
 })
 
-router.route('/:id').delete(...deleteAction(Tag))
-router.route('/').get(...getAll(Tag,false))
+router
+  .route('/:id')
+  .delete(...deleteAction(Tag, async () => await cacheRepository.updateTags()))
+router.route('/').get((_req, res) => {
+  const items = cacheRepository.getTags()
+  res.success(items)
+})
+
 router.route('/:id').get(...get(Tag))
-router.route('/randomizeColor').patch(...changeColor(Tag))
+
+router
+  .route('/randomizeColor')
+  .patch(...changeColor(Tag, async () => await cacheRepository.updateTags()))
 router.route('/:pageSize/:pageNumber').get(...getPage(Tag))
 
 export default { router, routePrefix: '/tag' }

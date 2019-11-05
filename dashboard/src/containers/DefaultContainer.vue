@@ -20,16 +20,22 @@
       </b-link>
       <SidebarToggler class="d-md-down-none" display="lg" :defaultOpen="true" />
       <b-navbar-nav class="d-md-down">
-        <b-nav-item class="px-3 d-md-down-none" to="'/dashboard'">Dashboard</b-nav-item>
+        <b-nav-item class="px-3 d-md-down-none" to="'/dashboard'"
+          >Dashboard</b-nav-item
+        >
 
         <div v-if="notAcceptedCount" class="px-1 d-md-down-none">
           <b-link to="/comment/list">
-            <span class="badge badge-primary font-xs p-2 fa fa-comments-o"> {{ notAcceptedCount }} New Comments</span>
+            <span class="badge badge-primary font-xs p-2 fa fa-comments-o">
+              {{ notAcceptedCount }} New Comments</span
+            >
           </b-link>
         </div>
         <div v-if="notReadedCount" class="px-1 d-md-down-none">
           <b-link to="/message/list">
-            <span class="badge badge-success font-xs p-2 fa fa-bell-o"> {{ notReadedCount }} New Messages</span>
+            <span class="badge badge-success font-xs p-2 fa fa-bell-o">
+              {{ notReadedCount }} New Messages</span
+            >
           </b-link>
         </div>
       </b-navbar-nav>
@@ -69,8 +75,8 @@
     <TheFooter>
       <!--footer-->
       <div class="w-100 clearfix">
-        <a href>Milawd</a>
-        <span class="ml-1">&copy; 2019 Milawd</span>
+        <a href>Open scripts</a>
+        <span class="ml-1">&copy; 2019 Open scripts</span>
         <span class="float-right">
           Version :
           <i class="font-xs badge-danger badge mr-1">1</i>
@@ -81,7 +87,7 @@
 </template>
 
 <script>
-import nav from "@/_nav";
+import nav from '@/_nav'
 import {
   Header as AppHeader,
   SidebarToggler,
@@ -95,14 +101,14 @@ import {
   AsideToggler,
   Footer as TheFooter,
   Breadcrumb
-} from "@coreui/vue";
-import DefaultAside from "./DefaultAside";
-import DefaultHeaderDropdownAccnt from "./DefaultHeaderDropdownAccnt";
-import { mapActions, mapMutations, mapGetters } from "vuex";
-import { statics } from "../store/types";
+} from '@coreui/vue'
+import DefaultAside from './DefaultAside'
+import DefaultHeaderDropdownAccnt from './DefaultHeaderDropdownAccnt'
+import { mapActions, mapMutations, mapGetters } from 'vuex'
+import { statics } from '../store/types'
 
 export default {
-  name: "DefaultContainer",
+  name: 'DefaultContainer',
   components: {
     AsideToggler,
     AppHeader,
@@ -123,32 +129,32 @@ export default {
     return {
       nav: null,
       bellHovered: false,
-      ignoreForBreadCrumb: ["Estate detail"],
+      ignoreForBreadCrumb: ['Estate detail'],
       staticsLoaded: false,
       loadingEvents: false
-    };
+    }
   },
   created() {
-    this.showLoading(true);
-    this.$errorBus.$on("internal-server", this.handleInternalServerError);
-    this.$errorBus.$on("bad-request", this.handleBadRequestError);
-    this.$errorBus.$on("access-denied", this.handleAccessDeniedError);
+    this.showLoading(true)
+    this.$errorBus.$on('internal-server', this.handleInternalServerError)
+    this.$errorBus.$on('bad-request', this.handleBadRequestError)
+    this.$errorBus.$on('access-denied', this.handleAccessDeniedError)
     this.init(err => {
       if (err) {
-        console.error(err);
-        this.$toasted.info("please refresh the page to sync again");
-        this.$toasted.global.error("problem in syncing statics data.");
+        console.error(err)
+        this.$toasted.info('please refresh the page to sync again')
+        this.$toasted.global.error('problem in syncing statics data.')
       } else {
-        this.staticsLoaded = true;
-        this.nav = nav.items;
+        this.staticsLoaded = true
+        this.nav = nav.items
       }
-      this.showLoading(false);
-    });
+      this.showLoading(false)
+    })
   },
   beforeDestroy() {
-    this.$errorBus.$off("internal-server", this.handleInternalServerError);
-    this.$errorBus.$off("bad-request", this.handleBadRequestError);
-    this.$errorBus.$off("access-denied", this.handleAccessDeniedError);
+    this.$errorBus.$off('internal-server', this.handleInternalServerError)
+    this.$errorBus.$off('bad-request', this.handleBadRequestError)
+    this.$errorBus.$off('access-denied', this.handleAccessDeniedError)
   },
   computed: {
     ...mapGetters({
@@ -157,14 +163,14 @@ export default {
       notAcceptedCount: statics.getters.notAcceptedCount
     }),
     name() {
-      return this.$route.name;
+      return this.$route.name
     },
     list() {
       return this.$route.matched.filter(
         route =>
           (route.name || route.meta.label) &&
           this.ignoreForBreadCrumb.indexOf(route.name) < 0
-      );
+      )
     }
   },
   methods: {
@@ -175,16 +181,16 @@ export default {
       showLoading: statics.mutations.loading
     }),
     handleInternalServerError(msg) {
-      this.$toasted.global.error(msg);
+      this.$toasted.global.error(msg)
     },
     handleBadRequestError(msg) {
-      this.$toasted.global.error(msg);
+      this.$toasted.global.error(msg)
     },
     handleAccessDeniedError(msg) {
-      this.$toasted.global.error(msg);
+      this.$toasted.global.error(msg)
     }
   }
-};
+}
 </script>
 <style scoped>
 .btn-secondary {

@@ -234,7 +234,7 @@ export default {
         i => i.value == item.difficulty
       )[0];
       this.selectedCategory = this.allCategories.filter(
-        i => i._id == item.categoryId
+        i => i._id == item.category
       )[0];
       this.isEditeMode = true;
     },

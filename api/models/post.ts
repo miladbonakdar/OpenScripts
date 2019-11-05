@@ -73,6 +73,8 @@ export const PostSchema: Schema = new Schema({
 PostSchema.index({
   'course.title': 'text',
   'category.title': 'text',
+  'course.name': 'text',
+  'category.name': 'text',
   content: 'text',
   name: 'text',
   title: 'text',

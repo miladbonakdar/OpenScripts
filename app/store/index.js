@@ -5,7 +5,9 @@ export const state = () => ({
   user: null,
   allCategories: [],
   allCourses: [],
-  allTags: []
+  allTags: [],
+  randomUser: null,
+  siteConfig: null
 })
 
 export const mutations = {
@@ -23,6 +25,12 @@ export const mutations = {
   },
   SET_USER(state, data) {
     state.user = data
+  },
+  SET_RANDOM_USER(state, data) {
+    state.randomUser = data
+  },
+  SET_SITE_CONFIG(state, data) {
+    state.siteConfig = data
   }
 }
 
@@ -47,5 +55,7 @@ export const getters = {
   user: (state) => state.user,
   allCategories: (state) => state.allCategories,
   allCourses: (state) => state.allCourses,
-  allTags: (state) => state.allTags
+  allTags: (state) => state.allTags,
+  randomUser: (state) => state.randomUser,
+  siteConfig: (state) => state.siteConfig
 }
