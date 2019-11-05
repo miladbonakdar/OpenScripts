@@ -4,6 +4,13 @@ import { Course } from '../models/course'
 import { randomColor } from '../utils/colorGenerator'
 import authonticator from '../middlewares/passportAuthonticator'
 import { deleteAction, get, getPage, changeColor } from './contracts/index'
+import { cacheRepository } from '../services/cache/cacheRepository'
+import {
+  getPosts,
+  randomPosts,
+  popularPosts,
+  mostViewes
+} from './controllers/post'
 
 export const name = 'Post'
 const router = express.Router()
@@ -37,10 +44,20 @@ router.route('/').put(authonticator, async (req, res) => {
   post.postNumber = c.postNumber
   post.difficulty = c.difficulty
   await post.save()
+  cacheRepository.deletePost(post._id)
   res.success(post, name + ' updated successfuly')
 })
 
-router.route('/:id').delete(...deleteAction(Post))
+router.route('/:id').delete(...deleteAction(Post), (req, _res, next) => {
+  cacheRepository.deletePost(req.params.id)
+  next()
+})
+
+router.route('/appPosts/mostViewes/:size').get(mostViewes)
+router.route('/appPosts/random/:size').get(randomPosts)
+router.route('/appPosts/popular/:size').get(popularPosts)
+router.route('/appPosts/:pageSize/:pageNumber').get(getPosts)
+
 router.route('/:id').get(...get(Post))
 router.route('/randomizeColor').patch(...changeColor(Post))
 
@@ -50,7 +67,7 @@ router
     if (!req.params.courseId) return res.badRequest('courseId')
     const course = await Course.findById(req.params.courseId)
     if (!course) return res.notFound('course')
-    const lastpPost = (await Post.find({ course: { _id: req.params.courseId } })
+    const lastpPost = (await Post.find({ 'course._id': req.params.courseId })
       .sort({ postNumber: -1 })
       .limit(1))[0]
 

@@ -5,12 +5,12 @@
         <div class="container">
           <div class="row">
             <div class="col-9 social">
-              <a href="#"><span class="fa fa-twitter"></span></a>
-              <a href="#"><span class="fa fa-facebook"></span></a>
-              <a href="#"><span class="fa fa-instagram"></span></a>
-              <a href="#"><span class="fa fa-youtube-play"></span></a>
-              <a href="#"><span class="fa fa-vimeo"></span></a>
-              <a href="#"><span class="fa fa-snapchat"></span></a>
+              <a href="/"><span class="fa fa-twitter"></span></a>
+              <a href="/"><span class="fa fa-facebook"></span></a>
+              <a href="/"><span class="fa fa-instagram"></span></a>
+              <a href="/"><span class="fa fa-youtube-play"></span></a>
+              <a href="/"><span class="fa fa-vimeo"></span></a>
+              <a href="/"><span class="fa fa-snapchat"></span></a>
             </div>
             <div class="col-3 search-top">
               <!-- <a href="#"><span class="fa fa-search"></span></a> -->
@@ -20,7 +20,7 @@
                   id="s"
                   class="tanha"
                   type="text"
-                  placeholder="کلمه ای کلیدی جستحو کنید..."
+                  placeholder="جستجو ..."
                 />
               </form>
             </div>
@@ -40,7 +40,16 @@
               aria-controls="navbarMenu"
               ><span class="burger-lines"></span
             ></a>
-            <h1 class="site-logo">Open Scrips</h1>
+            <nuxt-link to="/">
+              <h1 dir="ltr" class="site-logo">
+                <img
+                  width="60"
+                  height="60"
+                  src="/logo.png"
+                  alt="Open Scrips"
+                />pen scripts
+              </h1>
+            </nuxt-link>
           </div>
         </div>
       </div>
@@ -50,7 +59,9 @@
           <div id="navbarMenu" class="collapse navbar-collapse">
             <ul class="navbar-nav mx-auto">
               <li class="nav-item">
-                <a class="nav-link" href="index.html">خانه</a>
+                <nuxt-link to="/">
+                  <a class="nav-link">خانه</a>
+                </nuxt-link>
               </li>
               <li class="nav-item dropdown">
                 <a
@@ -130,7 +141,7 @@
               </form>
             </div>
             <!-- END sidebar-box -->
-            <div class="sidebar-box">
+            <!-- <div class="sidebar-box">
               <div class="bio text-center">
                 <img
                   src="/images/person_1.jpg"
@@ -164,7 +175,7 @@
                   </p>
                 </div>
               </div>
-            </div>
+            </div> -->
             <!-- END sidebar-box -->
             <div class="sidebar-box">
               <h3 class="heading">Popular Posts</h3>
@@ -275,6 +286,45 @@
                 <li><a href="#">Lifestyle</a></li>
                 <li><a href="#">Business</a></li>
                 <li><a href="#">Freelancing</a></li>
+              </ul>
+            </div>
+
+            <div class="sidebar-box">
+              <h3 class="heading">Courses</h3>
+              <ul class="categories">
+                <li>
+                  <a href="#">Courses <span>(12)</span></a>
+                </li>
+                <li>
+                  <a href="#">News <span>(22)</span></a>
+                </li>
+                <li>
+                  <a href="#">Design <span>(37)</span></a>
+                </li>
+                <li>
+                  <a href="#">HTML <span>(42)</span></a>
+                </li>
+                <li>
+                  <a href="#">Web Development <span>(14)</span></a>
+                </li>
+                <li>
+                  <a href="#">Design <span>(37)</span></a>
+                </li>
+                <li>
+                  <a href="#">HTML <span>(42)</span></a>
+                </li>
+                <li>
+                  <a href="#">Web Development <span>(14)</span></a>
+                </li>
+                <li>
+                  <a href="#">Design <span>(37)</span></a>
+                </li>
+                <li>
+                  <a href="#">HTML <span>(42)</span></a>
+                </li>
+                <li>
+                  <a href="#">Web Development <span>(14)</span></a>
+                </li>
               </ul>
             </div>
           </div>
@@ -425,15 +475,14 @@
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row" dir="ltr">
           <div class="col-md-12">
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            Copyright &copy;<script>
-              document.write(new Date().getFullYear())
-            </script>
-            All rights reserved | This template is made with
-            <i class="fa fa-heart-o" aria-hidden="true"></i> by
-            <a href="https://colorlib.com" target="_blank">Colorlib</a>
+            Copyright &copy;{{ years }} All rights reserved | This website is
+            made with <i class="fa fa-heart-o" aria-hidden="true"></i> by
+            <a href="https://github.com/miladbonakdar/milawd" target="_blank"
+              >Milad Bonakdar</a
+            >
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
           </div>
         </div>
@@ -462,7 +511,8 @@ export default {
           text: 'چگونه می شه اینجوری میشه؟',
           active: true
         }
-      ]
+      ],
+      years: '2019 - ' + new Date().getFullYear()
     }
   }
 }

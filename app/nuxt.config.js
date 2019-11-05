@@ -49,7 +49,7 @@ export default {
     '@/assets/fonts/flaticon/font/flaticon.css',
     'bootstrap/dist/css/bootstrap.css',
     'bootstrap-vue/dist/bootstrap-vue.css',
-    'hover.css/css/hover-min.css',
+    '@/assets/css/hover-min.css',
 
     '@/assets/css/style.css'
   ],

@@ -25,6 +25,12 @@ export const MessageSchema: Schema = new Schema({
   }
 })
 
+MessageSchema.index({
+  text: 'text',
+  email: 'text',
+  name: 'text'
+})
+
 export const Message: Model<IMessageModel> = model<IMessageModel>(
   'Message',
   MessageSchema

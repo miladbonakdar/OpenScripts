@@ -36,7 +36,7 @@ router.route('/').put(authonticator, async (req, res) => {
 })
 
 router.route('/:id').delete(...deleteAction(Tag))
-router.route('/').get(...getAll(Tag))
+router.route('/').get(...getAll(Tag,false))
 router.route('/:id').get(...get(Tag))
 router.route('/randomizeColor').patch(...changeColor(Tag))
 router.route('/:pageSize/:pageNumber').get(...getPage(Tag))

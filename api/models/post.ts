@@ -1,10 +1,6 @@
 import { Document, Schema, Model, model } from 'mongoose'
 import { IPost } from './interfaces/post.interface'
 import { createdAt, color, name, difficulty, title } from './contracts'
-import { TagSchema } from './tag'
-import { CourseSchema } from './course'
-import { CategorySchema } from './category'
-import { CommentSchema } from './comment'
 
 export interface IPostModel extends IPost, Document {}
 
@@ -14,7 +10,7 @@ export const PostSchema: Schema = new Schema({
     type: Object,
     required: true
   },
-  tags: [TagSchema],
+  tags: [Object],
   content: {
     type: String,
     required: true
@@ -42,7 +38,7 @@ export const PostSchema: Schema = new Schema({
     default: 0,
     min: 0
   },
-  comments: [CommentSchema],
+  comments: [Object],
   postNumber: {
     type: Number,
     required: true,
@@ -50,11 +46,11 @@ export const PostSchema: Schema = new Schema({
     min: 1
   },
   category: {
-    type: CategorySchema,
+    type: Object,
     required: true
   },
   course: {
-    type: CourseSchema,
+    type: Object,
     required: true
   },
   published: {
@@ -65,7 +61,22 @@ export const PostSchema: Schema = new Schema({
   publishedAt: Date,
   difficulty,
   youTubeVideoUrl: String,
-  aparatVideoUrl: String
+  aparatVideoUrl: String,
+  views: {
+    type: Number,
+    required: true,
+    default: 0,
+    min: 0
+  }
+})
+
+PostSchema.index({
+  'course.title': 'text',
+  'category.title': 'text',
+  content: 'text',
+  name: 'text',
+  title: 'text',
+  summary: 'text'
 })
 
 export const Post: Model<IPostModel> = model<IPostModel>('Post', PostSchema)

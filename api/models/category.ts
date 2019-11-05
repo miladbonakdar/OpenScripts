@@ -10,7 +10,24 @@ export const CategorySchema: Schema = new Schema({
   color,
   imageUrl: String,
   createdAt,
-  createdById
+  createdById,
+  postViews: {
+    type: Number,
+    required: true,
+    default: 0,
+    min: 0
+  },
+  views: {
+    type: Number,
+    required: true,
+    default: 0,
+    min: 0
+  }
+})
+
+CategorySchema.index({
+  name: 'text',
+  title: 'text'
 })
 
 export const Category: Model<ICategoryModel> = model<ICategoryModel>(

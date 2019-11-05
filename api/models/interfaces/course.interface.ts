@@ -8,4 +8,6 @@ export interface ICourse {
   createdAt: Date
   createdById: any
   categoryId: any
+  views: number
+  postViews: number
 }

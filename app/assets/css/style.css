@@ -126,12 +126,12 @@ header .navbar .dropdown-menu:before {
 }
 
 header .navbar .dropdown-menu .dropdown-item:hover {
-  background: #007bff;
+  background: #FD7272;
   color: #fff;
 }
 
 header .navbar .dropdown-menu .dropdown-item.active {
-  background: #007bff;
+  background: #FD7272;
   color: #fff;
 }
 
@@ -172,9 +172,8 @@ header .navbar .dropdown-menu a {
   bottom: -10px;
 }
 
-.site-logo a {
-  color: #000;
-  font-size: 90px;
+.site-logo {
+  font-size: 60px;
 }
 
 @media (max-width: 991.98px) {
@@ -220,7 +219,7 @@ header .navbar .dropdown-menu a {
 
 .category {
   display: inline-block;
-  background: #007bff;
+  background: #FD7272;
   padding: 2px 8px;
   line-height: 1.5;
   font-size: 12px;
@@ -419,7 +418,7 @@ header .navbar .dropdown-menu a {
   text-transform: uppercase;
   line-height: 74px;
   border-radius: 50%;
-  background: #007bff;
+  background: #FD7272;
   color: #fff;
   font-size: 30px;
 }
@@ -620,7 +619,7 @@ header .navbar .dropdown-menu a {
 .school-instructors.text-dark .feature .icon > span:before {
   font-size: 50px;
   margin-right: 0;
-  color: #007bff;
+  color: #FD7272;
 }
 
 .img-bg {
@@ -749,7 +748,7 @@ textarea.form-control {
 
 .btn.btn-outline-primary {
   border-width: 2px;
-  color: #007bff;
+  color: #FD7272;
 }
 
 .btn.btn-outline-primary:hover,
@@ -847,7 +846,7 @@ textarea.form-control {
 }
 
 .owl-carousel .owl-dots .owl-dot.active {
-  background: #007bff;
+  background: #FD7272;
 }
 
 .owl-carousel.home-slider {
@@ -1069,10 +1068,10 @@ textarea.form-control {
 
 .box.hover:hover .box-body,
 .box.hover:focus .box-body {
-  background: #007bff;
+  background: #FD7272;
   color: #fff;
   padding: 30px 20px;
-  border-color: #007bff;
+  border-color: #FD7272;
 }
 
 .box.hover:hover h2,
@@ -1086,7 +1085,7 @@ textarea.form-control {
 }
 
 .breadcrumb-custom li a {
-  color: #007bff;
+  color: #FD7272;
 }
 
 .breadcrumb-custom li a:hover {
@@ -1162,7 +1161,7 @@ textarea.form-control {
 
 .tags li a:hover {
   color: #fff;
-  background: #007bff;
+  background: #FD7272;
 }
 
 .pagination {
@@ -1189,7 +1188,7 @@ textarea.form-control {
 }
 
 .pagination li a:hover {
-  background: #007bff;
+  background: #FD7272;
   color: #fff;
   border: 1px solid transparent;
 }
@@ -1274,7 +1273,7 @@ textarea.form-control {
   -webkit-transform: translateX(50%);
   -ms-transform: translateX(50%);
   transform: translateX(50%);
-  background: #007bff;
+  background: #FD7272;
 }
 
 .text-black {
@@ -1303,7 +1302,7 @@ textarea.form-control {
 
 .media-feature .icon {
   font-size: 60px;
-  color: #007bff;
+  color: #FD7272;
 }
 
 .media-feature h3 {
@@ -1319,7 +1318,7 @@ textarea.form-control {
   -ms-transform: scale(1.05);
   transform: scale(1.05);
   z-index: 2;
-  border-bottom: 10px solid #007bff;
+  border-bottom: 10px solid #FD7272;
 }
 
 .media-custom {
@@ -1393,7 +1392,7 @@ textarea.form-control {
   display: block;
   text-align: right;
   text-decoration: none;
-  color: #007bff;
+  color: #FD7272;
   position: relative;
   -webkit-box-shadow: 0 3px 10px -2px rgba(0, 0, 0, 0.2) !important;
   box-shadow: 0 3px 10px -2px rgba(0, 0, 0, 0.2) !important;

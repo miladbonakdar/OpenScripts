@@ -9,6 +9,7 @@ import post from './post.route'
 import message from './message.route'
 import comment from './comments.route'
 import archive from './archive.route'
+import user from './user.route'
 
 const router = express.Router()
 
@@ -22,5 +23,6 @@ router.use(post.routePrefix, post.router)
 router.use(message.routePrefix, message.router)
 router.use(comment.routePrefix, comment.router)
 router.use(archive.routePrefix, archive.router)
+router.use(user.routePrefix, user.router)
 
 export default router

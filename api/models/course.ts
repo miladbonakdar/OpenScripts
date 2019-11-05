@@ -22,7 +22,24 @@ export const CourseSchema: Schema = new Schema({
   categoryId: {
     type: Schema.Types.ObjectId,
     required: true
+  },
+  postViews: {
+    type: Number,
+    required: true,
+    default: 0,
+    min: 0
+  },
+  views: {
+    type: Number,
+    required: true,
+    default: 0,
+    min: 0
   }
+})
+
+CourseSchema.index({
+  name: 'text',
+  title: 'text'
 })
 
 export const Course: Model<ICourseModel> = model<ICourseModel>(

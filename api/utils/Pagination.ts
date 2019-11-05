@@ -7,7 +7,7 @@ export default class Pagination {
   constructor(
     public collection: any,
     pageNumber: string | number,
-    pageSize: string | number = 20,
+    pageSize: string | number = 10,
     query: object = {}
   ) {
     if (typeof pageNumber == 'string') pageNumber = Number(pageNumber)

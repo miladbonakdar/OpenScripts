@@ -33,6 +33,12 @@ export const CommentSchema: Schema = new Schema({
   }
 })
 
+CommentSchema.index({
+  text: 'text',
+  email: 'text',
+  name: 'text'
+})
+
 export const Comment: Model<ICommentModel> = model<ICommentModel>(
   'Comment',
   CommentSchema

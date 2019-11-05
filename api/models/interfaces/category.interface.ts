@@ -6,4 +6,6 @@ export interface ICategory {
   imageUrl?: string
   createdAt: Date
   createdById: any
+  views: number
+  postViews: number
 }

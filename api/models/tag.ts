@@ -12,4 +12,9 @@ export const TagSchema: Schema = new Schema({
   createdById
 })
 
+TagSchema.index({
+  name: 'text',
+  title: 'text'
+})
+
 export const Tag: Model<ITagModel> = model<ITagModel>('Tag', TagSchema)

@@ -22,4 +22,5 @@ export interface IPost {
   difficulty: number
   youTubeVideoUrl?: string
   aparatVideoUrl?: string
+  views: number
 }
