@@ -1,17 +1,26 @@
 <template>
   <div>
-    <b-card :header="isEditMode ? 'Edite Post':'Create Post'">
+    <b-card :header="isEditMode ? 'Edite Post' : 'Create Post'">
       <b-row>
         <div class="col-md-6 col-sm-12 col-lg-4">
           <b-form-group label="name">
-            <b-form-input type="text" v-model="post.name" placeholder="Enter the name"></b-form-input>
+            <b-form-input
+              type="text"
+              v-model="post.name"
+              placeholder="Enter the name"
+            ></b-form-input>
           </b-form-group>
         </div>
 
         <div class="col-md-6 col-sm-12 col-lg-4">
           <b-form-group>
             <label for="name">Title</label>
-            <b-form-input class="rtl" type="text" placeholder="Title" v-model="post.title"></b-form-input>
+            <b-form-input
+              class="rtl"
+              type="text"
+              placeholder="Title"
+              v-model="post.title"
+            ></b-form-input>
           </b-form-group>
         </div>
 
@@ -58,7 +67,11 @@
         </div>
         <div class="col-md-6 col-sm-12 col-lg-4">
           <b-form-group label="Post Number">
-            <b-form-input type="number" v-model="post.postNumber" placeholder="Post Number"></b-form-input>
+            <b-form-input
+              type="number"
+              v-model="post.postNumber"
+              placeholder="Post Number"
+            ></b-form-input>
           </b-form-group>
         </div>
         <div class="col-md-6 col-sm-12 col-lg-4">
@@ -77,22 +90,38 @@
         </div>
         <div class="col-md-6 col-sm-12 col-lg-4">
           <b-form-group label="Read Time">
-            <b-form-input type="number" v-model="post.readTime" placeholder="Read Time"></b-form-input>
+            <b-form-input
+              type="number"
+              v-model="post.readTime"
+              placeholder="Read Time"
+            ></b-form-input>
           </b-form-group>
         </div>
         <div class="col-md-6 col-sm-12 col-lg-4">
           <b-form-group label="Image Url">
-            <b-form-input type="text" v-model="post.imageUrl" placeholder="Image url"></b-form-input>
+            <b-form-input
+              type="text"
+              v-model="post.imageUrl"
+              placeholder="Image url"
+            ></b-form-input>
           </b-form-group>
         </div>
         <div class="col-md-6 col-sm-12 col-lg-4">
           <b-form-group label="Youtube Url">
-            <b-form-input type="text" v-model="post.youTubeVideoUrl" placeholder="Youtube Url"></b-form-input>
+            <b-form-input
+              type="text"
+              v-model="post.youTubeVideoUrl"
+              placeholder="Youtube Url"
+            ></b-form-input>
           </b-form-group>
         </div>
         <div class="col-md-6 col-sm-12 col-lg-4">
           <b-form-group label="Aparat Url">
-            <b-form-input type="text" v-model="post.aparatVideoUrl" placeholder="Aparat Url"></b-form-input>
+            <b-form-input
+              type="text"
+              v-model="post.aparatVideoUrl"
+              placeholder="Aparat Url"
+            ></b-form-input>
           </b-form-group>
         </div>
         <div class="col-12">
@@ -128,14 +157,17 @@
               <b-button
                 size="sm"
                 @click="selectedPanel = 'md'"
-                :variant="selectedPanel == 'md' ? 'primary':''"
+                :variant="selectedPanel == 'md' ? 'primary' : ''"
               >
                 <i class="fa fa-pencil"></i> Markdown
               </b-button>
               <b-button
                 size="sm"
-                @click="selectedPanel = 'demo';generateHtml()"
-                :variant="selectedPanel == 'demo' ? 'primary':''"
+                @click="
+                  selectedPanel = 'demo'
+                  generateHtml()
+                "
+                :variant="selectedPanel == 'demo' ? 'primary' : ''"
               >
                 <i class="fa fa-code"></i> Demo
               </b-button>
@@ -174,7 +206,13 @@
         <!-- <b-form validated> -->
         <b-row>
           <div class="col-12">
-            <json-viewer :value="post" :expand-depth="5" copyable boxed sort></json-viewer>
+            <json-viewer
+              :value="post"
+              :expand-depth="5"
+              copyable
+              boxed
+              sort
+            ></json-viewer>
           </div>
         </b-row>
       </div>
@@ -182,20 +220,20 @@
   </div>
 </template>
 <script>
-import { mapMutations, mapActions, mapGetters } from "vuex";
-import { statics } from "../../store/types";
+import { mapMutations, mapActions, mapGetters } from 'vuex'
+import { statics } from '../../store/types'
 
 export default {
   data() {
     return {
       post: {},
       selectedDifficulty: null,
-      selectedPanel: "md",
+      selectedPanel: 'md',
       selectedCategory: null
-    };
+    }
   },
   created() {
-    if (this.isEditMode) this.setPost();
+    if (this.isEditMode) this.setPost()
   },
   methods: {
     ...mapMutations({
@@ -203,102 +241,102 @@ export default {
     }),
     validate() {
       if (!this.post.name || this.post.name.length < 2)
-        return this.error("name is not valid");
+        return this.error('name is not valid')
       if (!this.post.title || this.post.title.length < 2)
-        return this.error("title is not valid");
-      if (!this.post.readTime) return this.error("readTime is not valid");
+        return this.error('title is not valid')
+      if (!this.post.readTime) return this.error('readTime is not valid')
       if (!this.post.summary || this.post.summary.length < 10)
-        return this.error("summary is not valid");
-      if (!this.post.postNumber) return this.error("postNumber is not valid");
-      if (!this.selectedCategory) return this.error("category is not valid");
-      if (!this.post.course) return this.error("course is not valid");
+        return this.error('summary is not valid')
+      if (!this.post.postNumber) return this.error('postNumber is not valid')
+      if (!this.selectedCategory) return this.error('category is not valid')
+      if (!this.post.course) return this.error('course is not valid')
 
-      this.post.category = this.selectedCategory;
-      this.post.difficulty = this.selectedDifficulty.value;
-      this.generateHtml();
-      return true;
+      this.post.category = this.selectedCategory
+      this.post.difficulty = this.selectedDifficulty.value
+      this.generateHtml()
+      return true
     },
     error(message) {
-      this.$toasted.global.warn(message);
-      return false;
+      this.$toasted.global.warn(message)
+      return false
     },
     setPost() {
-      this.showLoading(true);
+      this.showLoading(true)
       this.$gate.post
         .get(this.$route.params.id)
         .then(res => {
-          this.post = res;
+          this.post = res
           this.selectedDifficulty = this.difficulties.filter(
             d => d.value == res.difficulty
-          )[0];
+          )[0]
           this.selectedCategory = this.allCategories.filter(
             c => c._id == res.category._id
-          )[0];
-          this.generateHtml();
+          )[0]
+          this.generateHtml()
         })
         .catch(err => this.$handleError(err))
-        .finally(() => this.showLoading(false));
+        .finally(() => this.showLoading(false))
     },
     createPost() {
-      this.showLoading(true);
+      this.showLoading(true)
       this.$gate.post
         .create(this.post)
         .then(res => {
-          this.$toasted.success("post created successfully.");
-          this.$router.push(`/post/list`);
+          this.$toasted.success('post created successfully.')
+          this.$router.push(`/post/list`)
         })
         .catch(err => this.$handleError(err))
         .finally(() => {
-          this.showLoading(false);
-        });
+          this.showLoading(false)
+        })
     },
     updatePost() {
-      this.showLoading(true);
+      this.showLoading(true)
       this.$gate.post
         .update(this.post)
         .then(res => {
-          this.$toasted.success("post updated.");
+          this.$toasted.success('post updated.')
         })
         .catch(err => this.$handleError(err))
-        .finally(() => this.showLoading(false));
+        .finally(() => this.showLoading(false))
     },
     onCancel() {
-      this.$router.push("/post/list");
+      this.$router.push('/post/list')
     },
     checkUpdate() {
-      if (!this.validate()) return;
-      this.isEditMode ? this.updatePost() : this.createPost();
+      if (!this.validate()) return
+      this.isEditMode ? this.updatePost() : this.createPost()
     },
     getCourseDetails(item) {
       this.$gate.post
         .courseDetails(item._id)
         .then(res => {
-          this.post.postNumber = res.postNumber;
+          this.post.postNumber = res.postNumber
           this.selectedDifficulty = this.difficulties.filter(
             i => i.value == res.difficulty
-          )[0];
+          )[0]
           this.post.category = this.allCategories.filter(
-            i => i._id == res.categoryId
-          )[0];
-          this.selectedCategory = this.post.category;
-          this.$forceUpdate();
+            i => i._id == res.category
+          )[0]
+          this.selectedCategory = this.post.category
+          this.$forceUpdate()
         })
         .catch(err => this.$handleError(err))
-        .finally(() => this.showLoading(false));
+        .finally(() => this.showLoading(false))
     },
     generateHtml() {
-      this.post.content = this.post.contentMarkdown;
+      this.post.content = this.post.contentMarkdown
       setTimeout(() => {
-        hljs.configure({ useBR: false });
-        document.querySelectorAll("pre.ql-syntax").forEach(block => {
-          hljs.highlightBlock(block);
-        });
-      });
+        hljs.configure({ useBR: false })
+        document.querySelectorAll('pre.ql-syntax').forEach(block => {
+          hljs.highlightBlock(block)
+        })
+      })
     }
   },
   computed: {
     isEditMode() {
-      return this.$route.params.id !== "new";
+      return this.$route.params.id !== 'new'
     },
     ...mapGetters({
       allTags: statics.getters.allTags,
@@ -307,7 +345,6 @@ export default {
       allCourses: statics.getters.allCourses
     })
   }
-};
+}
 </script>
-<style scoped>
-</style>
+<style scoped></style>

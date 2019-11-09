@@ -9,7 +9,7 @@ export const getAll = (
   const middlewares = [
     async (_req: Request, res: Response) => {
       const items = await collection.find({})
-      if (beforeResponse) await beforeResponse()
+      if (beforeResponse) await beforeResponse(_req, res)
       res.success(items)
     }
   ]

@@ -1,4 +1,4 @@
-import { Document, Schema, Model, model } from 'mongoose'
+import { Document, Schema, Model, model, SchemaType } from 'mongoose'
 import { ICategory } from './interfaces/category.interface'
 import { color, name, createdAt, createdById, title } from './contracts'
 
@@ -22,7 +22,9 @@ export const CategorySchema: Schema = new Schema({
     required: true,
     default: 0,
     min: 0
-  }
+  },
+  posts: [Schema.Types.ObjectId],
+  courses: [Schema.Types.ObjectId]
 })
 
 CategorySchema.index({

@@ -35,7 +35,8 @@ export const CourseSchema: Schema = new Schema({
     required: true,
     default: 0,
     min: 0
-  }
+  },
+  posts: [Schema.Types.ObjectId]
 })
 
 CourseSchema.index({

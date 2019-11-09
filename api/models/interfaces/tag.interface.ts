@@ -5,4 +5,5 @@ export interface ITag {
   color: string
   createdAt: Date
   createdById: any
+  posts: any[]
 }

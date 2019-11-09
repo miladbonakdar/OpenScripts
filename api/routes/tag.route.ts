@@ -46,6 +46,6 @@ router.route('/:id').get(...get(Tag))
 router
   .route('/randomizeColor')
   .patch(...changeColor(Tag, async () => await cacheRepository.updateTags()))
-router.route('/:pageSize/:pageNumber').get(...getPage(Tag))
+router.route('/:pageSize/:pageNumber').get(...getPage(Tag, { createdAt: -1 }))
 
 export default { router, routePrefix: '/tag' }

@@ -9,7 +9,8 @@ export const TagSchema: Schema = new Schema({
   title,
   color,
   createdAt,
-  createdById
+  createdById,
+  posts: [Schema.Types.ObjectId]
 })
 
 TagSchema.index({

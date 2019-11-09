@@ -7,7 +7,7 @@ export const get = (collection: any, beforeResponse: any = null) => {
     async (req: Request, res: Response) => {
       const item = await collection.findById(req.params.id)
       if (!item) return res.notFound(collection.modelName)
-      if (beforeResponse) await beforeResponse()
+      if (beforeResponse) await beforeResponse(req, res)
       res.success(item)
     }
   ]

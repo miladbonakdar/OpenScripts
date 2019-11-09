@@ -8,4 +8,6 @@ export interface ICategory {
   createdById: any
   views: number
   postViews: number
+  posts: any[]
+  courses: any[]
 }

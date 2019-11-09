@@ -1,9 +1,10 @@
 import { IComment } from './comment.interface'
+import { ITag } from './tag.interface'
 export interface IPost {
   _id: any
   createdAt: Date
   createdBy: any
-  tags: []
+  tags: ITag[]
   content: string
   contentMarkdown: string
   imageUrl?: string

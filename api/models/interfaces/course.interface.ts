@@ -7,7 +7,8 @@ export interface ICourse {
   difficulty: number
   createdAt: Date
   createdById: any
-  categoryId: any
+  category: any
   views: number
   postViews: number
+  posts: any[]
 }

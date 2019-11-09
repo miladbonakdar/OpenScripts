@@ -19,7 +19,9 @@ router.route('/').post(async (req, res) => {
 router.route('/:id').delete(...deleteAction(Message))
 router.route('/').get(...getAll(Message))
 router.route('/randomizeColor').patch(...changeColor(Message))
-router.route('/:pageSize/:pageNumber').get(...getPage(Message))
+router
+  .route('/:pageSize/:pageNumber')
+  .get(...getPage(Message, { createdAt: -1 }))
 
 router.route('/not-read').get(authonticator, async (_req, res) => {
   const items = await Message.find({ readed: false })

@@ -12,6 +12,12 @@ import {
   mostViewes
 } from './controllers/post'
 
+import {
+  addNewPost,
+  deletePostRelations,
+  deletePostFromRelations
+} from './relations/postRealtions'
+
 export const name = 'Post'
 const router = express.Router()
 
@@ -21,6 +27,12 @@ router.route('/').post(authonticator, async (req, res) => {
   post.createdAt = new Date()
   post.createdBy = req.user
   await post.save()
+  await addNewPost(
+    post._id,
+    post.category,
+    post.course,
+    post.tags.map(t => t._id)
+  )
   res.success(post, name + ' created successfuly')
 })
 
@@ -29,6 +41,12 @@ router.route('/').put(authonticator, async (req, res) => {
   if (!c) return res.badRequest('body')
   const post = await Post.findById(c._id)
   if (!post) return res.notFound(name)
+  await deletePostFromRelations(
+    post._id,
+    post.category,
+    post.course,
+    post.tags.map(t => t._id)
+  )
   post.name = c.name
   post.title = c.title
   post.tags = c.tags
@@ -44,14 +62,24 @@ router.route('/').put(authonticator, async (req, res) => {
   post.postNumber = c.postNumber
   post.difficulty = c.difficulty
   await post.save()
+  await addNewPost(
+    post._id,
+    post.category,
+    post.course,
+    post.tags.map(t => t._id)
+  )
   cacheRepository.deletePost(post._id)
   res.success(post, name + ' updated successfuly')
 })
 
-router.route('/:id').delete(...deleteAction(Post), (req, _res, next) => {
-  cacheRepository.deletePost(req.params.id)
-  next()
-})
+router.route('/:id').delete(
+  ...deleteAction(Post, async (req: any, _res: any) => {
+    await Promise.all([
+      (cacheRepository.deletePost(req.params.id),
+      deletePostRelations(req.params.id))
+    ])
+  })
+)
 
 router.route('/appPosts/mostViewes/:size').get(mostViewes)
 router.route('/appPosts/random/:size').get(randomPosts)
@@ -73,7 +101,7 @@ router
 
     const details = {
       postNumber: 1,
-      categoryId: course.categoryId,
+      category: course.category,
       difficulty: course.difficulty
     }
 
@@ -82,7 +110,7 @@ router
     res.success(details, name + ' created successfuly')
   })
 
-router.route('/:pageSize/:pageNumber').get(...getPage(Post))
+router.route('/:pageSize/:pageNumber').get(...getPage(Post, { createdAt: -1 }))
 
 router.route('/clap').patch(async (req, res) => {
   if (!req.body.claps) return res.badRequest('claps')

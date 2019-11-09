@@ -30,7 +30,7 @@ export const deleteAction = (collection: any, beforeResponse: any = null) => {
           req.user,
           collection.collection.collectionName
         )
-      if (beforeResponse) await beforeResponse()
+      if (beforeResponse) await beforeResponse(req, res)
       res.success(item)
     }
   ]

@@ -22,6 +22,8 @@ router.route('/delete-by-email/:email').delete(async (req, res) => {
 
 router.route('/:id').delete(...deleteAction(NewsLetter))
 router.route('/').get(...getAll(NewsLetter))
-router.route('/:pageSize/:pageNumber').get(...getPage(NewsLetter))
+router
+  .route('/:pageSize/:pageNumber')
+  .get(...getPage(NewsLetter, { createdAt: -1 }))
 
 export default { router, routePrefix: '/news-letter' }

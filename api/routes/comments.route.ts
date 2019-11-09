@@ -23,7 +23,9 @@ router.route('/not-accepted').get(authonticator, async (_req, res) => {
 })
 
 router.route('/:id').delete(...deleteAction(Comment))
-router.route('/:pageSize/:pageNumber').get(...getPage(Comment))
+router
+  .route('/:pageSize/:pageNumber')
+  .get(...getPage(Comment, { createdAt: -1 }))
 router.route('/randomizeColor').patch(...changeColor(Comment))
 
 router.route('/accept').patch(authonticator, async (req, res) => {

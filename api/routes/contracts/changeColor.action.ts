@@ -10,7 +10,7 @@ export const changeColor = (collection: any, beforeResponse: any = null) => {
       if (!item) return res.notFound(collection.modelName)
       item.color = randomColor()
       await item.save()
-      if (beforeResponse) await beforeResponse()
+      if (beforeResponse) await beforeResponse(req, res)
       res.success(item)
     }
   ]

@@ -274,7 +274,7 @@ export default {
       if (!this.item.title || this.item.title.length < 2)
         return this.error("title is not valid");
       this.item.difficulty = this.selectedDifficulty.value;
-      this.item.categoryId = this.selectedCategory._id;
+      this.item.category = this.selectedCategory._id;
       return true;
     },
     error(message) {

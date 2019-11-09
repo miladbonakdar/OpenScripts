@@ -39,7 +39,8 @@ export const getPosts = async (req: Request, res: Response) => {
     Post,
     params.pageNumber,
     params.pageSize,
-    findQuery
+    findQuery,
+    { createdAt: -1 }
   )
 
   const posts = await pagination.get()
