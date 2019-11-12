@@ -10,8 +10,8 @@ export default async () => {
 
   //replace with your detail
   const user = new User({
-    firstName: 'milawd',
-    lastName: 'bonakdar',
+    firstName: 'میلاد',
+    lastName: 'بنکدار',
     telegramId: 0,
     email: ADMIN_EMAIL,
     password: await hashPassword(ADMIN_PASS),

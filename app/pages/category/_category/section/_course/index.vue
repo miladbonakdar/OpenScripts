@@ -2,17 +2,19 @@
   <div class="container">
     <div>
       <h1 class="title">
-        category
+        course
       </h1>
       <h2 class="subtitle">
-        category
+        course
       </h2>
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  middleware: 'routeValidator'
+}
 </script>
 
 <style></style>

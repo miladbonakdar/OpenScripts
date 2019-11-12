@@ -49,7 +49,7 @@ export const getPosts = async (req: Request, res: Response) => {
 }
 
 export const popularPosts = async (req: Request, res: Response) => {
-  const posts = Post.aggregate([
+  const posts = await Post.aggregate([
     { $sort: { claps: -1 } },
     { $limit: 20 },
     { $sample: { size: Number(req.params.size) } }

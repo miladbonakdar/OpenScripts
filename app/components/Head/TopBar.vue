@@ -52,12 +52,13 @@
 export default {
   data() {
     return {
-      search: null,
-      websiteConfig: null
+      search: null
     }
   },
-  created() {
-    this.websiteConfig = this.$store.getters.siteConfig
+  computed: {
+    websiteConfig() {
+      return this.$store.getters.siteConfig
+    }
   },
   methods: {
     onSearch() {

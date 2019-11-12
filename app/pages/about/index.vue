@@ -229,7 +229,23 @@
 </template>
 
 <script>
-export default {}
+import { mapMutations } from 'vuex'
+export default {
+  middleware: 'routeValidator',
+  methods: {
+    ...mapMutations({
+      setBreadCrumbItems: 'SET_BREADCRUMB_ITEMS'
+    })
+  },
+  created() {
+    this.setBreadCrumbItems([
+      {
+        text: 'درباره ما',
+        href: `/about`
+      }
+    ])
+  }
+}
 </script>
 
 <style></style>

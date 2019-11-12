@@ -128,25 +128,7 @@
 
     <div class="row">
       <div class="col-md-12 text-center">
-        <nav aria-label="Page navigation" class="text-center">
-          <ul class="pagination">
-            <li class="page-item  active">
-              <a class="page-link" href="#">Prev</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">3</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">Next</a>
-            </li>
-          </ul>
-        </nav>
+        <Pagination></Pagination>
       </div>
     </div>
 
@@ -221,7 +203,20 @@
 </template>
 
 <script>
-export default {}
+import { mapMutations } from 'vuex'
+import Pagination from '../components/pagination/Pagination'
+export default {
+  middleware: 'routeValidator',
+  components: { Pagination },
+  methods: {
+    ...mapMutations({
+      setBreadCrumbItems: 'SET_BREADCRUMB_ITEMS'
+    })
+  },
+  created() {
+    this.setBreadCrumbItems([])
+  }
+}
 </script>
 
 <style></style>

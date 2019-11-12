@@ -21,7 +21,9 @@
 </template>
 
 <script>
-export default {}
+export default {
+  middleware: 'routeValidator'
+}
 </script>
 
 <style></style>

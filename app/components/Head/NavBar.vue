@@ -10,21 +10,21 @@
           </li>
           <li
             class="nav-item dropdown"
+            :class="{ show: hover.course }"
             @mouseover="hover.course = true"
             @mouseleave="hover.course = false"
-            :class="{ show: hover.course }"
           >
             <nuxt-link
               class="nav-link dropdown-toggle"
-              to="/all-categories/all-courses"
+              to="/category/all/section/all"
               >آموزش ها</nuxt-link
             >
             <div class="dropdown-menu" :class="{ show: hover.course }">
               <nuxt-link
                 v-for="course in courses"
-                v-bind:key="course._id"
+                :key="course._id"
                 class="dropdown-item"
-                :to="`/${course.category.name}/${course.name}`"
+                :to="`/category/${course.category.name}/section/${course.name}`"
                 >{{ course.title }}</nuxt-link
               >
             </div>
@@ -32,11 +32,11 @@
 
           <li
             class="nav-item dropdown"
+            :class="{ show: hover.category }"
             @mouseover="hover.category = true"
             @mouseleave="hover.category = false"
-            :class="{ show: hover.category }"
           >
-            <nuxt-link class="nav-link dropdown-toggle" to="/all-categories"
+            <nuxt-link class="nav-link dropdown-toggle" to="category/all"
               >دسته بندی ها</nuxt-link
             >
 
@@ -47,9 +47,9 @@
             >
               <nuxt-link
                 v-for="cat in categories"
-                v-bind:key="cat._id"
+                :key="cat._id"
                 class="dropdown-item"
-                :to="'/' + cat.name"
+                :to="'/category/' + cat.name"
                 >{{ cat.title }}</nuxt-link
               >
             </div>

@@ -30,8 +30,8 @@
   </header>
 </template>
 <script>
-import NavBar from './Head/NavBar'
-import TopBar from './Head/TopBar'
+import NavBar from './head/NavBar'
+import TopBar from './head/TopBar'
 export default {
   components: { NavBar, TopBar },
   data() {

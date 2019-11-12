@@ -8,6 +8,7 @@ const router = express.Router()
 router.route('/random').get(async (_req, res) => {
   const items = await User.aggregate([{ $sample: { size: 1 } }])
   if (!items[0]) return res.notFound('User')
+  delete items[0].password
   res.success(items[0])
 })
 

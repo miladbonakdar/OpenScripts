@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Heade></Heade>
+    <Head></Head>
 
     <section class="site-section py-sm">
       <div class="container">
@@ -22,34 +22,22 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import Footer from '../components/Footer'
-import Heade from '../components/Heade'
+import Head from '../components/Head'
 import SideBar from '../components/SideBar'
 
 export default {
-  components: { Footer, Heade, SideBar },
+  components: { Footer, Head, SideBar },
   data() {
     return {
-      items: [
-        {
-          text: 'خانه',
-          href: '#'
-        },
-        {
-          text: 'جاوااسکریدت',
-          href: '#'
-        },
-        {
-          text: 'آموزش جاوااسکریدت',
-          href: '#'
-        },
-        {
-          text: 'چگونه می شه اینجوری میشه؟',
-          active: true
-        }
-      ],
       years: '2019 - ' + new Date().getFullYear()
     }
+  },
+  computed: {
+    ...mapGetters({
+      items: 'breadCrumbItems'
+    })
   }
 }
 </script>

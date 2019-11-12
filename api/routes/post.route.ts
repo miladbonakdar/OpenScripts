@@ -78,6 +78,11 @@ router.route('/:id').delete(
       (cacheRepository.deletePost(req.params.id),
       deletePostRelations(req.params.id))
     ])
+    await Promise.all([
+      cacheRepository.updateCategories(),
+      cacheRepository.updateCourses(),
+      cacheRepository.updateTags()
+    ])
   })
 )
 

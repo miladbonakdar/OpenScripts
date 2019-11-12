@@ -1,13 +1,25 @@
 import { nuxtServerInit } from './nuxtServerInit'
 
+const defaultBreadCrumbItems = [
+  {
+    text: 'خانه',
+    href: '/',
+    isHome: true
+  }
+]
+
 export const state = () => ({
   token: null,
   user: null,
   allCategories: [],
   allCourses: [],
   allTags: [],
+  randomPosts: [],
+  mostViewedPosts: [],
+  popularPosts: [],
   randomUser: null,
-  siteConfig: null
+  siteConfig: null,
+  breadCrumbItems: defaultBreadCrumbItems
 })
 
 export const mutations = {
@@ -31,6 +43,21 @@ export const mutations = {
   },
   SET_SITE_CONFIG(state, data) {
     state.siteConfig = data
+  },
+  SET_RANDOM_POSTS(state, data) {
+    state.randomPosts = data
+  },
+  SET_POPULAR_POSTS(state, data) {
+    state.popularPosts = data
+  },
+  SET_MOST_VIEWED_POSTS(state, data) {
+    state.mostViewedPosts = data
+  },
+  SET_BREADCRUMB_ITEMS(state, data) {
+    state.breadCrumbItems = [...defaultBreadCrumbItems, ...data]
+  },
+  PUSH_BREADCRUMB_ITEM(state, item) {
+    state.breadCrumbItems.push(item)
   }
 }
 
@@ -57,5 +84,9 @@ export const getters = {
   allCourses: (state) => state.allCourses,
   allTags: (state) => state.allTags,
   randomUser: (state) => state.randomUser,
-  siteConfig: (state) => state.siteConfig
+  siteConfig: (state) => state.siteConfig,
+  breadCrumbItems: (state) => state.breadCrumbItems,
+  randomPosts: (state) => state.randomUser,
+  mostViewedPosts: (state) => state.siteConfig,
+  popularPosts: (state) => state.breadCrumbItems
 }

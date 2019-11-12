@@ -43,14 +43,12 @@ export default {
   css: [
     '@/assets/css/bootstrap.css',
     '@/assets/css/animate.css',
-
     '@/assets/fonts/ionicons/css/ionicons.min.css',
     '@/assets/fonts/fontawesome/css/font-awesome.min.css',
     '@/assets/fonts/flaticon/font/flaticon.css',
     'bootstrap/dist/css/bootstrap.css',
     'bootstrap-vue/dist/bootstrap-vue.css',
     '@/assets/css/hover-min.css',
-
     '@/assets/css/style.css'
   ],
   /*
@@ -77,7 +75,8 @@ export default {
     // Doc: https://bootstrap-vue.js.org
     'bootstrap-vue/nuxt',
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/toast'
   ],
   /*
    ** Axios module configuration
@@ -103,5 +102,10 @@ export default {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
+  },
+
+  toast: {
+    position: 'bottom-left',
+    register: []
   }
 }
