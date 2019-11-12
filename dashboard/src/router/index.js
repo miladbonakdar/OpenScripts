@@ -112,7 +112,7 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   window.currentRoute = to.name
   window.lastRoute = from.name
-  document.title = `${to.name} - Milawd`
+  document.title = `${to.name} - OpenScripts`
   next()
 })
 

@@ -1,4 +1,4 @@
-# milawd-ui
+# OpenScripts-ui
 
 > my blog ui sub project
 

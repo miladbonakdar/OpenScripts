@@ -22,8 +22,8 @@
     <TheFooter>
       <!--footer-->
       <div class="w-100 clearfix">
-        <a href>Milawd</a>
-        <span class="ml-1">&copy; 2019 Milawd</span>
+        <a href>OpenScripts</a>
+        <span class="ml-1">&copy; 2019 OpenScripts</span>
         <span class="float-right">
           Version :
           <i class="font-xs badge-danger badge mr-1">1</i>

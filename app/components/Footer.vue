@@ -25,7 +25,7 @@
           <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
           Copyright &copy;{{ years }} All rights reserved | This website is made
           with <i class="fa fa-heart-o" aria-hidden="true"></i> by
-          <a href="https://github.com/miladbonakdar/milawd" target="_blank"
+          <a href="https://github.com/miladbonakdar/OpenScripts" target="_blank"
             >Milad Bonakdar</a
           >
           <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
