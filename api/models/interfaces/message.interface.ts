@@ -1,7 +1,7 @@
 export interface IMessage {
   _id: any
   email: string
-  phone: number
+  phone: string
   color: string
   name: string
   createdAt: Date

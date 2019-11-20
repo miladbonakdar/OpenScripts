@@ -36,7 +36,7 @@
             @mouseover="hover.category = true"
             @mouseleave="hover.category = false"
           >
-            <nuxt-link class="nav-link dropdown-toggle" to="category/all"
+            <nuxt-link class="nav-link dropdown-toggle" to="/category/all"
               >دسته بندی ها</nuxt-link
             >
 

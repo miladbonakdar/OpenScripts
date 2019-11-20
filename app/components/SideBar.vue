@@ -1,12 +1,15 @@
 <template>
   <div class="col-md-12 col-lg-4 sidebar">
     <div class="sidebar-box">
-      <NanoPostViewer title="پست های برتر"></NanoPostViewer>
+      <NanoPostViewer
+        title="پست های برتر"
+        :posts="$store.state.popularPosts"
+      ></NanoPostViewer>
     </div>
 
     <Categories></Categories>
-    <Tags></Tags>
     <Courses></Courses>
+    <Tags></Tags>
     <Bio></Bio>
   </div>
 </template>

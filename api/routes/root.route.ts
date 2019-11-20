@@ -20,7 +20,7 @@ router.route('/search/:text/:size').get(async (req, res) => {
   const text = req.params.text
   const size = Math.max(Math.min(Number(req.params.size), 10), 2)
   const [posts, courses, categories, tags] = await Promise.all([
-    Post.find({ $text: { $search: text } })
+    Post.find({ $text: { $search: text }, published: true })
       .sort({ createdAt: -1 })
       .limit(size),
     Course.find({ $text: { $search: text } })

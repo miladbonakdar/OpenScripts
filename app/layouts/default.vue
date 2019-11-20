@@ -6,7 +6,12 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <b-breadcrumb class="mb-4 mt-2" :items="items"></b-breadcrumb>
+            <b-breadcrumb
+              v-if="items.length > 1"
+              class="mb-4 mt-2"
+              :items="items"
+            ></b-breadcrumb>
+            <div v-else style="height: 60px"></div>
           </div>
         </div>
         <div class="row blog-entries">

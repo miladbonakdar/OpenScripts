@@ -3,13 +3,14 @@ import { Post, IPostModel } from '../models/post'
 import { Course } from '../models/course'
 import { randomColor } from '../utils/colorGenerator'
 import authonticator from '../middlewares/passportAuthonticator'
-import { deleteAction, get, getPage, changeColor } from './contracts/index'
+import { deleteAction, getPage, changeColor } from './contracts/index'
 import { cacheRepository } from '../services/cache/cacheRepository'
 import {
   getPosts,
   randomPosts,
   popularPosts,
-  mostViewes
+  mostViewes,
+  pagePosts
 } from './controllers/post'
 
 import {
@@ -31,7 +32,7 @@ router.route('/').post(authonticator, async (req, res) => {
     post._id,
     post.category,
     post.course,
-    post.tags.map(t => t._id)
+    post.tags.map((t) => t._id)
   )
   res.success(post, name + ' created successfuly')
 })
@@ -45,15 +46,18 @@ router.route('/').put(authonticator, async (req, res) => {
     post._id,
     post.category,
     post.course,
-    post.tags.map(t => t._id)
+    post.tags.map((t) => t._id)
   )
   post.name = c.name
   post.title = c.title
   post.tags = c.tags
   post.content = c.content
   post.contentMarkdown = c.contentMarkdown
-  post.aparatVideoUrl = c.aparatVideoUrl
-  post.youTubeVideoUrl = c.youTubeVideoUrl
+  post.video.aparatVideoUrl = c.video.aparatVideoUrl
+  post.video.youTubeVideoUrl = c.video.youTubeVideoUrl
+  post.video.youTubeVideoUrl = c.video.youTubeVideoUrl
+  post.video.size = c.video.size
+  post.video.length = c.video.length
   post.category = c.category
   post.course = c.course
   post.imageUrl = c.imageUrl
@@ -66,7 +70,7 @@ router.route('/').put(authonticator, async (req, res) => {
     post._id,
     post.category,
     post.course,
-    post.tags.map(t => t._id)
+    post.tags.map((t) => t._id)
   )
   cacheRepository.deletePost(post._id)
   res.success(post, name + ' updated successfuly')
@@ -85,13 +89,19 @@ router.route('/:id').delete(
     ])
   })
 )
-
+router.route('/page/:number/:size').get(pagePosts)
 router.route('/appPosts/mostViewes/:size').get(mostViewes)
 router.route('/appPosts/random/:size').get(randomPosts)
 router.route('/appPosts/popular/:size').get(popularPosts)
 router.route('/appPosts/:pageSize/:pageNumber').get(getPosts)
 
-router.route('/:id').get(...get(Post))
+router.route('/:id').get(authonticator, async (req: Request, res: Response) => {
+  const item = await Post.findById(req.params.id)
+    .select('+content')
+    .select('+contentMarkdown')
+  if (!item) return res.notFound(Post.modelName)
+  res.success(item)
+})
 router.route('/randomizeColor').patch(...changeColor(Post))
 
 router
@@ -100,9 +110,11 @@ router
     if (!req.params.courseId) return res.badRequest('courseId')
     const course = await Course.findById(req.params.courseId)
     if (!course) return res.notFound('course')
-    const lastpPost = (await Post.find({ 'course._id': req.params.courseId })
-      .sort({ postNumber: -1 })
-      .limit(1))[0]
+    const lastpPost = (
+      await Post.find({ 'course._id': req.params.courseId })
+        .sort({ postNumber: -1 })
+        .limit(1)
+    )[0]
 
     const details = {
       postNumber: 1,
@@ -128,14 +140,14 @@ router.route('/clap').patch(async (req, res) => {
 })
 
 router.route('/publish').patch(async (req, res) => {
-  await changePublishStatus(req, res, post => {
+  await changePublishStatus(req, res, (post) => {
     post.published = true
     post.publishedAt = new Date()
   })
 })
 
 router.route('/unpublish').patch(async (req, res) => {
-  await changePublishStatus(req, res, post => {
+  await changePublishStatus(req, res, (post) => {
     post.published = false
   })
 })

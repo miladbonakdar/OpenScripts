@@ -9,8 +9,8 @@ export async function nuxtServerInit(vuex, context) {
       allTags,
       randomUser,
       websiteconfig,
-      randomPosts,
       mostViewedPosts,
+      randomPosts,
       popularPosts
     ] = await Promise.all([
       this.$axios.$get('category'),
@@ -18,9 +18,9 @@ export async function nuxtServerInit(vuex, context) {
       this.$axios.$get('tag'),
       this.$axios.$get('user/random'),
       this.$axios.$get('websiteMetadata'),
-      this.$axios.$get('post/appPosts/mostViewes/3'),
-      this.$axios.$get('post/appPosts/random/3'),
-      this.$axios.$get('post/appPosts/popular/3')
+      this.$axios.$get('post/appPosts/mostViewes/4'),
+      this.$axios.$get('post/appPosts/random/6'),
+      this.$axios.$get('post/appPosts/popular/4')
     ])
     vuex.commit('SET_ALL_CATEGORIES', allCategories.data)
     vuex.commit('SET_ALL_COURSES', allCourses.data)

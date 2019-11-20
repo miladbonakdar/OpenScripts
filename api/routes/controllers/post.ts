@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { Post } from '../../models/post'
 import Pagination from '../../utils/Pagination'
+import SearchFilters from '../SearchFilters'
 
 const getRequestParams = (req: Request) => {
   const params = {
@@ -16,9 +17,10 @@ const getRequestParams = (req: Request) => {
 
 export const getPosts = async (req: Request, res: Response) => {
   const params = getRequestParams(req)
-  let findQuery: any = {}
+  let findQuery: any = { published: true }
   if (params.search) {
     findQuery = {
+      ...findQuery,
       $or: [
         { title: { $regex: '.*' + params.search + '.*' } },
         { course: { title: { $regex: '.*' + params.search + '.*' } } },
@@ -28,11 +30,17 @@ export const getPosts = async (req: Request, res: Response) => {
   }
 
   if (params.category) {
-    findQuery = { category: { title: params.category } }
+    findQuery = {
+      ...findQuery,
+      category: { title: params.category }
+    }
   }
 
   if (params.course) {
-    findQuery = { course: { title: params.course } }
+    findQuery = {
+      ...findQuery,
+      course: { title: params.course }
+    }
   }
 
   const pagination = new Pagination(
@@ -70,5 +78,16 @@ export const randomPosts = async (req: Request, res: Response) => {
   const posts = await Post.aggregate([
     { $sample: { size: Number(req.params.size) } }
   ])
+  res.success(posts)
+}
+
+export const pagePosts = async (req: Request, res: Response) => {
+  let filter = SearchFilters(req, { published: true })
+  const size = Math.max(Math.min(Number(req.params.size), 10), 2)
+  const number = Math.max(Number(req.params.number), 1) - 1
+  const pagination = new Pagination(Post, number, size, filter, {
+    createdAt: -1
+  })
+  const posts = await pagination.get()
   res.success(posts)
 }

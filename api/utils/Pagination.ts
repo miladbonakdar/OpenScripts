@@ -21,13 +21,15 @@ export default class Pagination {
   }
 
   public async get(): Promise<IPage> {
-    const items = await this.collection
-      .find(this.query)
-      .sort(this.sort)
-      .skip(this.pageNumber * this.pageSize)
-      .limit(this.pageSize)
-      .exec()
-    const total = await this.collection.countDocuments(this.query)
+    const [items, total] = await Promise.all([
+      this.collection
+        .find(this.query)
+        .sort(this.sort)
+        .skip(this.pageNumber * this.pageSize)
+        .limit(this.pageSize)
+        .exec(),
+      this.collection.countDocuments(this.query)
+    ])
     return {
       items: items,
       count: items.length,

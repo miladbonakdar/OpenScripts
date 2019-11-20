@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 class="tanha">Open Scripts</h3>
+    <h5 class="tanha text-white">اُپن اسکریپتس</h5>
     <p>
       {{ $store.state.siteConfig.siteDescription }}
     </p>

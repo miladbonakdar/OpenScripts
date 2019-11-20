@@ -25,6 +25,7 @@
     "js-cookie": "^2.2.1",
     "nuxt": "^2.0.0",
     "vue": "^2.6.10",
+    "vue-moment-jalaali": "^2.0.0",
     "vue-toasted": "^1.1.27"
   },
   "devDependencies": {

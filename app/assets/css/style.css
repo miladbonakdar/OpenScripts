@@ -177,7 +177,7 @@ header .navbar .dropdown-menu a {
 }
 
 .site-logo {
-  font-size: 60px;
+  font-size: 50px;
 }
 
 @media (max-width: 991.98px) {
@@ -1631,7 +1631,7 @@ textarea.form-control {
 }
 
 .post-entry-sidebar .post-meta {
-  font-size: 14px;
+  font-size: 12px;
   color: #b3b3b3;
 }
 
@@ -1661,7 +1661,7 @@ textarea.form-control {
 }
 
 .post-entry-sidebar ul li a .text h4 {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .search-form-wrap {

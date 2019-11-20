@@ -6,7 +6,7 @@
           <div class="col-md-4">
             <span class="align-middle">
               <i class="fa fa-television"></i>
-              {{isEditeMode ? 'Edite' : 'Create'}} Course
+              {{ isEditeMode ? 'Edite' : 'Create' }} Course
             </span>
           </div>
         </b-row>
@@ -18,13 +18,22 @@
           <div class="col-md-6 col-sm-12 col-lg-4">
             <b-form-group>
               <label>Course Name</label>
-              <b-form-input type="text" placeholder="Name" v-model="item.name"></b-form-input>
+              <b-form-input
+                type="text"
+                placeholder="Name"
+                v-model="item.name"
+              ></b-form-input>
             </b-form-group>
           </div>
           <div class="col-md-6 col-sm-12 col-lg-4">
             <b-form-group>
               <label for="name">Course Title</label>
-              <b-form-input class="rtl" type="text" placeholder="Title" v-model="item.title"></b-form-input>
+              <b-form-input
+                class="rtl"
+                type="text"
+                placeholder="Title"
+                v-model="item.title"
+              ></b-form-input>
             </b-form-group>
           </div>
           <div class="col-md-6 col-sm-12 col-lg-4">
@@ -58,11 +67,21 @@
           <div class="col-md-6 col-sm-12 col-lg-4">
             <b-form-group>
               <label>Course Image Url</label>
-              <b-form-input type="text" placeholder="Image Url" v-model="item.imageUrl"></b-form-input>
+              <b-form-input
+                type="text"
+                placeholder="Image Url"
+                v-model="item.imageUrl"
+              ></b-form-input>
             </b-form-group>
           </div>
           <div class="col-12">
-            <json-viewer :value="item" :expand-depth="5" copyable boxed sort></json-viewer>
+            <json-viewer
+              :value="item"
+              :expand-depth="5"
+              copyable
+              boxed
+              sort
+            ></json-viewer>
           </div>
         </b-row>
         <submit-group v-on:onCancel="onCancel" v-on:onSubmit="onSubmit" />
@@ -88,17 +107,30 @@
         empty-html="<h6>There are no item to show!</h6>"
       >
         <template slot-scope="row" slot="color">
-          <color-badge :color="row.item.color" v-on:randomize="randomizeColor(row.item._id)"></color-badge>
+          <color-badge
+            :color="row.item.color"
+            v-on:randomize="randomizeColor(row.item._id)"
+          ></color-badge>
         </template>
 
         <template slot-scope="row" slot="createdAt">
-          {{row.item.createdAt | moment("from")}}
-          <b-badge>{{row.item.createdAt | moment("YYYY-MM-DD") }}</b-badge>
+          {{ row.item.createdAt | moment('from') }}
+          <b-badge>{{ row.item.createdAt | moment('YYYY-MM-DD') }}</b-badge>
         </template>
 
         <template slot-scope="row" slot="difficulty">
-          <b-badge variant="danger" v-if="row.item.difficulty === 2">Advanced</b-badge>
-          <b-badge variant="warning" v-else-if="row.item.difficulty === 1">Medium</b-badge>
+          <b-badge variant="danger" v-if="row.item.difficulty === 4"
+            >Ya Khoda</b-badge
+          >
+          <b-badge variant="warning" v-else-if="row.item.difficulty === 3"
+            >Very Hard</b-badge
+          >
+          <b-badge variant="primary" v-else-if="row.item.difficulty === 2"
+            >Hard</b-badge
+          >
+          <b-badge variant="info" v-else-if="row.item.difficulty === 1"
+            >Medium</b-badge
+          >
           <b-badge variant="success" v-else>Easy</b-badge>
         </template>
 
@@ -122,7 +154,11 @@
           class="my-1 float-left"
         ></b-pagination>
         <b-form-group class="sortComp">
-          <b-form-select v-model="pageSize" :options="pageOptions" @change="changePage"></b-form-select>
+          <b-form-select
+            v-model="pageSize"
+            :options="pageOptions"
+            @change="changePage"
+          ></b-form-select>
         </b-form-group>
       </b-row>
     </b-card>
@@ -130,8 +166,8 @@
 </template>
 
 <script>
-import { mapMutations, mapActions, mapGetters } from "vuex";
-import { statics } from "../../store/types";
+import { mapMutations, mapActions, mapGetters } from 'vuex'
+import { statics } from '../../store/types'
 
 export default {
   components: {},
@@ -142,31 +178,31 @@ export default {
       total: 10,
       items: [],
       fields: [
-        { key: "name", label: "Name" },
-        { key: "title", label: "Title" },
-        { key: "color", label: "Color" },
-        { key: "difficulty", label: "Difficulty" },
-        { key: "imageUrl", label: "Has Image" },
-        { key: "createdAt", label: "Created At" },
-        { key: "actions", label: "Actions" }
+        { key: 'name', label: 'Name' },
+        { key: 'title', label: 'Title' },
+        { key: 'color', label: 'Color' },
+        { key: 'difficulty', label: 'Difficulty' },
+        { key: 'imageUrl', label: 'Has Image' },
+        { key: 'createdAt', label: 'Created At' },
+        { key: 'actions', label: 'Actions' }
       ],
       pageOptions: [5, 10, 15],
       selectedDifficulty: null,
       item: {},
       isEditeMode: false,
       selectedCategory: null
-    };
+    }
   },
   created() {
-    this.getList();
-    this.selectedDifficulty = this.difficulties[0];
+    this.getList()
+    this.selectedDifficulty = this.difficulties[0]
   },
   watch: {
     pageNumber() {
-      this.changePage();
+      this.changePage()
     },
     items() {
-      this.$forceUpdate();
+      this.$forceUpdate()
     }
   },
   computed: {
@@ -183,115 +219,115 @@ export default {
       allCourses: statics.actions.allCourses
     }),
     getList() {
-      this.showLoading(true);
+      this.showLoading(true)
       this.$gate.course
         .page(this.pageSize, this.pageNumber - 1)
-        .then(res => {
-          this.items = res.items;
-          this.total = res.total;
+        .then((res) => {
+          this.items = res.items
+          this.total = res.total
         })
-        .catch(err => this.$handleError(err))
+        .catch((err) => this.$handleError(err))
         .finally(() => {
-          this.showLoading(false);
-          this.onCancel();
-        });
+          this.showLoading(false)
+          this.onCancel()
+        })
     },
     deleteItem(id) {
-      this.$toasted.show("Are you sure you want to delete this item?", {
+      this.$toasted.show('Are you sure you want to delete this item?', {
         action: [
           {
-            text: "Yes",
+            text: 'Yes',
             onClick: (e, toastObject) => {
-              this.deleteItemFromDb(id);
-              toastObject.goAway(0);
+              this.deleteItemFromDb(id)
+              toastObject.goAway(0)
             }
           },
           {
-            text: "No",
+            text: 'No',
             onClick: (e, toastObject) => {
-              toastObject.goAway(0);
+              toastObject.goAway(0)
             }
           }
         ]
-      });
+      })
     },
     deleteItemFromDb(id) {
       this.$gate.course
         .delete(id)
-        .then(res => {
-          this.$toasted.global.deleted();
-          this.getList();
-          this.allCourses();
+        .then((res) => {
+          this.$toasted.global.deleted()
+          this.getList()
+          this.allCourses()
         })
-        .catch(err => this.$handleError(err));
+        .catch((err) => this.$handleError(err))
     },
     changePage(page) {
-      this.getList();
+      this.getList()
     },
     showDetails(item) {
-      this.item = item;
+      this.item = item
       this.selectedDifficulty = this.difficulties.filter(
-        i => i.value == item.difficulty
-      )[0];
+        (i) => i.value == item.difficulty
+      )[0]
       this.selectedCategory = this.allCategories.filter(
-        i => i._id == item.category
-      )[0];
-      this.isEditeMode = true;
+        (i) => i._id == item.category
+      )[0]
+      this.isEditeMode = true
     },
     onCancel() {
-      this.item = {};
-      this.isEditeMode = false;
-      this.selectedDifficulty = this.difficulties[0];
-      this.selectedCategory = this.allCategories[0];
+      this.item = {}
+      this.isEditeMode = false
+      this.selectedDifficulty = this.difficulties[0]
+      this.selectedCategory = this.allCategories[0]
     },
     onSubmit() {
-      if (!this.validate()) return;
+      if (!this.validate()) return
       if (this.isEditeMode) {
         this.$gate.course
           .update(this.item)
-          .then(res => {
-            this.getList();
-            this.allCourses();
-            this.$toasted.success("item updated");
+          .then((res) => {
+            this.getList()
+            this.allCourses()
+            this.$toasted.success('item updated')
           })
-          .catch(err => this.$handleError(err));
+          .catch((err) => this.$handleError(err))
       } else {
         this.$gate.course
           .create(this.item)
-          .then(res => {
-            this.getList();
-            this.allCourses();
-            this.$toasted.success("item created");
+          .then((res) => {
+            this.getList()
+            this.allCourses()
+            this.$toasted.success('item created')
           })
-          .catch(err => this.$handleError(err));
+          .catch((err) => this.$handleError(err))
       }
     },
     validate() {
       if (!this.item.name || this.item.name.length < 2)
-        return this.error("name is not valid");
+        return this.error('name is not valid')
       if (!this.selectedCategory || !this.selectedCategory._id)
-        return this.error("category is not valid");
+        return this.error('category is not valid')
       if (!this.item.title || this.item.title.length < 2)
-        return this.error("title is not valid");
-      this.item.difficulty = this.selectedDifficulty.value;
-      this.item.category = this.selectedCategory._id;
-      return true;
+        return this.error('title is not valid')
+      this.item.difficulty = this.selectedDifficulty.value
+      this.item.category = this.selectedCategory._id
+      return true
     },
     error(message) {
-      this.$toasted.global.warn(message);
-      return false;
+      this.$toasted.global.warn(message)
+      return false
     },
     randomizeColor(id) {
       this.$gate.course
         .randomizeColor({ id })
-        .then(res => {
-          this.getList();
-          this.$toasted.success("random color generated");
+        .then((res) => {
+          this.getList()
+          this.$toasted.success('random color generated')
         })
-        .catch(err => this.$handleError(err));
+        .catch((err) => this.$handleError(err))
     }
   }
-};
+}
 </script>
 
 <style>

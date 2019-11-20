@@ -10,7 +10,8 @@
           <div class="row">
             <NanoPostViewer
               class="col-md-7"
-              title="پست های اخیر"
+              title="پست های پربازدید"
+              :posts="$store.state.mostViewedPosts"
             ></NanoPostViewer>
             <div class="col-md-1"></div>
 
@@ -21,12 +22,12 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-12 text-left" dir="ltr">
+        <div class="col-md-12 text-center" dir="ltr">
           <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
           Copyright &copy;{{ years }} All rights reserved | This website is made
           with <i class="fa fa-heart-o" aria-hidden="true"></i> by
           <a href="https://github.com/miladbonakdar/OpenScripts" target="_blank"
-            >Milad Bonakdar</a
+            >Milawd Bonakdar</a
           >
           <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
         </div>

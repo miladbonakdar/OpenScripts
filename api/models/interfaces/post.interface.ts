@@ -21,7 +21,11 @@ export interface IPost {
   published: boolean
   publishedAt: Date
   difficulty: number
-  youTubeVideoUrl?: string
-  aparatVideoUrl?: string
+  video: {
+    youTubeVideoUrl?: string
+    aparatVideoUrl?: string
+    length: number
+    size: number
+  }
   views: number
 }

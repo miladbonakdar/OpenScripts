@@ -110,7 +110,7 @@
           <b-form-group label="Youtube Url">
             <b-form-input
               type="text"
-              v-model="post.youTubeVideoUrl"
+              v-model="post.video.youTubeVideoUrl"
               placeholder="Youtube Url"
             ></b-form-input>
           </b-form-group>
@@ -119,8 +119,26 @@
           <b-form-group label="Aparat Url">
             <b-form-input
               type="text"
-              v-model="post.aparatVideoUrl"
+              v-model="post.video.aparatVideoUrl"
               placeholder="Aparat Url"
+            ></b-form-input>
+          </b-form-group>
+        </div>
+        <div class="col-md-6 col-sm-12 col-lg-4">
+          <b-form-group label="video Length (seconds)">
+            <b-form-input
+              type="number"
+              v-model="post.video.length"
+              placeholder="video length (seconds)"
+            ></b-form-input>
+          </b-form-group>
+        </div>
+        <div class="col-md-6 col-sm-12 col-lg-4">
+          <b-form-group label="video size (bytes)">
+            <b-form-input
+              type="number"
+              v-model="post.video.size"
+              placeholder="video size (bytes)"
             ></b-form-input>
           </b-form-group>
         </div>
@@ -226,7 +244,9 @@ import { statics } from '../../store/types'
 export default {
   data() {
     return {
-      post: {},
+      post: {
+        video: {}
+      },
       selectedDifficulty: null,
       selectedPanel: 'md',
       selectedCategory: null
@@ -264,28 +284,28 @@ export default {
       this.showLoading(true)
       this.$gate.post
         .get(this.$route.params.id)
-        .then(res => {
+        .then((res) => {
           this.post = res
           this.selectedDifficulty = this.difficulties.filter(
-            d => d.value == res.difficulty
+            (d) => d.value == res.difficulty
           )[0]
           this.selectedCategory = this.allCategories.filter(
-            c => c._id == res.category._id
+            (c) => c._id == res.category._id
           )[0]
           this.generateHtml()
         })
-        .catch(err => this.$handleError(err))
+        .catch((err) => this.$handleError(err))
         .finally(() => this.showLoading(false))
     },
     createPost() {
       this.showLoading(true)
       this.$gate.post
         .create(this.post)
-        .then(res => {
+        .then((res) => {
           this.$toasted.success('post created successfully.')
           this.$router.push(`/post/list`)
         })
-        .catch(err => this.$handleError(err))
+        .catch((err) => this.$handleError(err))
         .finally(() => {
           this.showLoading(false)
         })
@@ -294,10 +314,10 @@ export default {
       this.showLoading(true)
       this.$gate.post
         .update(this.post)
-        .then(res => {
+        .then((res) => {
           this.$toasted.success('post updated.')
         })
-        .catch(err => this.$handleError(err))
+        .catch((err) => this.$handleError(err))
         .finally(() => this.showLoading(false))
     },
     onCancel() {
@@ -310,25 +330,25 @@ export default {
     getCourseDetails(item) {
       this.$gate.post
         .courseDetails(item._id)
-        .then(res => {
+        .then((res) => {
           this.post.postNumber = res.postNumber
           this.selectedDifficulty = this.difficulties.filter(
-            i => i.value == res.difficulty
+            (i) => i.value == res.difficulty
           )[0]
           this.post.category = this.allCategories.filter(
-            i => i._id == res.category
+            (i) => i._id == res.category
           )[0]
           this.selectedCategory = this.post.category
           this.$forceUpdate()
         })
-        .catch(err => this.$handleError(err))
+        .catch((err) => this.$handleError(err))
         .finally(() => this.showLoading(false))
     },
     generateHtml() {
       this.post.content = this.post.contentMarkdown
       setTimeout(() => {
         hljs.configure({ useBR: false })
-        document.querySelectorAll('pre.ql-syntax').forEach(block => {
+        document.querySelectorAll('pre.ql-syntax').forEach((block) => {
           hljs.highlightBlock(block)
         })
       })

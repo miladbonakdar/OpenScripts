@@ -2,7 +2,7 @@
   <div class="col-md-12 col-lg-8 main-content">
     <div class="row">
       <div class="col-md-12 text-center">
-        <h1>صفحه یافت نشد <smaller>404</smaller></h1>
+        <h1>صفحه یافت نشد <small>404</small></h1>
         <h5>
           <nuxt-link to="/"
             ><span class="fa fa-angle-left"></span> خانه</nuxt-link

@@ -13,7 +13,7 @@ export const MessageSchema: Schema = new Schema({
     lowercase: true,
     trim: true
   },
-  phone: Number,
+  phone: String,
   createdAt,
   color,
   text,

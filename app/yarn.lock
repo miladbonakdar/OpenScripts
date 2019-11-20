@@ -4494,6 +4494,11 @@ isobject@^3.0.0, isobject@^3.0.1:
   resolved "https://registry.yarnpkg.com/isobject/-/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
   integrity sha1-TkMekrEalzFjaqH5yNHMvP2reN8=
 
+jalaali-js@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/jalaali-js/-/jalaali-js-0.2.0.tgz#1096b3c720fc74e3dd2adf7a6fc01ea4fbb4ba1c"
+  integrity sha1-EJazxyD8dOPdKt96b8AepPu0uhw=
+
 jest-worker@^24.9.0:
   version "24.9.0"
   resolved "https://registry.yarnpkg.com/jest-worker/-/jest-worker-24.9.0.tgz#5dbfdb5b2d322e98567898238a9697bcce67b3e5"
@@ -5084,6 +5089,14 @@ mkdirp@0.5.1, mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.1:
   dependencies:
     minimist "0.0.8"
 
+moment-jalaali@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/moment-jalaali/-/moment-jalaali-0.4.0.tgz#67ea429ab0194e9adb092dfa640d862fa6d18d26"
+  integrity sha1-Z+pCmrAZTprbCS36ZA2GL6bRjSY=
+  dependencies:
+    jalaali-js "^0.2.0"
+    moment "^2.9.0"
+
 moment-locales-webpack-plugin@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/moment-locales-webpack-plugin/-/moment-locales-webpack-plugin-1.1.0.tgz#df2f084b1ab9cb093322186b651bbed167a3a882"
@@ -5091,7 +5104,7 @@ moment-locales-webpack-plugin@^1.1.0:
   dependencies:
     lodash.difference "^4.5.0"
 
-moment@^2.24.0:
+moment@^2.24.0, moment@^2.9.0:
   version "2.24.0"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
   integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
@@ -8001,6 +8014,13 @@ vue-meta@^2.3.1:
   integrity sha512-hnZvDNvLh+PefJLfYkZhG6cSBNKikgQyiEK8lI/P2qscM1DC/qHHOfdACPQ/VDnlaWU9VlcobCTNyVtssTR4XQ==
   dependencies:
     deepmerge "^4.0.0"
+
+vue-moment-jalaali@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/vue-moment-jalaali/-/vue-moment-jalaali-2.0.0.tgz#3ee1691a35e0d48468683d27deb6cb4517d645ae"
+  integrity sha1-PuFpGjXg1IRoaD0n3rbLRRfWRa4=
+  dependencies:
+    moment-jalaali "^0.4.0"
 
 vue-no-ssr@^1.1.1:
   version "1.1.1"

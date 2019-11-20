@@ -59,7 +59,8 @@ export default {
     '~/plugins/eventBus.js',
     { src: '~/plugins/filters.js', ssr: false },
     { src: '~/plugins/globalComponents.js', ssr: false },
-    '~/plugins/auth.js'
+    '~/plugins/auth.js',
+    '~/plugins/packages.js'
   ],
   /*
    ** Nuxt.js dev-modules
@@ -106,6 +107,9 @@ export default {
 
   toast: {
     position: 'bottom-left',
-    register: []
+    register: [],
+    duration: 5000,
+    iconPack: 'fontawesome',
+    keepOnHover: true
   }
 }

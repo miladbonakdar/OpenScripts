@@ -3,51 +3,37 @@
     <h3 class="heading">{{ title }}</h3>
     <div class="post-entry-sidebar">
       <ul>
-        <li>
-          <a href="">
-            <img src="/images/img_2.jpg" alt="Image placeholder" class="mr-4" />
-            <div class="text">
-              <h4>
-                There’s a Cool New Way for Men to Wear Socks and Sandals
-              </h4>
-              <div class="post-meta">
-                <span class="mr-2">March 15, 2018 </span> &bull;
-                <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
-              </div>
-            </div>
-          </a>
-        </li>
-        <li>
-          <a href="">
-            <img src="/images/img_4.jpg" alt="Image placeholder" class="mr-4" />
-            <div class="text">
-              <h4>
-                There’s a Cool New Way for Men to Wear Socks and Sandals
-              </h4>
-              <div class="post-meta">
-                <span class="mr-2">March 15, 2018 </span> &bull;
-                <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
-              </div>
-            </div>
-          </a>
-        </li>
-        <li>
-          <a href="">
+        <li v-for="post in posts" :key="post._id">
+          <nuxt-link
+            :to="
+              `/category/${post.category.name}/section/${post.course.name}/${post.name}`
+            "
+          >
             <img
-              src="/images/img_12.jpg"
-              alt="Image placeholder"
+              v-if="post.imageUrl && post.imageUrl !== ''"
+              :src="post.imageUrl"
+              :alt="post.title"
               class="mr-4"
             />
+            <PostBanner v-else class="banner mr-4" :post="post"> </PostBanner>
             <div class="text">
               <h4>
-                There’s a Cool New Way for Men to Wear Socks and Sandals
+                {{ post.title }}
               </h4>
               <div class="post-meta">
-                <span class="mr-2">March 15, 2018 </span> &bull;
-                <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
+                <span class="meta"
+                  ><span class="fa fa-calendar-o"></span>
+                  {{ post.createdAt | moment('jYYYY/jM/jD') }}</span
+                >
+                <span class="meta">
+                  <span class="fa fa-comments ml-1"></span
+                  >{{ post.comments.length }}
+                  <span class="fa fa-thumbs-o-up ml-1"></span>{{ post.claps }}
+                  <span class="fa fa-tags ml-1"></span>{{ post.tags.length }}
+                </span>
               </div>
             </div>
-          </a>
+          </nuxt-link>
         </li>
       </ul>
     </div>
@@ -55,13 +41,27 @@
 </template>
 
 <script>
+import PostBanner from './PostBanner'
 export default {
+  components: { PostBanner },
   props: {
     title: {
+      required: true
+    },
+    posts: {
       required: true
     }
   }
 }
 </script>
 
-<style></style>
+<style scoped>
+.meta {
+  width: 100%;
+  display: block;
+}
+.banner {
+  width: 84px;
+  height: 67px;
+}
+</style>

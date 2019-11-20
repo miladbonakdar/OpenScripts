@@ -13,11 +13,13 @@ export const PostSchema: Schema = new Schema({
   tags: [Object],
   content: {
     type: String,
-    required: true
+    required: true,
+    select: false
   },
   contentMarkdown: {
     type: String,
-    required: true
+    required: true,
+    select: false
   },
   imageUrl: String,
   color,
@@ -60,8 +62,12 @@ export const PostSchema: Schema = new Schema({
   },
   publishedAt: Date,
   difficulty,
-  youTubeVideoUrl: String,
-  aparatVideoUrl: String,
+  video: {
+    youTubeVideoUrl: String,
+    aparatVideoUrl: String,
+    length: Number,
+    size: Number
+  },
   views: {
     type: Number,
     required: true,

@@ -1,220 +1,48 @@
 <template>
   <div class="col-md-12 col-lg-8 main-content">
     <div class="row">
-      <div class="col-md-6">
-        <a href="blog-single.html" class="blog-entry hvr-underline-from-right">
-          <img src="/images/img_5.jpg" alt="Image placeholder" />
-          <div class="blog-content-body">
-            <div class="post-meta">
-              <span class="category">Food</span>
-              <span class="mr-2">March 15, 2018 </span> &bull;
-              <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
-            </div>
-            <h2>
-              There’s a Cool New Way for Men to Wear Socks and Sandals
-            </h2>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-6">
-        <a href="blog-single.html" class="blog-entry hvr-underline-from-right">
-          <img src="/images/img_6.jpg" alt="Image placeholder" />
-          <div class="blog-content-body">
-            <div class="post-meta">
-              <span class="category">Travel</span>
-              <span class="mr-2">March 15, 2018 </span> &bull;
-              <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
-            </div>
-            <h2>
-              There’s a Cool New Way for Men to Wear Socks and Sandals
-            </h2>
-          </div>
-        </a>
-      </div>
-
-      <div class="col-md-6">
-        <a href="blog-single.html" class="blog-entry hvr-underline-from-right">
-          <img src="/images/img_7.jpg" alt="Image placeholder" />
-          <div class="blog-content-body">
-            <div class="post-meta">
-              <span class="category">Travel, Asia</span>
-              <span class="mr-2">March 15, 2018 </span> &bull;
-              <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
-            </div>
-            <h2>
-              There’s a Cool New Way for Men to Wear Socks and Sandals
-            </h2>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-6">
-        <a href="blog-single.html" class="blog-entry hvr-underline-from-right">
-          <img src="/images/img_8.jpg" alt="Image placeholder" />
-          <div class="blog-content-body">
-            <div class="post-meta">
-              <span class="category">Travel</span>
-              <span class="mr-2">March 15, 2018 </span> &bull;
-              <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
-            </div>
-            <h2>
-              There’s a Cool New Way for Men to Wear Socks and Sandals
-            </h2>
-          </div>
-        </a>
-      </div>
-
-      <div class="col-md-6">
-        <a href="blog-single.html" class="blog-entry hvr-underline-from-right">
-          <img src="/images/img_9.jpg" alt="Image placeholder" />
-          <div class="blog-content-body">
-            <div class="post-meta">
-              <span class="category">Travel</span>
-              <span class="mr-2">March 15, 2018 </span> &bull;
-              <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
-            </div>
-            <h2>
-              There’s a Cool New Way for Men to Wear Socks and Sandals
-            </h2>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-6">
-        <a href="blog-single.html" class="blog-entry hvr-underline-from-right">
-          <img src="/images/img_10.jpg" alt="Image placeholder" />
-          <div class="blog-content-body">
-            <div class="post-meta">
-              <span class="category">Lifestyle</span>
-              <span class="mr-2">March 15, 2018 </span> &bull;
-              <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
-            </div>
-            <h2>
-              There’s a Cool New Way for Men to Wear Socks and Sandals
-            </h2>
-          </div>
-        </a>
-      </div>
-
-      <div class="col-md-6">
-        <a href="blog-single.html" class="blog-entry hvr-underline-from-right">
-          <img src="/images/img_11.jpg" alt="Image placeholder" />
-          <div class="blog-content-body">
-            <div class="post-meta">
-              <span class="category">Lifestyle</span>
-              <span class="mr-2">March 15, 2018 </span> &bull;
-              <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
-            </div>
-            <h2>
-              There’s a Cool New Way for Men to Wear Socks and Sandals
-            </h2>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-6">
-        <a href="blog-single.html" class="blog-entry hvr-underline-from-right">
-          <img src="/images/img_12.jpg" alt="Image placeholder" />
-          <div class="blog-content-body">
-            <div class="post-meta">
-              <span class="category">Food</span>
-              <span class="mr-2">March 15, 2018 </span> &bull;
-              <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
-            </div>
-            <h2>
-              There’s a Cool New Way for Men to Wear Socks and Sandals
-            </h2>
-          </div>
-        </a>
-      </div>
+      <PostCard
+        v-for="post in postsPage.items"
+        :key="post._id"
+        :post="post"
+        class="col-md-6"
+      >
+      </PostCard>
     </div>
-
     <div class="row">
       <div class="col-md-12 text-center">
-        <Pagination></Pagination>
+        <Pagination
+          :total="postsPage.total"
+          :page-size="10"
+          :current-page="1"
+        ></Pagination>
       </div>
     </div>
 
-    <div class="row mb-5 mt-5">
-      <div class="col-md-12">
-        <h2 class="mb-4">More Blog Posts</h2>
-      </div>
-
-      <div class="col-md-12">
-        <div class="post-entry-horzontal">
-          <a href="blog-single.html">
-            <div
-              class="image"
-              style="background-image: url(/images/img_10.jpg);"
-            ></div>
-            <span class="text">
-              <div class="post-meta">
-                <span class="category">Travel</span>
-                <span class="mr-2">March 15, 2018 </span> &bull;
-                <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
-              </div>
-              <h2>
-                There’s a Cool New Way for Men to Wear Socks and Sandals
-              </h2>
-            </span>
-          </a>
-        </div>
-        <!-- END post -->
-
-        <div class="post-entry-horzontal">
-          <a href="blog-single.html">
-            <div
-              class="image"
-              style="background-image: url(/images/img_11.jpg);"
-            ></div>
-            <span class="text">
-              <div class="post-meta">
-                <span class="category">Lifestyle</span>
-                <span class="mr-2">March 15, 2018 </span> &bull;
-                <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
-              </div>
-              <h2>
-                There’s a Cool New Way for Men to Wear Socks and Sandals
-              </h2>
-            </span>
-          </a>
-        </div>
-        <!-- END post -->
-
-        <div class="post-entry-horzontal">
-          <a href="blog-single.html">
-            <div
-              class="image"
-              style="background-image: url(/images/img_12.jpg);"
-            ></div>
-            <span class="text">
-              <div class="post-meta">
-                <span class="category">Food</span>
-                <span class="mr-2">March 15, 2018 </span> &bull;
-                <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
-              </div>
-              <h2>
-                There’s a Cool New Way for Men to Wear Socks and Sandals
-              </h2>
-            </span>
-          </a>
-        </div>
-        <!-- END post -->
-      </div>
-    </div>
+    <RandomPosts class="row mb-5 mt-5"></RandomPosts>
   </div>
 </template>
 
 <script>
 import { mapMutations } from 'vuex'
 import Pagination from '../components/pagination/Pagination'
+import RandomPosts from '../components/post/RandomPosts'
+import PostCard from '../components/post/PostCard'
+
 export default {
+  components: { Pagination, RandomPosts, PostCard },
+  async asyncData({ $axios }) {
+    const postsPage = await $axios.get('/post/page/1/10')
+    return { postsPage: postsPage.data.data }
+  },
+  created() {
+    this.setBreadCrumbItems([])
+  },
   middleware: 'routeValidator',
-  components: { Pagination },
   methods: {
     ...mapMutations({
       setBreadCrumbItems: 'SET_BREADCRUMB_ITEMS'
     })
-  },
-  created() {
-    this.setBreadCrumbItems([])
   }
 }
 </script>

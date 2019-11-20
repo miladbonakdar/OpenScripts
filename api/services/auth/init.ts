@@ -15,7 +15,8 @@ export default async () => {
     telegramId: 0,
     email: ADMIN_EMAIL,
     password: await hashPassword(ADMIN_PASS),
-    info: '',
+    info:
+      'با افتخار گیکی هستم که علاقه ی زیادی به برنامه نویسی، آموزش و نجوم  دارم و همیشه در حال یادگیری چیزای جدید',
     photoUrl:
       'https://lh3.googleusercontent.com/Bm7HycKvgiH8Pw8-DqCR8Z9LkdbvDgydVPVuGctC82ar-fI_as3NfHOvkhC9qdKIXiH4MZ9S4XNh1-hwgsAVim__wS4qKl1tMYVwCxFxTUBgePD6YQ5muHNeQQWYrv_I_eXcwX7xAw=w2400',
     youtubeLink: '',

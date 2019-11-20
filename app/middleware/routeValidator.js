@@ -1,54 +1,86 @@
 const validRouteNames = ['about', 'index', 'contact', 'page-page']
 
-const checkArray = (array, value) => array.filter((t) => t.name === value)[0]
+const checkArray = (array, value, allObject) =>
+  value === 'all' ? allObject : array.filter((t) => t.name === value)[0]
+
+const allCategorries = {
+  title: 'تمامی دسته بندی ها',
+  name: 'all'
+}
+const allCourses = {
+  title: 'تمامی آموزش ها',
+  name: 'all'
+}
+
+const redirectToNotFound = (redirect, route) =>
+  redirect('/not-found?redirected-from=' + route.fullPath)
 
 export default function({ store, redirect, route }) {
   if (validRouteNames.includes(route.name)) return
   let category = null
   let course = null
-  console.log(route)
   switch (route.name) {
     case 'category-category':
-      category = checkArray(store.state.allCategories, route.params.category)
-      if (!category) return redirect('/not-found')
+      category = checkArray(
+        store.state.allCategories,
+        route.params.category,
+        allCategorries
+      )
+      if (!category) return redirectToNotFound(redirect, route)
       store.commit('SET_BREADCRUMB_ITEMS', [
         {
           text: category.title,
-          href: `/${category.name}`
+          href: `/category/${category.name}`
         }
       ])
       break
     case 'category-category-section-course':
-      category = checkArray(store.state.allCategories, route.params.category)
-      course = checkArray(store.state.allCourses, route.params.course)
-      if (!category || !course) return redirect('/not-found')
+      category = checkArray(
+        store.state.allCategories,
+        route.params.category,
+        allCategorries
+      )
+      course = checkArray(
+        store.state.allCourses,
+        route.params.course,
+        allCourses
+      )
+      if (!category || !course) return redirectToNotFound(redirect, route)
       store.commit('SET_BREADCRUMB_ITEMS', [
         {
           text: category.title,
-          href: `/${category.name}`
+          href: `/category/${category.name}`
         },
         {
           text: course.title,
-          href: `/${course.name}`
+          href: `/course/${course.name}`
         }
       ])
       break
     case 'category-category-section-course-post':
-      category = checkArray(store.state.allCategories, route.params.category)
-      course = checkArray(store.state.allCourses, route.params.course)
-      if (!category || !course) return redirect('/not-found')
+      category = checkArray(
+        store.state.allCategories,
+        route.params.category,
+        allCategorries
+      )
+      course = checkArray(
+        store.state.allCourses,
+        route.params.course,
+        allCourses
+      )
+      if (!category || !course) return redirectToNotFound(redirect, route)
       store.commit('SET_BREADCRUMB_ITEMS', [
         {
           text: category.title,
-          href: `/${category.name}`
+          href: `/category/${category.name}`
         },
         {
           text: course.title,
-          href: `/${course.name}`
+          href: `/course/${course.name}`
         }
       ])
       break
     default:
-      redirect('/not-found')
+      return redirectToNotFound(redirect, route)
   }
 }

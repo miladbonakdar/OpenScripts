@@ -63,7 +63,11 @@ export default {
   methods: {
     onSearch() {
       if (!this.search) return
-      this.$router.push({ name: 'search', query: { search: this.search } })
+      this.$router.push({
+        name: 'page-page',
+        query: { search: this.search },
+        params: { page: 1 }
+      })
     }
   }
 }

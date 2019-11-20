@@ -13,11 +13,12 @@
             aria-controls="navbarMenu"
             ><span class="burger-lines"></span
           ></a>
+          <h1 style="display : none;">Open Scripts</h1>
           <nuxt-link to="/">
             <h1 dir="ltr" class="site-logo">
               <img
-                width="60"
-                height="60"
+                width="50"
+                height="50"
                 src="/logo.png"
                 alt="Open Scrips"
               />pen scripts

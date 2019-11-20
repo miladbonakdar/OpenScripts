@@ -16,21 +16,23 @@ const state = {
   difficulties: [
     { name: 'Easy', value: 0 },
     { name: 'Medium', value: 1 },
-    { name: 'Advanced', value: 2 }
+    { name: 'Hard', value: 2 },
+    { name: 'Very Hard', value: 3 },
+    { name: 'Ya Khoda', value: 4 }
   ]
 }
 
 const getters = {
-  [statics.getters.loading]: state => state.loading,
-  [statics.getters.allCategories]: state => state.allCategories,
-  [statics.getters.allCourses]: state => state.allCourses,
-  [statics.getters.allTags]: state => state.allTags,
-  [statics.getters.difficulties]: state => state.difficulties,
-  [statics.getters.user]: state => state.user,
-  [statics.getters.notReadedMessages]: state => state.notReadedMessages,
-  [statics.getters.notReadedCount]: state => state.notReadedCount,
-  [statics.getters.notAcceptedComments]: state => state.notAcceptedComments,
-  [statics.getters.notAcceptedCount]: state => state.notAcceptedCount
+  [statics.getters.loading]: (state) => state.loading,
+  [statics.getters.allCategories]: (state) => state.allCategories,
+  [statics.getters.allCourses]: (state) => state.allCourses,
+  [statics.getters.allTags]: (state) => state.allTags,
+  [statics.getters.difficulties]: (state) => state.difficulties,
+  [statics.getters.user]: (state) => state.user,
+  [statics.getters.notReadedMessages]: (state) => state.notReadedMessages,
+  [statics.getters.notReadedCount]: (state) => state.notReadedCount,
+  [statics.getters.notAcceptedComments]: (state) => state.notAcceptedComments,
+  [statics.getters.notAcceptedCount]: (state) => state.notAcceptedCount
 }
 
 const mutations = {
@@ -63,35 +65,35 @@ let actions = {
   [statics.actions.init]: init,
 
   [statics.actions.allCategories]: ({ commit }, done = console.log) => {
-    loadPromise($gate.category.getAll(), items => {
+    loadPromise($gate.category.getAll(), (items) => {
       commit(statics.mutations.allCategories, items)
       done()
     })
   },
 
   [statics.actions.allCourses]: ({ commit }, done = console.log) => {
-    loadPromise($gate.course.getAll(), items => {
+    loadPromise($gate.course.getAll(), (items) => {
       commit(statics.mutations.allCourses, items)
       done()
     })
   },
 
   [statics.actions.allTags]: ({ commit }, done = console.log) => {
-    loadPromise($gate.tag.getAll(), items => {
+    loadPromise($gate.tag.getAll(), (items) => {
       commit(statics.mutations.allTags, items)
       done()
     })
   },
 
   [statics.actions.loadUser]: ({ commit }, done = console.log) => {
-    loadPromise($gate.auth.getUser(), user => {
+    loadPromise($gate.auth.getUser(), (user) => {
       commit(statics.mutations.user, user)
       done()
     })
   },
 
   [statics.actions.notReadedMessages]: ({ commit }, done = console.log) => {
-    loadPromise($gate.message.notRead(), messages => {
+    loadPromise($gate.message.notRead(), (messages) => {
       commit(statics.mutations.notReadedMessages, messages)
       commit(statics.mutations.notReadedCount, (messages || []).length)
       done()
@@ -99,7 +101,7 @@ let actions = {
   },
 
   [statics.actions.notAcceptedComments]: ({ commit }, done = console.log) => {
-    loadPromise($gate.comment.notAccepted(), comments => {
+    loadPromise($gate.comment.notAccepted(), (comments) => {
       commit(statics.mutations.notAcceptedComments, comments)
       commit(statics.mutations.notAcceptedCount, (comments || []).length)
       done()
