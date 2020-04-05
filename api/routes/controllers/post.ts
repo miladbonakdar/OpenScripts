@@ -58,6 +58,7 @@ export const getPosts = async (req: Request, res: Response) => {
 
 export const popularPosts = async (req: Request, res: Response) => {
   const posts = await Post.aggregate([
+    { $match: { published: true } },
     { $sort: { claps: -1 } },
     { $limit: 20 },
     { $sample: { size: Number(req.params.size) } }
@@ -67,6 +68,7 @@ export const popularPosts = async (req: Request, res: Response) => {
 
 export const mostViewes = async (req: Request, res: Response) => {
   const posts = await Post.aggregate([
+    { $match: { published: true } },
     { $sort: { views: -1 } },
     { $limit: 20 },
     { $sample: { size: Number(req.params.size) } }
@@ -76,6 +78,7 @@ export const mostViewes = async (req: Request, res: Response) => {
 
 export const randomPosts = async (req: Request, res: Response) => {
   const posts = await Post.aggregate([
+    { $match: { published: true } },
     { $sample: { size: Number(req.params.size) } }
   ])
   res.success(posts)

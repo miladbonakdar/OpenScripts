@@ -14,10 +14,10 @@
     <div class="row">
       <div class="col-xs-12 form-group">
         <input
+          @click="addToNewsLetter"
           type="submit"
           value="عضویت در خبرنامه"
           class="btn btn-primary btn-sm"
-          @click="addToNewsLetter"
         />
       </div>
     </div>

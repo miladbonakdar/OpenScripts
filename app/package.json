@@ -23,7 +23,7 @@
     "core-util-is": "^1.0.2",
     "hover.css": "^2.3.2",
     "js-cookie": "^2.2.1",
-    "nuxt": "^2.0.0",
+    "nuxt": "^2.10.2",
     "vue": "^2.6.10",
     "vue-moment-jalaali": "^2.0.0",
     "vue-toasted": "^1.1.27"

@@ -4,8 +4,8 @@
       <li
         v-for="(page, $index) in pages"
         :key="$index"
-        class="page-item"
         :class="{ active: page.number == currentPage }"
+        class="page-item"
       >
         <nuxt-link :to="page.link" class="page-link">{{
           page.number

@@ -7,9 +7,9 @@
           :to="`/category/${course.category.name}/section/${course.name}`"
         >
           <i
+            :style="{ color: course.color }"
             class="fa fa-circle"
             style="font-size: x-small;"
-            :style="{ color: course.color }"
           ></i>
           {{ course.title }} <span>({{ course.posts.length }} مطلب)</span>
         </nuxt-link>

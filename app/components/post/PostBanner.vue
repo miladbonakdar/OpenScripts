@@ -2,23 +2,23 @@
   <div>
     <div
       v-b-tooltip.hover
-      class="banner-category"
       :style="{ 'background-color': post.category.color }"
       :title="post.category.title"
+      class="banner-category"
     ></div>
 
     <div
       v-b-tooltip.hover
-      class="banner-course"
       :style="{ 'background-color': post.course.color }"
       :title="post.course.title"
+      class="banner-course"
     ></div>
 
     <div
       v-b-tooltip.hover
-      class="banner-post"
       :style="{ 'background-color': post.color }"
       :title="post.title"
+      class="banner-post"
     ></div>
   </div>
 </template>

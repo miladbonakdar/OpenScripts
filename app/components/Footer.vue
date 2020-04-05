@@ -9,9 +9,9 @@
         <div class="col-md-6 ml-auto">
           <div class="row">
             <NanoPostViewer
+              :posts="$store.state.mostViewedPosts"
               class="col-md-7"
               title="پست های پربازدید"
-              :posts="$store.state.mostViewedPosts"
             ></NanoPostViewer>
             <div class="col-md-1"></div>
 

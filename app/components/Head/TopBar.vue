@@ -16,16 +16,16 @@
           <a :href="websiteConfig.youtubeChanelle" target="_blank"
             ><span class="fa fa-youtube-play"></span
           ></a>
-          <a target="_blank" :href="websiteConfig.github"
+          <a :href="websiteConfig.github" target="_blank"
             ><span class="fa fa-github"></span
           ></a>
-          <a target="_blank" :href="websiteConfig.email"
+          <a :href="websiteConfig.email" target="_blank"
             ><span class="fa fa-google"></span
           ></a>
-          <a target="_blank" :href="websiteConfig.telegramChanelle"
+          <a :href="websiteConfig.telegramChanelle" target="_blank"
             ><span class="fa fa-telegram"></span
           ></a>
-          <a target="_blank" :href="websiteConfig.twitter"
+          <a :href="websiteConfig.twitter" target="_blank"
             ><span class="fa fa-twitter"></span
           ></a>
         </div>
@@ -36,10 +36,10 @@
             <input
               id="s"
               v-model="search"
+              @keyup.enter="onSearch"
               class="tanha"
               type="text"
               placeholder="جستجو ..."
-              @keyup.enter="onSearch"
             />
           </div>
         </div>

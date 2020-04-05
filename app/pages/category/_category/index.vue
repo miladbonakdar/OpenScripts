@@ -14,13 +14,13 @@
         <ul class="tags">
           <li v-for="course in courses" :key="course._id">
             <nuxt-link
-              style="font-size:smaller"
               :to="`/category/${course.category.name}/section/${course.name}`"
+              style="font-size:smaller"
             >
               <span
+                :style="{ color: course.color }"
                 class="fa fa-circle"
                 style="font-size: x-small;"
-                :style="{ color: course.color }"
               ></span>
               {{ course.title }} <span>({{ course.posts.length }})</span>
             </nuxt-link>
@@ -30,6 +30,14 @@
     </div>
 
     <div v-if="postsPage.total !== 0" class="row">
+      <div class="col-md-12 mb-1">
+        <h5
+          class="heading pb-4 pt-2 mb-4"
+          style="border-bottom: 1px solid #e6e6e6;"
+        >
+          پست ها
+        </h5>
+      </div>
       <PostCard
         v-for="post in postsPage.items"
         :key="post._id"
@@ -43,9 +51,9 @@
     </div>
     <div v-if="loaded < postsPage.total" class="row text-center">
       <button
-        class="btn btn-primary btn-sm mx-auto"
         :disabled="loadingPosts"
         @click="loadMorePosts"
+        class="btn btn-primary btn-sm mx-auto"
       >
         پست های بیشتر...
       </button>
@@ -59,12 +67,12 @@
           دسته بندی های دیگر
         </h5>
         <ul class="tags">
-          <li v-for="cat in allCategories" :key="cat._id">
+          <li v-for="cat in categories" :key="cat._id">
             <nuxt-link :to="`/category/${cat.name}`" style="font-size:smaller">
               <span
+                :style="{ color: cat.color }"
                 class="fa fa-circle"
                 style="font-size: x-small;"
-                :style="{ color: cat.color }"
               ></span>
               {{ cat.title }} <span>({{ cat.posts.length }})</span>
             </nuxt-link>
@@ -83,6 +91,7 @@ import PostCard from '../../../components/post/PostCard'
 export default {
   components: { RandomPosts, PostCard },
   async asyncData({ $axios, params, store }) {
+    console.log('category')
     const postsPage = await $axios.get(
       params.category === 'all'
         ? '/post/page/1/10'
@@ -100,7 +109,7 @@ export default {
           )
     return {
       postsPage: postsPage.data.data,
-      allCategories: categories,
+      categories,
       loaded: postsPage.data.data.count,
       current: 1,
       loadingPosts: false,
@@ -115,8 +124,8 @@ export default {
         this.loadingPosts = true
         let postsPage = await this.$axios.get(
           this.$route.params.category === 'all'
-            ? `/page/${this.current + 1}/10`
-            : `/page/${this.current + 1}/10?category=${
+            ? `/post/page/${this.current + 1}/10`
+            : `/post/page/${this.current + 1}/10?category=${
                 this.$route.params.category
               }`
         )

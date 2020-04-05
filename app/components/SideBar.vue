@@ -2,8 +2,8 @@
   <div class="col-md-12 col-lg-4 sidebar">
     <div class="sidebar-box">
       <NanoPostViewer
-        title="پست های برتر"
         :posts="$store.state.popularPosts"
+        title="پست های برتر"
       ></NanoPostViewer>
     </div>
 

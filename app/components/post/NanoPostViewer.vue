@@ -15,7 +15,7 @@
               :alt="post.title"
               class="mr-4"
             />
-            <PostBanner v-else class="banner mr-4" :post="post"> </PostBanner>
+            <PostBanner v-else :post="post" class="banner mr-4"> </PostBanner>
             <div class="text">
               <h4>
                 {{ post.title }}

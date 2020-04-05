@@ -12,8 +12,7 @@ const allCourses = {
   name: 'all'
 }
 
-const redirectToNotFound = (redirect, route) =>
-  redirect('/not-found?redirected-from=' + route.fullPath)
+const redirectToNotFound = (redirect) => redirect('/not-found')
 
 export default function({ store, redirect, route }) {
   if (validRouteNames.includes(route.name)) return
@@ -53,7 +52,7 @@ export default function({ store, redirect, route }) {
         },
         {
           text: course.title,
-          href: `/course/${course.name}`
+          href: `/category/${category.name}/section/${course.name}`
         }
       ])
       break
@@ -76,7 +75,7 @@ export default function({ store, redirect, route }) {
         },
         {
           text: course.title,
-          href: `/course/${course.name}`
+          href: `/category/${category.name}/section/${course.name}`
         }
       ])
       break

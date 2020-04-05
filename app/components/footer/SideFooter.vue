@@ -10,7 +10,7 @@
     </div>
 
     <div class="mb-5">
-      <h3>Social</h3>
+      <h3>شبکه های اجتماعی</h3>
       <ul class="list-unstyled footer-social">
         <li>
           <a :href="websiteConfig.aparatChanelle" target="_blank"
@@ -34,22 +34,22 @@
           >
         </li>
         <li>
-          <a target="_blank" :href="websiteConfig.github"
+          <a :href="websiteConfig.github" target="_blank"
             ><span class="fa fa-github"></span> گیت هاب</a
           >
         </li>
         <li>
-          <a target="_blank" :href="websiteConfig.email"
+          <a :href="websiteConfig.email" target="_blank"
             ><span class="fa fa-google"></span> ایمیل</a
           >
         </li>
         <li>
-          <a target="_blank" :href="websiteConfig.telegramChanelle"
+          <a :href="websiteConfig.telegramChanelle" target="_blank"
             ><span class="fa fa-telegram"></span> تلگرام</a
           >
         </li>
         <li>
-          <a target="_blank" :href="websiteConfig.twitter"
+          <a :href="websiteConfig.twitter" target="_blank"
             ><span class="fa fa-twitter"></span> توییتر</a
           >
         </li>

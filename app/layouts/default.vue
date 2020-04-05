@@ -8,8 +8,8 @@
           <div class="col-md-12">
             <b-breadcrumb
               v-if="items.length > 1"
-              class="mb-4 mt-2"
               :items="items"
+              class="mb-4 mt-2"
             ></b-breadcrumb>
             <div v-else style="height: 60px"></div>
           </div>

@@ -5,9 +5,9 @@
       <li v-for="cat in allCategories" :key="cat._id">
         <nuxt-link :to="`category/${cat.name}`">
           <i
+            :style="{ color: cat.color }"
             class="fa fa-circle"
             style="font-size: x-small;"
-            :style="{ color: cat.color }"
           ></i>
           {{ cat.title }}
           <span

@@ -1,5 +1,5 @@
 <template>
-  <MiniPostViewer title="پست های دیگر ..." :posts="posts"></MiniPostViewer>
+  <MiniPostViewer :posts="posts" title="پست های دیگر ..."></MiniPostViewer>
 </template>
 
 <script>

@@ -94,6 +94,37 @@ router.route('/appPosts/mostViewes/:size').get(mostViewes)
 router.route('/appPosts/random/:size').get(randomPosts)
 router.route('/appPosts/popular/:size').get(popularPosts)
 router.route('/appPosts/:pageSize/:pageNumber').get(getPosts)
+router.route('/appPost/:name').get(async (req: Request, res: Response) => {
+  const item = await Post.findOne({ name: req.params.name, published: true })
+    .select('+content')
+    .select('+contentMarkdown')
+
+  if (!item) return res.notFound(Post.modelName)
+
+  const [next, prev] = await Promise.all([
+    Post.findOne({
+      course: item.course,
+      category: item.category,
+      postNumber: { $gt: item.postNumber }
+    }),
+    Post.findOne({
+      course: item.course,
+      category: item.category,
+      postNumber: { $lt: item.postNumber }
+    })
+  ])
+
+  res.success({
+    post: item,
+    next: next,
+    prev: prev
+  })
+
+  setImmediate(
+    async (id) => await Post.updateOne({ _id: id }, { $inc: { views: 1 } }),
+    item._id
+  )
+})
 
 router.route('/:id').get(authonticator, async (req: Request, res: Response) => {
   const item = await Post.findById(req.params.id)
@@ -139,15 +170,15 @@ router.route('/clap').patch(async (req, res) => {
   res.success()
 })
 
-router.route('/publish').patch(async (req, res) => {
-  await changePublishStatus(req, res, (post) => {
+router.route('/publish').patch(authonticator, async (req, res) => {
+  return await changePublishStatus(req, res, (post) => {
     post.published = true
     post.publishedAt = new Date()
   })
 })
 
-router.route('/unpublish').patch(async (req, res) => {
-  await changePublishStatus(req, res, (post) => {
+router.route('/unpublish').patch(authonticator, async (req, res) => {
+  return await changePublishStatus(req, res, (post) => {
     post.published = false
   })
 })
@@ -159,10 +190,8 @@ const changePublishStatus = async (
 ) => {
   if (!req.body.postId) return res.badRequest('postId')
   if (!req.user) return res.unauthorized()
-  const post = await await Post.findById(req.body.postId)
+  const post = await Post.findById(req.body.postId)
   if (!post) return res.notFound(name)
-  if (post.createdBy._id != req.user._id)
-    res.error('you cannot change others post publish status', 401)
   strategy(post)
   await post.save()
   res.success()

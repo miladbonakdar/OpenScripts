@@ -14,9 +14,9 @@
     </div>
     <div v-if="loaded < postsPage.total" class="row text-center">
       <button
-        class="btn btn-primary btn-sm mx-auto"
         :disabled="loadingPosts"
         @click="loadMorePosts"
+        class="btn btn-primary btn-sm mx-auto"
       >
         پست های بیشتر...
       </button>
@@ -33,9 +33,9 @@
           <li v-for="cat in categories" :key="cat._id">
             <nuxt-link :to="`/category/${cat.name}`" style="font-size:smaller">
               <span
+                :style="{ color: cat.color }"
                 class="fa fa-circle"
                 style="font-size: x-small;"
-                :style="{ color: cat.color }"
               ></span>
               {{ cat.title }} <span>({{ cat.posts.length }})</span>
             </nuxt-link>
@@ -59,9 +59,9 @@
               style="font-size:smaller"
             >
               <span
+                :style="{ color: course.color }"
                 class="fa fa-circle"
                 style="font-size: x-small;"
-                :style="{ color: course.color }"
               ></span>
               {{ course.title }} <span>({{ course.posts.length }})</span>
             </nuxt-link>
@@ -81,12 +81,13 @@ import PostCard from '../../../../../components/post/PostCard'
 export default {
   components: { RandomPosts, PostCard },
   async asyncData({ $axios, params, store }) {
+    console.log('course')
     const postsPage = await $axios.get(
       params.course === 'all'
         ? params.category === 'all'
-          ? '/page/1/10'
-          : '/page/1/10?category=' + params.category
-        : '/page/1/10?course=' + params.course
+          ? '/post/page/1/10'
+          : '/post/page/1/10?category=' + params.category
+        : '/post/page/1/10?course=' + params.course
     )
     const categories =
       params.category === 'all'
@@ -119,7 +120,9 @@ export default {
               : `/post/page/${this.current + 1}/10?category=${
                   this.$route.params.category
                 }`
-            : `/post/page/${this.current + 1}/10?course=${this.$route.params.course}`
+            : `/post/page/${this.current + 1}/10?course=${
+                this.$route.params.course
+              }`
         )
         postsPage = postsPage.data.data
         this.current++

@@ -51,10 +51,10 @@
       <div class="row">
         <div class="col-md-6 form-group">
           <input
+            @click="sendMessage"
             type="button"
             value="ارسال پیام"
             class="btn btn-primary"
-            @click="sendMessage"
           />
         </div>
       </div>

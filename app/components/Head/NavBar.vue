@@ -9,47 +9,47 @@
             </nuxt-link>
           </li>
           <li
-            class="nav-item dropdown"
             :class="{ show: hover.course }"
             @mouseover="hover.course = true"
             @mouseleave="hover.course = false"
+            class="nav-item dropdown"
           >
             <nuxt-link
               class="nav-link dropdown-toggle"
               to="/category/all/section/all"
               >آموزش ها</nuxt-link
             >
-            <div class="dropdown-menu" :class="{ show: hover.course }">
+            <div :class="{ show: hover.course }" class="dropdown-menu">
               <nuxt-link
                 v-for="course in courses"
                 :key="course._id"
-                class="dropdown-item"
                 :to="`/category/${course.category.name}/section/${course.name}`"
+                class="dropdown-item"
                 >{{ course.title }}</nuxt-link
               >
             </div>
           </li>
 
           <li
-            class="nav-item dropdown"
             :class="{ show: hover.category }"
             @mouseover="hover.category = true"
             @mouseleave="hover.category = false"
+            class="nav-item dropdown"
           >
             <nuxt-link class="nav-link dropdown-toggle" to="/category/all"
               >دسته بندی ها</nuxt-link
             >
 
             <div
-              class="dropdown-menu"
               :class="{ show: hover.category }"
+              class="dropdown-menu"
               aria-labelledby="dropdown05"
             >
               <nuxt-link
                 v-for="cat in categories"
                 :key="cat._id"
-                class="dropdown-item"
                 :to="'/category/' + cat.name"
+                class="dropdown-item"
                 >{{ cat.title }}</nuxt-link
               >
             </div>

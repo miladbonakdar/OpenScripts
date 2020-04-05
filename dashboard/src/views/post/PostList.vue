@@ -58,11 +58,10 @@
         </b-row>
       </div>
       <b-table
-        hover
         fixed
+        hover
         :items="items"
         :fields="fields"
-        show-empty
         empty-html="<h6>There are no item to show!</h6>"
       >
         <template slot-scope="row" slot="createdAt">
@@ -82,17 +81,29 @@
         </template>
 
         <template slot-scope="row" slot="published">
-          <b-badge v-if="!row.item.published" variant="warning"
-            >Not Yet</b-badge
-          >
-          <b-badge v-else variant="success"
-            >{{ row.item.publishedAt | moment('from') }} by
-            {{
-              row.item.publishedBy.firstName +
-                ' ' +
-                row.item.publishedBy.lastName
-            }}</b-badge
-          >
+          <template v-if="!row.item.published">
+            <b-badge variant="warning">Not Yet </b-badge
+            ><span
+              @click="publishPost(row.item._id)"
+              class="text-success mx-1 action-item"
+              v-b-tooltip.hover
+              title="Publish ?"
+            >
+              <i class="fa fa-check pointer"></i>
+            </span>
+          </template>
+          <template v-else>
+            <b-badge variant="success"
+              >{{ row.item.publishedAt | moment('from') }}</b-badge
+            ><span
+              @click="unPublishPost(row.item._id)"
+              class="text-danger mx-1 action-item"
+              v-b-tooltip.hover
+              title="Unpublish ?"
+            >
+              <i class="fa fa-times pointer"></i>
+            </span>
+          </template>
         </template>
 
         <template slot-scope="row" slot="color">
@@ -174,12 +185,13 @@ export default {
       this.showLoading(true)
       this.$gate.post
         .page(this.pageSize, this.pageNumber - 1)
-        .then(res => {
+        .then((res) => {
           this.items = res.items
           this.total = res.total
           this.item = {}
+          this.itemSummary = {}
         })
-        .catch(err => this.$handleError(err))
+        .catch((err) => this.$handleError(err))
         .finally(() => {
           this.showLoading(false)
         })
@@ -206,12 +218,12 @@ export default {
     deleteItemFromDb(id) {
       this.$gate.post
         .delete(id)
-        .then(res => {
+        .then((res) => {
           this.$toasted.global.deleted()
           this.getList()
           this.allTags()
         })
-        .catch(err => this.$handleError(err))
+        .catch((err) => this.$handleError(err))
     },
     changePage(page) {
       this.getList()
@@ -225,7 +237,7 @@ export default {
         summary: item.summary,
         comments: item.comments,
         readTime: item.readTime,
-        tags: item.tags.map(t => t.name),
+        tags: item.tags.map((t) => t.name),
         createdBy: item.createdBy.firstName + item.createdBy.lastName,
         category: item.category.name,
         course: item.course.name,
@@ -236,11 +248,29 @@ export default {
     randomizeColor(id) {
       this.$gate.post
         .randomizeColor({ id })
-        .then(res => {
+        .then((res) => {
           this.getList()
           this.$toasted.success('random color generated')
         })
-        .catch(err => this.$handleError(err))
+        .catch((err) => this.$handleError(err))
+    },
+    publishPost(id) {
+      this.$gate.post
+        .publish({  postId: id })
+        .then((res) => {
+          this.getList()
+          this.$toasted.success('post has been published')
+        })
+        .catch((err) => this.$handleError(err))
+    },
+    unPublishPost(id) {
+      this.$gate.post
+        .unPublish({  postId: id })
+        .then((res) => {
+          this.getList()
+          this.$toasted.error('post has been unpublished')
+        })
+        .catch((err) => this.$handleError(err))
     }
   }
 }

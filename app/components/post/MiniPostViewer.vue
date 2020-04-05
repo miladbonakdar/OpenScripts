@@ -7,17 +7,17 @@
     <div v-for="post in posts" :key="post._id" class="col-md-12">
       <div class="post-entry-horzontal">
         <nuxt-link
-          class="w-100"
           :to="
             `/category/${post.category.name}/section/${post.course.name}/${post.name}`
           "
+          class="w-100"
         >
           <div
             v-if="post.imageUrl && post.imageUrl !== ''"
-            class="image"
             :style="{ 'background-image': `url(${post.imageUrl})` }"
+            class="image"
           ></div>
-          <PostBanner v-else class="banner d-sm-none d-md-block" :post="post">
+          <PostBanner v-else :post="post" class="banner d-sm-none d-md-block">
           </PostBanner>
           <span class="text">
             <h2>

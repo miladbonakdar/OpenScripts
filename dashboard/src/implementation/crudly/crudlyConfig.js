@@ -15,6 +15,8 @@ export default {
       actions: [
         { type: 'get', url: '/:pageSize/:pageNumber', name: 'page' },
         { type: 'patch', url: '/randomizeColor', name: 'randomizeColor' },
+        { type: 'patch', url: '/publish', name: 'publish' },
+        { type: 'patch', url: '/unpublish', name: 'unPublish' },
         { type: 'get', url: '/course-details/:courseId', name: 'courseDetails' }
       ]
     },

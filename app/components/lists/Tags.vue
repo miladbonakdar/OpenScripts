@@ -5,9 +5,9 @@
       <li v-for="tag in allTags" :key="tag._id">
         <nuxt-link :to="`/page/1?tag=${tag.name}`">
           <span
+            :style="{ color: tag.color }"
             class="fa fa-circle"
             style="font-size: x-small;"
-            :style="{ color: tag.color }"
           ></span>
           {{ tag.title }} <span>({{ tag.posts.length }})</span>
         </nuxt-link>
