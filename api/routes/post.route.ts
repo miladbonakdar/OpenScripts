@@ -80,7 +80,7 @@ router.route('/:id').delete(
   ...deleteAction(Post, async (req: any, _res: any) => {
     await Promise.all([
       (cacheRepository.deletePost(req.params.id),
-      deletePostRelations(req.params.id))
+        deletePostRelations(req.params.id))
     ])
     await Promise.all([
       cacheRepository.updateCategories(),

@@ -9,13 +9,16 @@ import {
   title
 } from './contracts'
 
-export interface ICourseModel extends ICourse, Document {}
+export interface ICourseModel extends ICourse, Document { }
 
 export const CourseSchema: Schema = new Schema({
   name,
   title,
   color,
-  imageUrl: String,
+  imageUrl: {
+    type: String,
+    required: true
+  },
   difficulty,
   createdAt,
   createdById,

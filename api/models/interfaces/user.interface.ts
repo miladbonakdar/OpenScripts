@@ -17,3 +17,5 @@ export interface IUser {
   whatsappLink?: string
   aparatLink?: string
 }
+
+
