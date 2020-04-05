@@ -17,7 +17,7 @@ router.route('/').post(async (req, res) => {
 })
 
 router.route('/:id').delete(...deleteAction(Message))
-router.route('/').get(...getAll(Message))
+// router.route('/').get(...getAll(Message))
 router.route('/randomizeColor').patch(...changeColor(Message))
 router
   .route('/:pageSize/:pageNumber')

@@ -76,7 +76,7 @@ router.route('/:id').delete(
   ...deleteAction(Post, async (req: any, _res: any) => {
     await Promise.all([
       (cacheRepository.deletePost(req.params.id),
-      deletePostRelations(req.params.id))
+        deletePostRelations(req.params.id))
     ])
     await Promise.all([
       cacheRepository.updateCategories(),
@@ -127,14 +127,14 @@ router.route('/clap').patch(async (req, res) => {
   res.success()
 })
 
-router.route('/publish').patch(async (req, res) => {
+router.route('/publish').patch(authonticator, async (req, res) => {
   await changePublishStatus(req, res, post => {
     post.published = true
     post.publishedAt = new Date()
   })
 })
 
-router.route('/unpublish').patch(async (req, res) => {
+router.route('/unpublish').patch(authonticator, async (req, res) => {
   await changePublishStatus(req, res, post => {
     post.published = false
   })
