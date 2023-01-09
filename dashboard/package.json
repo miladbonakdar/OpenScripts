@@ -37,7 +37,7 @@
     "font-awesome": "^4.7.0",
     "hover.css": "^2.3.2",
     "image-compressor": "^1.2.0",
-    "luxon": "^1.17.2",
+    "luxon": "^1.28.1",
     "perfect-scrollbar": "^1.4.0",
     "postcss-loader": "^3.0.0",
     "raw-loader": "0.5.1",
